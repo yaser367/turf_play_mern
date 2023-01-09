@@ -15,10 +15,10 @@ const userSchema = mongoose.Schema({
         type:String,
         require:[true,"password should required"]
     },
-    firstName:{
+    firstname:{
         type:String,
     },
-    lastName:{
+    lastname:{
         type:String,
     },
     address:{

@@ -1,7 +1,19 @@
 import axios from 'axios'
+import jwt_decode from 'jwt-decode'
+
+
+// axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN
+axios.defaults.baseURL = 'http://localhost:8080'
 
 /** make api request */
 
+/** To get username from Token */
+export async function getUsername(){
+    const token = localStorage.getItem('token')
+    if(!token) return Promise.reject("Cannot find Token")
+    let decode = jwt_decode(token)
+    return decode;
+}
 
 
 /** authenticate function */
@@ -47,7 +59,8 @@ export async function registerUser(credentials){
 export async function verifyUser({username, password}){
     try {
         if(username){
-            await axios.post('/api/login',{username, password})
+            const {data} = await axios.post('/api/login',{username, password})
+            
             return Promise.resolve({data})
         }
     } catch (error) {
@@ -55,7 +68,7 @@ export async function verifyUser({username, password}){
     }
 }
 
-/** update user */
+/** update user profile */
 
 export async function updateUser(response){
     try {
@@ -69,7 +82,7 @@ export async function updateUser(response){
 }
 /** Generate OTP */
 
-export async function updateUser(username){
+export async function generateOtp(username){
     try {
         const {data :{code},status} = await axios.get('/api/generateOtp',{params:{username}})
         

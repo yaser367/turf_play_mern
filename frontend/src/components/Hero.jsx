@@ -1,0 +1,28 @@
+import React from 'react'
+import bgVideo from '../assets/video/football-background.mp4'
+import './Hero.css'
+import Typed from 'react-typed'
+
+
+const Hero = () => {
+  return (
+    <div className=' hero-container text-white'>
+        <video className='pt-5' src={bgVideo} autoPlay muted loop/>
+
+        <div className='max-w-[700px] md:mt-[-70px] sm:mt-[-120px] mt-[-190px] w-full h-screen mx-auto flex flex-col justify-center text-center'>
+            <h2 className='md:text-4xl sm:text-2xl font-bold'> KERALA'S NO:1 <span className=' text-[#d417c7]'>PLAYGROUND</span>  </h2>
+            <h2 className='md:text-4xl sm:text-2xl md:mt-6 font-bold'> BOOKING WEB SITE. </h2>
+            <div className='flex justify-center items-center'>
+            <p className='text-[#37d417] pt-2 md:text-xl sm:text-base text-xs md:mt-2'> You Can Play </p>
+
+        <Typed className='pt-2 md:text-xl sm:text-base text-xs md:mt-2 pl-2' strings={['FOOTBALL','CRICKET','TENNIS']} typeSpeed={120} backSpeed={140} loop  />
+            </div>
+            <button className='bg-[#44b52d] md:w-[150px] sm:w-[100px] w-[80px] text-xs rounded-md md:font-medium my-6 mx-auto py-3 text-black hover:bg-[#d417c7]'>Get Started</button>
+        </div>
+    
+        
+    </div>
+  )
+}
+
+export default Hero

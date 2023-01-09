@@ -1,15 +1,18 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import avatar from '../assets/avatar.png'
-import {Toaster} from 'react-hot-toast'
+import toast,{Toaster} from 'react-hot-toast'
 import {useFormik} from 'formik'
 import { registrationValidate } from '../helper/validate'
 import convertToBase64 from '../helper/convert'
+import { registerUser, generateOtp } from '../helper/helper'
 
 import styles from '../styles/Username.module.css'
 import { useState } from 'react'
 
 const Register = () => {
+
+  const navigate = useNavigate();
   const [file, setFile] = useState()
   const formik = useFormik({
     initialValues:{
@@ -22,9 +25,19 @@ const Register = () => {
     validateOnBlur:false,
     validateOnChange:false,
     onSubmit: async values =>{
-     values = await Object.assign(values, {profile : file || ''})
-    }
-  })
+      
+    
+    values = await Object.assign(values, {profile : file || ''})
+    let registerPromise = registerUser(values)
+    toast.promise(registerPromise, {
+     loading:'Creating..',
+     success:<b>Registred Successfully...!</b>,
+     error:<b>Could not Register.</b>
+    })
+    registerPromise.then(function(){navigate('/login')})
+   }
+ })
+    
   /**fromik doesn't support file upload so we need to create this handler */
   const onUpload = async e =>{
     const base64 = await convertToBase64(e.target.files[0]);

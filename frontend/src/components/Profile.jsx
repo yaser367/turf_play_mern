@@ -1,31 +1,47 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import {useNavigate, Link } from 'react-router-dom'
 import avatar from '../assets/avatar.png'
-import {Toaster} from 'react-hot-toast'
+import toast,{Toaster} from 'react-hot-toast'
 import {useFormik} from 'formik'
 import { profilevalidation } from '../helper/validate'
 import convertToBase64 from '../helper/convert'
+import useFetch from '../hooks/fetch.hook'
+import { useAuthStore } from '../store'
+import { updateUser } from '../helper/helper'
 
 import styles from '../styles/Username.module.css'
 import extend from '../styles/profile.module.css'
 import { useState } from 'react'
 
 const Profile = () => {
+  const navigate = useNavigate()
   const [file, setFile] = useState()
+  const [{isLoading, apiData, serverError}] = useFetch() 
+
   const formik = useFormik({
     initialValues:{
-      firstname:'',
-      lastname:'',
-      email:'',
-      mobile:'',
-      address:'',
+      firstname:apiData?.firstname || '',
+      lastname:apiData?.lastname || '',
+      email:apiData?.email || '',
+      mobile:apiData?.mobile || '',
+      address:apiData?.address || '',
       // confirmPassword:'',
     },
+    enableReinitialize:true,
     validate:profilevalidation,
     validateOnBlur:false,
     validateOnChange:false,
     onSubmit: async values =>{
-     values = await Object.assign(values, {profile : file || ''})
+     values = await Object.assign(values, {profile : file || apiData?.profile || ''})
+     let updatePromise = updateUser(values)
+
+     toast.promise(updatePromise,{
+      loading:"Updating",
+      success:<b>Update Successfully...!</b>,
+      error:<b>Could not Update!..</b>
+     }).then(()=>{
+      navigate('/home')
+     })
     }
   })
   /**fromik doesn't support file upload so we need to create this handler */
@@ -33,6 +49,10 @@ const Profile = () => {
     const base64 = await convertToBase64(e.target.files[0]);
     setFile(base64)
   }
+
+  // if(isLoading) return <h1 className='text-2xl font-bold'>isLoading</h1>;
+  if(serverError) return <h1 className='text-xl text-red-500'>{serverError.message}</h1>
+
   return (
     <div className={styles.background_img}>
     <div className="container mx-auto">
@@ -48,15 +68,15 @@ const Profile = () => {
             <div className="profile flex justify-center py-4">
               <label htmlFor="profile">
 
-              <img className={`${styles.profile_img} ${extend.profile_img}`} src={file || avatar} alt="avatar" />
+              <img className={`${styles.profile_img} ${extend.profile_img}`} src={ apiData?.profile || file || avatar} alt="avatar" name='profile'/>
               </label>
               <input onChange={onUpload} type="file" id='profile' name='profile'/>
             </div>
             <div className="textbox flex flex-col items-center gap-6">
 
               <div className="name flex w-3/4 gap-10">
-              <input {...formik.getFieldProps('firstName')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='First Name'/>
-              <input {...formik.getFieldProps('lastName')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='Last Name'/>
+              <input {...formik.getFieldProps('firstname')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='First Name'/>
+              <input {...formik.getFieldProps('lastname')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='Last Name'/>
               </div>
 
               <div className="name flex w-3/4 gap-10">
@@ -73,7 +93,7 @@ const Profile = () => {
             </div>  
             <div className="text-center py-4">
               <span className='text-grey-500'>
-                Comeback later? <Link to="/" className='text-red-500'>Skip</Link>
+                Comeback later? <Link to="/home" className='text-red-500'>Skip</Link>
               </span>
             </div>
           </form>

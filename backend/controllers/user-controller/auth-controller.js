@@ -19,18 +19,7 @@ const verifyUser = async(req,res,next)=>{
     }
 }
 
-/** POST: http://localhost:8080/api/register
-* @param : {
-"username": "example123",
-"password": "admin123",
-"email": "example@gmail.com",
-"firstName" : "bill",
-"lastName": "william",
-"mobile": 8009860560,
-"address" : "Apt. 556, Kulas Light, Gwenborough",
-"profile": ""
-}
-*/
+/** User Registration api */
 
 const userRegistration = async (req,res)=>{
     try {
@@ -62,15 +51,10 @@ const userRegistration = async (req,res)=>{
         }
     } catch (error) {
         return res.status(500).send(error);
-        console.log(error)
     }
 }
 
-/** POST: http://localhost:5000/api/login
-* @param: {
-"username": "example123",
-"password": "admin123"
-}
+/** User Login api
 */
 
 const userLogin = async (req,res) =>{
@@ -78,11 +62,14 @@ const userLogin = async (req,res) =>{
         const {username, password} =req.body;
 
         const user = await User.findOne({username})
+        
         if(!user){
             return res.status(400).send({error:"user not found"})
         }else{
-            const isMatch = bycrypt.compare(password,user.password)
+            const isMatch = await bycrypt.compare(password,user.password)
+            
             if(!isMatch){
+                
             return res.status(400).send({error:"password doesn't match"})
             }else{
                 const token = jwt.sign({
@@ -111,7 +98,7 @@ const getUser = async (req,res)=>{
         }else{
           const user =  await User.findOne({username})
           if(!user){
-            return res.status(501).send({error:"User not find"})
+            return res.status(501).send({error:"User not found"})
           } else{
             const {password , ...rest} = Object.assign({},user.toJSON())
             return res.status(200).send(rest)
@@ -131,11 +118,9 @@ const updateUser = async(req,res)=>{
             console.log(body)
 
         if(userId){
-            console.log("first")
             const body = req.body;
-            console.log(body)
+            
             const updateU = await User.updateOne({_id:userId},body)
-            console.log(updateU)
             return res.status(201).send({message:"Record Updated"})
         }else{
             return res.status(401).send({error:"user not found"})
@@ -163,8 +148,7 @@ const verifyOtp = async(req,res)=>{
 
 const createResetSession = async(req,res)=>{
     if(req.app.locals.resetSession){
-        req.app.locals.resetSession = false; //allow access to this route only once
-        return res.status(201).send({message:"access granted"})
+        return res.status(201).send({flag:req.app.locals.resetSession})
     }
     return res.status(440).send({error:"Session expired"})
 }

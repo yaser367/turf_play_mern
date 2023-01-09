@@ -1,10 +1,16 @@
 import toast from 'react-hot-toast'
-import PageNotFound from '../components/PageNotFound';
+import { authenticate } from './helper';
+
 
 /** validate username */
 export async function usernameValidate(values){
     const errors = usernameVerify({},values);
-    
+    if(values.username){
+        const {status} = await authenticate(values.username);
+        if(status !== 200){
+            errors.exist = toast.error('User does not exist')
+        }
+    }
     return errors;
 }
 
@@ -71,7 +77,7 @@ function emailVerify(error = {}, values){
         error.email = toast.error("Email Required..!!")
     }else if(values.email.includes(" ")){
         error.email = toast.error("Wrong Email...!")
-    }else if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\. [A-Z]{2,4}$/i.test(values.email)){
+    }else if(!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i.test(values.email)){
         error.email = toast.error("Enter valid email...")
     }
     return error
