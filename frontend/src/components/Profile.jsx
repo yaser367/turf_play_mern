@@ -40,7 +40,7 @@ const Profile = () => {
       success:<b>Update Successfully...!</b>,
       error:<b>Could not Update!..</b>
      }).then(()=>{
-      navigate('/home')
+      navigate('/')
      })
     }
   })
@@ -54,7 +54,7 @@ const Profile = () => {
   if(serverError) return <h1 className='text-xl text-red-500'>{serverError.message}</h1>
 
   return (
-    <div className={styles.background_img}>
+    <div className={styles.profile_back}>
     <div className="container mx-auto">
       <Toaster position='top-center' reverseOrder={false}></Toaster>
       <div className="flex justify-center items-center h-screen">
@@ -93,7 +93,7 @@ const Profile = () => {
             </div>  
             <div className="text-center py-4">
               <span className='text-grey-500'>
-                Comeback later? <Link to="/home" className='text-red-500'>Skip</Link>
+                Comeback later? <Link to="/" className='text-red-500'>Skip</Link>
               </span>
             </div>
           </form>

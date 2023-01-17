@@ -26,7 +26,12 @@
 }
 .background_img{
     background-color: bisque;
-    /* background-image: url('../assets/bg-2.jpg'); */
+    background-image: url('../assets/bg-2.jpg');
+
+}
+
+.profile_back{
+    background-image: url('../assets/LoginBackground.jpg');
 
 }
 

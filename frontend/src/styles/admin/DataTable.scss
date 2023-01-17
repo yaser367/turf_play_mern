@@ -1,0 +1,14 @@
+.userStatus{
+    padding: 5px;
+    border-radius: 5px;
+
+    &.Active{
+
+        background-color: rgba(0,128,0,0.05);
+        color: green;
+    }
+    &.Block{
+        background-color:rgba(255, 0, 0,0.05);
+        color: crimson;
+    }
+}
