@@ -33,7 +33,7 @@ const userRegistration = async (req,res)=>{
             const emailExist = await User.findOne({email})
             if(emailExist){
             return res.status(400).send({error:"user already exist"})
-                
+                    
             }else{
                 const hashedPassword = await bycrypt.hash(password,12)
 

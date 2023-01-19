@@ -13,8 +13,9 @@ app.use(morgan('tiny'))
 app.disable('x-powered-by'); //less hackers know about our stack
 
 const userRout = require('./router/user');
-
+const TurfAdminRout = require('./router/turfAdmin')
 app.use('/api',userRout)
+app.use('/api/turfAdmin',TurfAdminRout)
 
 const connect = require('./database/connect.js')
 

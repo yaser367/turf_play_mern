@@ -19,8 +19,6 @@ const Navbar = () => {
 
   }
 
-
-
  
   return (
   <div className='bg-black'>
