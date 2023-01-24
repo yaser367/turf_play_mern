@@ -1,14 +1,18 @@
-import React,{useRef, useEffect, useCallback} from 'react'
-import AddTurfs from './AddTurfs'
-import {useSpring, animated} from 'react-spring'
+import React, { useRef, useEffect, useCallback } from "react";
+import AddTurfs from "./AddTurfs";
+import { useSpring, animated } from "react-spring";
 
-const Modal = ({showModal,setShowModal}) => {
 
+const Modal = ({ showModal, setShowModal }) => {
   return (
     <>
-    {showModal ? <div><AddTurfs showModal={showModal} setShowModal={setShowModal}/></div>:null}
+      {showModal ? (
+        <div>
+          <AddTurfs showModal={showModal} setShowModal={setShowModal} />
+        </div>
+      ) : null}
     </>
-  )
-}
+  );
+};
 
-export default Modal
+export default Modal;

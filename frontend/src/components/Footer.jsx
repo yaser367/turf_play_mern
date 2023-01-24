@@ -22,10 +22,10 @@ const Footer = () => {
         </div>
         <div>
             <ul>
-                <li className='font-bold mb-4'>Pages</li>
-                <li>Home</li>
-                <li>Service</li>
-                <li>About</li>
+                <li className='font-bold mb-4'>Condact Us</li>
+                <li>Business Park Calicut</li>
+                <li>mob: 7034943897</li>
+                <li>yasermuhammed367@gmail.com</li>
             </ul>
         </div>
         <div className='flex md:mt-0 '>

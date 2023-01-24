@@ -3,11 +3,11 @@ import {useNavigate, Link } from 'react-router-dom'
 import avatar from '../assets/avatar.png'
 import toast,{Toaster} from 'react-hot-toast'
 import {useFormik} from 'formik'
-import { profilevalidation } from '../helper/validate'
+import { profilevalidation } from '../helper/validateUser'
 import convertToBase64 from '../helper/convert'
 import useFetch from '../hooks/fetch.hook'
 import { useAuthStore } from '../store'
-import { updateUser } from '../helper/helper'
+import { updateUser } from '../helper/helperUser'
 
 import styles from '../styles/Username.module.css'
 import extend from '../styles/profile.module.css'
@@ -39,8 +39,6 @@ const Profile = () => {
       loading:"Updating",
       success:<b>Update Successfully...!</b>,
       error:<b>Could not Update!..</b>
-     }).then(()=>{
-      navigate('/')
      })
     }
   })
@@ -54,7 +52,7 @@ const Profile = () => {
   if(serverError) return <h1 className='text-xl text-red-500'>{serverError.message}</h1>
 
   return (
-    <div className={styles.profile_back}>
+    <div className='bg-slate-300'>
     <div className="container mx-auto">
       <Toaster position='top-center' reverseOrder={false}></Toaster>
       <div className="flex justify-center items-center h-screen">
@@ -91,11 +89,11 @@ const Profile = () => {
 
               </div>
             </div>  
-            <div className="text-center py-4">
+            {/* <div className="text-center py-4">
               <span className='text-grey-500'>
                 Comeback later? <Link to="/" className='text-red-500'>Skip</Link>
               </span>
-            </div>
+            </div> */}
           </form>
         </div>
       </div>

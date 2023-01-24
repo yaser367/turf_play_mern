@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 import toast,{Toaster} from 'react-hot-toast'
 import { useAuthStore } from '../store'
-import { generateOtp, verifyOtp } from '../helper/helper'
+import { generateOtp, verifyOtp } from '../helper/helperUser'
 import { useNavigate } from 'react-router-dom'
 
 

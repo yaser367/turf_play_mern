@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { getUsername } from "../helper/helper";
+import { getUsername } from "../helper/helperUser";
 
 axios.defaults.baseURL = 'http://localhost:8080'
 

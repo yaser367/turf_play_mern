@@ -3,9 +3,9 @@ import { Link, Navigate, useNavigate } from 'react-router-dom'
 import avatar from '../assets/avatar.png'
 import toast,{Toaster} from 'react-hot-toast'
 import {useFormik} from 'formik'
-import { registrationValidate } from '../helper/validate'
+import { registrationValidate } from '../helper/validateUser'
 import convertToBase64 from '../helper/convert'
-import { registerUser, generateOtp } from '../helper/helper'
+import { registerUser, generateOtp } from '../helper/helperUser'
 
 import styles from '../styles/Username.module.css'
 import { useState } from 'react'
@@ -24,9 +24,7 @@ const Register = () => {
     validate:registrationValidate,
     validateOnBlur:false,
     validateOnChange:false,
-    onSubmit: async values =>{
-      
-    
+    onSubmit: async values => {
     values = await Object.assign(values, {profile : file || ''})
     let registerPromise = registerUser(values)
     toast.promise(registerPromise, {

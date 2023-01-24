@@ -21,12 +21,13 @@ const Navbar = () => {
 
  
   return (
-  <div className='bg-black'>
-    <div className='bg-black flex justify-between max-w-[1240px] mx-auto px-3 items-center h-16 text-white'>
+  <div className='bg-black '>
+    <div className='bg-black flex justify-between max-w-[1240px] mx-auto px-3 items-center h-16 text-white relative'>
         <img className='w-[100px] pt-4 ' src={MainLogo} alt="" />
         <ul className='hidden md:flex'>
           <Link to='/'><li className='pt-7 pl-6 cursor-pointer'>Home</li></Link>
           <Link to='/booking'><li className='pt-7 pl-6 cursor-pointer'>Sevices</li></Link>
+          <Link to='/profile'><li className='pt-7 pl-6 cursor-pointer'>Profile</li></Link>
           <li className='pt-7 pl-6 cursor-pointer'>About</li>
           <li className='pt-7 pl-6 cursor-pointer' onClick={userLogout}>Logout</li>
           
@@ -39,10 +40,11 @@ const Navbar = () => {
         <img className='w-[100px] m-4 ' src={MainLogo} alt="" />
           
           <ul className='p-4 uppercase '>
-          <li className='p-4 border-b border-gray-600'>Home</li>
-          <li className='p-4 border-b border-gray-600'>Sevices</li>
-          <li className='p-4 border-b border-gray-600'>About</li>
-          <li className='p-4'>Logout</li>
+          <Link to='/'><li className='p-4 border-b border-gray-600'>Home</li></Link>
+          <Link to='/booking'><li  className='p-4 border-b border-gray-600'>Sevices</li></Link>
+          <Link to='/profile'><li className='p-4 border-b border-gray-600'>Profile</li></Link>
+          <Link to='/'><li className='p-4 border-b border-gray-600'>About</li></Link>
+          <li className='p-4' onClick={userLogout}>Logout</li>
           </ul>
         </div>
     </div>

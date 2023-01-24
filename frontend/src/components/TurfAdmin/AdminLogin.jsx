@@ -1,14 +1,17 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { useDispatch } from "react-redux";
-import { setCredentials } from "../../features/auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectCurrectToken,
+  setCredentials,
+} from "../../features/auth/authSlice";
 import { useLoginMutation } from "../../features/auth/authApiSlice";
 
 const AdminLogin = () => {
   const userRef = useRef();
   const errRef = useRef();
-  const [user, setUser] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const navigate = useNavigate();
@@ -16,22 +19,24 @@ const AdminLogin = () => {
   const [login, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    userRef.current.focus();
-  }, []);
+  // useEffect(() => {
+  //   userRef.current.focus();
+  // }, []);
 
   useEffect(() => {
     setErrMsg("");
-  }, [user, password]);
+    // console.log(token)
+  }, [email, password]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const userData = await login({ user, password }).unwrap();
-      dispatch(setCredentials({ ...userData, user }));
-      setUser("");
+      const userData = await login({ email, password }).unwrap();
+      dispatch(setCredentials({ ...userData, email }));
+      setEmail("");
       setPassword("");
+      // onclose();
       navigate("/turfAdmin/home");
     } catch (error) {
       if (!error?.originalStatus) {
@@ -43,11 +48,12 @@ const AdminLogin = () => {
       } else {
         setErrMsg("Login failed");
       }
-      errRef.current.focus();
+      console.log("first", error);
+      // errRef.current.focus();
     }
   };
 
-  const handlUserInput = (e) => setUser(e.target.value);
+  const handlEmailInput = (e) => setEmail(e.target.value);
   const handlePasswordInput = (e) => setPassword(e.target.value);
 
   return (
@@ -63,8 +69,8 @@ const AdminLogin = () => {
             <input
               type="text"
               id="username"
-              value={user}
-              onChange={handlUserInput}
+              value={email}
+              onChange={handlEmailInput}
               required
               autoComplete="off"
               className="focus:outline-none w-[200px] text-center rounded h-[30px] border-black border-r-4 bg-slate-100 m-4 mx-[42px]"
@@ -78,7 +84,10 @@ const AdminLogin = () => {
               className="focus:outline-none w-[200px] text-center rounded h-[30px] border-black border-r-4 bg-slate-100 m-4 mx-[42px]"
               placeholder="Enter Your Password"
             />
-            <button className="py-2 bg-slate-400 px-4 rounded-md ml-[200px] mt-8 text-white text-sm">
+            <button
+              type="submit"
+              className="py-2 bg-slate-400 px-4 rounded-md ml-[200px] mt-8 text-white text-sm"
+            >
               Login
             </button>
             <p className="text-blue-500 ml-2 mt-14">Forgot password?</p>

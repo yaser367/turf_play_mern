@@ -20,8 +20,8 @@ const Sidebar = () => {
                   </li></Link>
                   <p className="controls">CONTROLS</p>
                 <Link to="/admin/users"> <li className='flex'><FaUsers className='icon'/><span>User</span></li></Link>
-                <li className='flex'><MdAdminPanelSettings className='icon'/><span>Turf Admins</span></li>
-                <li className='flex'><BsBorderStyle className='icon'/><span>Orders</span></li>
+                <Link to="/admin/TurfAdminmng"><li className='flex'><MdAdminPanelSettings className='icon'/><span>Turf Admins</span></li></Link>
+                <Link to='/admin/requests'><li className='flex'><BsBorderStyle className='icon'/><span>Requests</span></li></Link>
             </ul>
         </div>
         {/* <div className='bottom'>

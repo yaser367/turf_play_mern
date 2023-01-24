@@ -142,6 +142,7 @@ const verifyOtp = async(req,res)=>{
         req.app.locals.OTP = null; //reset the OTP value
         req.app.locals.resetSession = true; // start session for reset password
         return res.status(201).send({message:"verify Successfully"})
+        
     }
     return res.status(400).send({error:"Invalid Otp"})
 }

@@ -1,9 +1,9 @@
 import React,{useEffect} from 'react'
 import { Link,Navigate,useNavigate } from 'react-router-dom'
 import avatar from '../assets/avatar.png'
-import {Toaster} from 'react-hot-toast'
-import {useFormik} from 'formik'
-import { usernameValidate } from '../helper/validate'
+import { Toaster } from 'react-hot-toast'
+import { useFormik } from 'formik'
+import { usernameValidate } from '../helper/validateUser'
 import { useAuthStore } from '../store'
 
 import styles from '../styles/Username.module.css'

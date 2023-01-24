@@ -3,6 +3,11 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const handleLogin = async (req, res) => {
+  // console.log("first")
+
+  try {
+    
+  
   const cookies = req.cookies;
 
   const { email, password } = req.body;
@@ -65,10 +70,14 @@ const handleLogin = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000,
     });
 
-    res.json({ accessToken });
+    res.json({ accessToken,admin });
   } else {
     res.sendStatus(401);
   }
+} catch (error) {
+    return console.log(error)
+}
 };
+
 
 module.exports = { handleLogin };

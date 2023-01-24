@@ -2,18 +2,23 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const morgan = require('morgan')
+const corsOptions = require('./config/corsOptions')
+const credentials = require('./middleware/credentials')
+
 require("dotenv").config();
 
 const app = express()
 
+app.use(credentials)
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-app.use(cors())
-app.use(morgan('tiny'))
+app.use(cors(corsOptions,{Credentials:true}))
+app.use(morgan('dev'))
 app.disable('x-powered-by'); //less hackers know about our stack
 
 const userRout = require('./router/user');
 const TurfAdminRout = require('./router/turfAdmin')
+
 app.use('/api',userRout)
 app.use('/api/turfAdmin',TurfAdminRout)
 

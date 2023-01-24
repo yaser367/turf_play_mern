@@ -3,10 +3,10 @@ import { Link, useNavigate } from 'react-router-dom'
 import avatar from '../assets/avatar.png'
 import toast,{Toaster} from 'react-hot-toast'
 import {useFormik} from 'formik'
-import { passwordValidate } from '../helper/validate'
+import { passwordValidate } from '../helper/validateUser'
 import useFetch from '../hooks/fetch.hook'
 import { useAuthStore } from '../store'
-import { generateOtp,verifyUser } from '../helper/helper'
+import { generateOtp,verifyUser } from '../helper/helperUser'
 import UsernamePage from './UserName'
 
 import styles from '../styles/Username.module.css'
@@ -38,7 +38,7 @@ const Password = () => {
         console.log(res.data)
         let {token} = res.data;
         localStorage.setItem('token',token);
-        navigate('/profile')
+        navigate('/')
       })
      }
   })

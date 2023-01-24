@@ -14,7 +14,11 @@ const turfAdminSchema = mongoose.Schema({
         require
     },
     isVerified:{
-        type:String,
+        type:Boolean,
+        default:false
+    },
+    otpverified:{
+        type:Boolean,
         default:false
     },
     refreshToken:[String]
