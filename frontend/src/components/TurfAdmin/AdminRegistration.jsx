@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Toast, { toast, Toaster } from "react-hot-toast";
 import { Formik, useFormik } from "formik";
@@ -6,7 +6,7 @@ import styled from "styled-components";
 import * as yup from "yup";
 import axios from "axios";
 import { RegisterAdmin } from "../../helper/helperTurf";
-
+import Otp from "./Otp";
 const validationSchema = yup.object({
   AdminName: yup
     .string()
@@ -27,8 +27,11 @@ const FieldError = styled.span`
   font-size: 11px;
   min-height: 18px;
 `;
-
+let e;
 const AdminRegistration = () => {
+  // const handleEmail = () => {
+  //   setEmail(formik.values.email);
+  // };
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -44,34 +47,24 @@ const AdminRegistration = () => {
       toast.promise(registerPromise, {
         loading: "Creating...",
         success: <b>Registred Successfully...! Please verify OTP</b>,
-        error: <b>Coun't Register</b>,
+        error: <b>Couldn't Register</b>,
       });
       registerPromise.then(function () {
-        navigate("/turfAdmin/otp");
+        
+       navigate(`/turfAdmin/otp/${values.email}`)
+      });
+      registerPromise.catch(function (error) {
+        console.log(error);
       });
 
-      // const {...data} = values
-      // const response = await axios
-      //   .post("http://localhost:8080/api/turfAdmin/register", values)
-      //   .catch((err) => {
-      //     if (err && err.response) {
-      //       console.log(err);
-      //     }
-      //   });
-      //   if(response){
-      //     console.log("success")
-      // toast.promise(response, {
-      //   loading: "Creating..",
-      //   success: <b>Registred Successfully..</b>,
-      //   error: <b>Couldn't register..!</b>,
-      // });
-      // navigate('/turfAdmin/login')
-      // }
     },
   });
-
+  // const hidden = "hidden";
+  const [val,setVal] = useState('')
   return (
     <div>
+      {/* <Otp hidden={hidden} /> */}
+      <Toaster position="top-center" reverseOrder={false}></Toaster>
       <div className="bg-green-300 w-full h-[715px] pt-40 relative">
         <div className="h-[250px] w-[70%] mx-auto  bg-red-500 pl-10 pt-12">
           <p className="text-slate-400 text-2xl font-medium">Have an </p>

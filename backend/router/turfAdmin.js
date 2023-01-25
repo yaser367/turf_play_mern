@@ -10,14 +10,14 @@ const turfController = require('../controllers/TurfAdmin-controller/turfControll
 /** Post routes */
 router.post('/login',TurfAdminAuthControll.handleLogin)
 router.post('/register',TurfAdminControll.register)
-router.post('/registerMail',mailControll.registerMail)
+router.post('/otpVerify',TurfAdminControll.verifyOTP)
+router.post('/resentOtp',TurfAdminControll.resendOtp)
+router.post('/forgotPassword',TurfAdminControll.forgotPassword)
+router.post('/resetPassword',TurfAdminControll.resetPassword)
 router.post('/addTurf',turfController.addTurf)
 
 
-
 /** Get routes */
-router.get('/:id',TurfAdminControll.getUser)
-router.get('/generateOtp',Auth.localVariables,TurfAdminControll.generateOtp)
-router.get('/verifyOtp',TurfAdminControll.verifyOtp)
+// router.get('/:id',TurfAdminControll.getUser)
 
 module.exports = router;

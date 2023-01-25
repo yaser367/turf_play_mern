@@ -7,7 +7,12 @@ import { selectCurrectToken } from "./authSlice";
 const RequireAuth = () => {
   const token = useSelector(selectCurrectToken)
 
-    // return  token ? <Outlet/>:<Navigate to='/turfAdmin/login'/>
+  // return token ? (
+  //   <Outlet />
+  // ) : (
+  //   <Navigate to="/" state={{ from: location }} replace />
+  // );
+
 };
 
 export default RequireAuth;

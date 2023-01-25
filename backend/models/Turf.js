@@ -16,13 +16,13 @@ const TurfSchema = mongoose.Schema({
         type: Number,
         require: [true, "Mobile number required"],
       },
-      ImageUrl: {
+      ImageUrl: [{
         type: String,
-      },
-      gameType: {
+      }],
+      gameType: [{
         type: String,
         require: [true, "Give available game type"],
-      },
+      }],
       groundType: {
         type: String,
         require: [true, "Select your ground type"],

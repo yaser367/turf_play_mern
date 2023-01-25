@@ -7,8 +7,9 @@ import { useSelector } from "react-redux";
 import { selectCurrectToken } from "../../features/auth/authSlice";
 
 const Home = () => {
-  // const token = useSelector(selectCurrectToken)
+  
   return (
+
     <div className="pb-10 ">
       <p className="text-2xl font-bold text-center text-gray-500">Your Turfs</p>
       <div className="mt-7 flex justify-end max-w-[1440px]"></div>

@@ -1,7 +1,31 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import {useFormik} from 'formik'
+import { verifyOtp } from '../../helper/helperTurf'
+import { toast } from 'react-hot-toast'
 
 const Otp = () => {
+  let {value} =  useParams()
+  console.log(value)
+  const formik = useFormik({
+    initialValues:{
+      otp:''
+    },
+    validateOnBlur:false,
+    onSubmit:async (values)=>{
+      values = Object.assign(values);
+      const {otp} = values
+      let otpPromise = verifyOtp(value,otp)
+      toast.promise(otpPromise,{
+        loading:'Verifying..',
+        success:<b>your otp verified</b>,
+        error:<b>Couldn't verify</b>
+      })
+    }
+  })
+ 
+  
   return (
      <div>
       <div className="bg-green-300 w-full h-[715px] pt-40 relative">
@@ -23,8 +47,9 @@ const Otp = () => {
           OTP
         </p>
 
-        <form >
+        <form onSubmit={formik.handleSubmit} >
             <input
+              {...formik.getFieldProps("otp")}
               name="otp"
               type="text"
               className="focus:outline-none w-[200px] text-center rounded h-[30px] border-black border-r-4 bg-slate-100 mt-4 mx-[42px]"

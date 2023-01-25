@@ -70,7 +70,7 @@ function App() {
         <Route path='/turfAdmin/register' element={<Registration/>} />
         <Route path='/turfAdmin/login' element={<Login/>} />
         <Route path='/turfAdmin/login' element={<Login/>} />
-        <Route path='/turfAdmin/otp' element={<OtpPage/>} />
+        <Route path='/turfAdmin/otp/:value' element={<OtpPage/>} />
         <Route path='/turfAdmin/profile' element={<TurfAdminProfile/>} />
         
       </Route>
