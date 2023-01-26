@@ -27,15 +27,14 @@ import { AuthorizeUser,homeAuth,logAuth } from './middleware/auth'
 import { ProtectRout } from './middleware/auth'
 import Dashboard from './pages/admin/Dashboard'
 import Requests from './pages/admin/RequestsPage'
-
+import ForgotPassword from './components/TurfAdmin/ForgotPassword'
 import Layout from './components/layout'
 import RequireAuth from './features/auth/RequireAuth'
 import TurfAdminmng from './pages/admin/TurfAdminmng'
+import ChangePasswordTurf from './components/TurfAdmin/ChangePasswordTurf'
 
 function App() {
   return (
-   
-
       <Routes>
       
         {/* user side */}
@@ -65,6 +64,8 @@ function App() {
         <Route path='/turfAdmin/home' element={<TurfAdmin />}/>
           {/* </Route>   */}
       
+        <Route path='/turfAdmin/forgot' element={<ForgotPassword />}/>
+        <Route path='/turfAdmin/changePassword/:email' element={< ChangePasswordTurf/>}/>
         <Route path='/turfAdmin/turf' element={<OneTurf />}/>
         <Route path='/turfAdmin/addTurf' element={<AddTurfs/>} />
         <Route path='/turfAdmin/register' element={<Registration/>} />

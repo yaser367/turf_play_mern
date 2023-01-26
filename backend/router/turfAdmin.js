@@ -18,6 +18,6 @@ router.post('/addTurf',turfController.addTurf)
 
 
 /** Get routes */
-// router.get('/:id',TurfAdminControll.getUser)
+
 
 module.exports = router;

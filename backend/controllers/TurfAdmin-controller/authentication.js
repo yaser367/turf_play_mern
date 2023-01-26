@@ -13,7 +13,7 @@ const handleLogin = async (req, res) => {
       return res
         .status(400)
         .json({ message: "email and password are required." });
-    const admin = await TurfAdmin.findOne({ email: email }).exec();
+    const admin = await TurfAdmin.findOne({ email: email,otpverified:true }).exec();
 
     if (!admin) return res.sendStatus(401);
     //   if (admin.isVerified === false) return res.sendStatus(402);

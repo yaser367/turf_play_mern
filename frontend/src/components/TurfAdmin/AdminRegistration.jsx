@@ -27,7 +27,7 @@ const FieldError = styled.span`
   font-size: 11px;
   min-height: 18px;
 `;
-let e;
+
 const AdminRegistration = () => {
   // const handleEmail = () => {
   //   setEmail(formik.values.email);

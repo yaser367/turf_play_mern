@@ -90,8 +90,8 @@ const AdminLogin = () => {
             >
               Login
             </button>
-            <p className="text-blue-500 ml-2 mt-14">Forgot password?</p>
           </form>
+            <Link to='/turfAdmin/forgot'><p className="text-blue-500 ml-2 mt-14 cursor-pointer">Forgot password?</p></Link>
         </div>
         <div className="h-[250px] w-[70%]  mx-auto  bg-red-500 pl-[50%] pt-12">
           <p className="text-slate-400 text-2xl font-medium">Don't have </p>

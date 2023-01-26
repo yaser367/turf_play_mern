@@ -11,7 +11,7 @@ export default function PreviewImage({file}){
     }
     return(
         <div>
-            <img className="w-[100px]" src={preview} alt=''/>
+            <img className="w-[80px] h-[80px]" src={preview} alt=''/>
         </div>
     )
 }
