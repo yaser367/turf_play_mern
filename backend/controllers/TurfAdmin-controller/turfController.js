@@ -7,7 +7,7 @@ const addTurf = async (req, res) => {
       _id,
       TurfName,
       mobile,
-      gameType,
+      gameTypes,
       groundType,
       price,
       Description,
@@ -21,7 +21,7 @@ const addTurf = async (req, res) => {
         TurfAdminId:_id,
         TurfName,
         mobile,
-        gameType,
+        gameTypes,
         groundType,
         price,
         Description,
@@ -29,7 +29,9 @@ const addTurf = async (req, res) => {
       await turf
         .save()
         .then((result) =>
-          res.status(201).send({ message: "Turf Registred successfully" })
+          res.status(201).send({ message: "Turf Registred successfully",result })
+          // console.log(result)
+
         )
         .catch((error) => res.status(500).send({ error }));
     }
@@ -38,6 +40,58 @@ const addTurf = async (req, res) => {
   }
 };
 
+const uploadImage = async(req,res)=>{
+  try {
+    const {id,urls} = req.body;
+   
+    const turf = await Turf.findOne({_id:id})
+    if(!turf){
+      return res.status(400).send({ error: "Turf Not Found" });
+    }else{
+      const tur = await Turf.updateOne({_id:id},{$set:{ImageUrl:urls,uploadImage:true}})
+      res.status(201).send({ message: "Image Uploaded successfully" })
+
+    }
+  } catch (error) {
+    return res.status(401).send(error);
+  }
+}
+
+const getAllturf = async (req,res) =>{
+  try {
+    const id = req.headers.id
+    const turfs = await Turf.find({TurfAdminId:id,uploadImage:true})
+    res.status(200).send({turfs})
+  } catch (error) {
+    return res.status(401).send(error);
+    
+  }
+}
+
+const oneTurf = async (req,res) =>{
+  try {
+    const {id} = req.params
+    console.log(id)
+    const turfs = await Turf.findOne({_id:id})
+    res.status(200).send({turfs})
+  } catch (error) {
+    return res.status(401).send(error)
+  }
+}
+
+const editTurf = async(req,res)=>{
+  try {
+    
+  } catch (error) {
+    return res.status(401).send(error)
+    
+  }
+}
+
 module.exports = {
   addTurf,
+  uploadImage,
+  getAllturf,
+  oneTurf,
+  editTurf
 };

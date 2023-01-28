@@ -1,12 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import turf1 from "../../assets/turf1.jpg";
 import footballGame from "../../assets/footballGame.jpg";
 import cricket from "../../assets/cricket.jpg";
 import DataTable from "./DataTable";
 import { BiEdit } from "react-icons/bi";
 import { Tooltip } from "@mui/material";
+import { useParams } from "react-router-dom";
+import { getOneTurf } from "../../helper/helperTurf";
 
 const Oneturf = () => {
+  const [data, setData] = useState("");
+  const [image, setImage] = useState([]);
+  const [sports, setSports] = useState([]);
+  const { id } = useParams();
+
+  useEffect(() => {
+    const getData = getOneTurf(id);
+    getData.then(async () => {
+      const turfs = await getData;
+      setData(turfs);
+      setImage(turfs.ImageUrl);
+      setSports(turfs.gameTypes);
+    });
+  }, []);
+
   const [hover, setHover] = useState(false);
 
   const handleHover = () => {
@@ -15,19 +32,21 @@ const Oneturf = () => {
   const handleExit = () => {
     setHover(false);
   };
+  console.log(image);
+
   return (
     <div>
       <div className=" mt-7 pb-5 p-3 ">
         <div className="">
           <h2 class="text-center  mb-5 text-4xl font-bold leading-tight text-gray-800">
-            Anfield Turf
+            {data.TurfName}
           </h2>
           <div className="w-[900px] h-[500px] mx-auto">
             <img
               onMouseEnter={handleHover}
               onMouseLeave={handleExit}
               className="w-[900px] h-[500px] mx-auto"
-              src={turf1}
+              src={image[0]}
               alt=""
             />
             <div className="absolute top-[60%]  h-full left-[48%]">
@@ -50,31 +69,43 @@ const Oneturf = () => {
           <div class="flex space-x-2 justify-center"></div>
           {/* <p className='text-center text-2xl font-bold md:mt-0 mt-8 '>Anfield Turf</p> */}
           <p className="text-center text-lg "></p>
-          <div className="m-10 bg-slate-200 drop-shadow-xl  h-[280px] p-4">
+          <div className="m-10 bg-slate-200 drop-shadow-xl  pb-10 p-4">
             <p className="font-bold text-end text-blue-500 cursor-pointer">
               Edit
             </p>
             <p className="font-bold text-2xl text-center">Available Sports</p>
             <div className="flex mt-3 ">
-              <div className="mx-10 w-[100px] h-[100px] ">
-                <img
-                  className="w-[100px] h-[100px] mt-3 rounded-md "
-                  src={footballGame}
-                  alt=""
-                />
-                <p className="text-center font-bold">Football</p>
-                <p className="text-center">5s</p>
-              </div>
-              <div className="mx-10 w-[100px] h-[100px]">
-                <img
-                  className="w-[100px] h-[100px] mt-3 rounded-md "
-                  src={cricket}
-                  alt=""
-                />
-                <p className="text-center"></p>
-                <p className="text-center font-bold">Cricket</p>
-              </div>
+              {sports &&
+                sports.map((sport) => {
+                  return (
+                    <div className="mx-10 w-[100px] h-[100px] ">
+                      <img
+                        className="w-[100px] h-[100px] mt-3 rounded-md "
+                        src={footballGame}
+                        alt=""
+                      />
+                      <p className="text-center font-bold">{sport}</p>
+                    </div>
+                  );
+                })}
+             
             </div>
+            <p className="font-bold text-2xl text-center mt-10">
+              Available Ground
+            </p>
+            {data.groundType &&
+              data.groundType.map((groundType) => {
+                return (
+                  <div className="mx-10 w-[100px] h-[100px] ">
+                    <img
+                      className="w-[100px] h-[100px] mt-3 rounded-md "
+                      src={footballGame}
+                      alt=""
+                    />
+                    <p className="text-center font-bold">{groundType}</p>
+                  </div>
+                );
+              })}
           </div>
         </div>
       </div>

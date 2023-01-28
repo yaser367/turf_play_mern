@@ -15,9 +15,14 @@ router.post('/resentOtp',TurfAdminControll.resendOtp)
 router.post('/forgotPassword',TurfAdminControll.forgotPassword)
 router.post('/resetPassword',TurfAdminControll.resetPassword)
 router.post('/addTurf',turfController.addTurf)
-
+router.post('/imgUpload',turfController.uploadImage)
 
 /** Get routes */
+router.get('/getAllturf',turfController.getAllturf)
+router.get('/getoneTurf/:id',turfController.oneTurf)
+
+/** Put routes */
+router.put('/updateTurf',turfController.uploadImage)
 
 
 module.exports = router;

@@ -9,9 +9,28 @@ export async function RegisterAdmin(credentials) {
   }
 }
 
-export async function AddTurf({TurfName,mobile,gameTypes,groundType,price,Description,_id}) {
+export async function AddTurf({
+  TurfName,
+  mobile,
+  gameTypes,
+  groundType,
+  price,
+  Description,
+  _id,
+}) {
   try {
-    await axios.post("/api/turfAdmin/addTurf", {TurfName,mobile,gameTypes,groundType,price,Description,_id});
+    const {
+      data: { result },
+    } = await axios.post("/api/turfAdmin/addTurf", {
+      TurfName,
+      mobile,
+      gameTypes,
+      groundType,
+      price,
+      Description,
+      _id,
+    });
+    return result;
   } catch (error) {
     return Promise.reject({ error });
   }
@@ -34,21 +53,42 @@ export async function resent(email) {
 }
 
 export async function forgotpsw(credentials) {
-    try {
-    await axios.post("/api/turfAdmin/forgotPassword", credentials);
-        
-    } catch (error) {
-    console.log(error);
-        
-    }
-}
-
-export async function changePassword (email,password){
   try {
-    console.log(email,password)
-    await axios.post("/api/turfAdmin/resetPassword",{ email, password } );
+    await axios.post("/api/turfAdmin/forgotPassword", credentials);
   } catch (error) {
     console.log(error);
-    
+  }
+}
+
+export async function changePassword(email, password) {
+  try {
+    console.log(email, password);
+    await axios.post("/api/turfAdmin/resetPassword", { email, password });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getAllturf(admin) {
+  try {
+    const {
+      data: { turfs },
+    } = await axios.get("/api/turfAdmin/getAllturf", {
+      headers: { id: admin._id },
+    });
+    return turfs;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getOneTurf(id) {
+  try {
+    const {
+      data: { turfs },
+    } = await axios.get(`/api/turfAdmin/getoneTurf/${id}`);
+    return turfs;
+  } catch (error) {
+    console.log(error);
   }
 }

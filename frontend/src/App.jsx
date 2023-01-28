@@ -32,6 +32,8 @@ import Layout from './components/layout'
 import RequireAuth from './features/auth/RequireAuth'
 import TurfAdminmng from './pages/admin/TurfAdminmng'
 import ChangePasswordTurf from './components/TurfAdmin/ChangePasswordTurf'
+import UploadIMG from './pages/TurfAdmin/UploadIMG'
+
 
 function App() {
   return (
@@ -66,8 +68,9 @@ function App() {
       
         <Route path='/turfAdmin/forgot' element={<ForgotPassword />}/>
         <Route path='/turfAdmin/changePassword/:email' element={< ChangePasswordTurf/>}/>
-        <Route path='/turfAdmin/turf' element={<OneTurf />}/>
+        <Route path='/turfAdmin/turf/:id' element={<OneTurf />}/>
         <Route path='/turfAdmin/addTurf' element={<AddTurfs/>} />
+        <Route path='/turfAdmin/uploadImg/:id' element={<UploadIMG/>} />
         <Route path='/turfAdmin/register' element={<Registration/>} />
         <Route path='/turfAdmin/login' element={<Login/>} />
         <Route path='/turfAdmin/login' element={<Login/>} />

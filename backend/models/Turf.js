@@ -19,7 +19,7 @@ const TurfSchema = mongoose.Schema({
       type: String,
     },
   ],
-  gameType: [
+  gameTypes: [
     {
       type: String,
       require: [true, "Give available game type"],
@@ -39,6 +39,10 @@ const TurfSchema = mongoose.Schema({
     type: String,
     require: [true, "Description required"],
   },
+  uploadImage:{
+    type:String,
+    default:false
+  }
 });
 
 module.exports = mongoose.model("Turf", TurfSchema);
