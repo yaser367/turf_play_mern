@@ -6,7 +6,7 @@ import styles from "../../styles/Username.module.css";
 import { useState } from "react";
 import { BiCurrentLocation } from "react-icons/bi";
 import { useFormik } from "formik";
-import { AddTurf } from "../../helper/helperTurf";
+import { AddTurf, getOneTurf } from "../../helper/helperTurf";
 import { selectCurrectAdmin } from "../../features/auth/authSlice";
 import { useSelector } from "react-redux";
 import toast, { Toaster } from "react-hot-toast";
@@ -14,10 +14,11 @@ import * as yup from "yup";
 import styled from "styled-components";
 import PreviewImage from "./PreviewImage";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import useFetch from "../../hooks/fetch.hook";
 
-const phoneRegExp =
-  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+const phoneRegExp = 
+/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 const validationSchema = yup.object({
   mobile: yup
@@ -40,7 +41,7 @@ const validationSchema = yup.object({
   // image: yup
   //   .mixed()
   //   .required("Image required")
-  //   .test("FILE_SIZE", "Too big!", (value) => value && value.size < 1024 * 1024)
+  //   .test("FILE_SIZE", "Too big!", ( value ) => value && value.size < 1024 * 1024)
   //   .test(
   //     "FILE_TYPE",
   //     "Invalid!",
@@ -54,9 +55,21 @@ const FieldError = styled.span`
   font-size: 11px;
 `;
 const AddTurfs = () => {
-
-  const Navigate = useNavigate()
+  const { id } = useParams();
+  const Navigate = useNavigate();
   const admin = useSelector(selectCurrectAdmin);
+  const [turf, setTurf] = useState("");
+  const [TurfName, setTurfName] = useState("");
+  useEffect(() => {
+    const getData = getOneTurf(id);
+    getData.then(async () => {
+      const turf = await getData;
+      setTurf(turf);
+    });
+  }, []);
+  // const [{isLoading, apiData, serverError}] = useFetch() 
+  // console.log(apiData)
+
   const formik = useFormik({
     initialValues: {
       TurfName: "",
@@ -70,7 +83,7 @@ const AddTurfs = () => {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       // const { image } = formik.values;
-     
+
       // console.log(res.data.url);
 
       values = Object.assign(values);
@@ -95,25 +108,25 @@ const AddTurfs = () => {
       registerPromise.then(async () => {
         const result = await registerPromise;
         const id = result._id;
-        Navigate(`/turfAdmin/uploadImg/${id}`)
+        Navigate(`/turfAdmin/uploadImg/${id}`);
       });
-    
     },
   });
+
 
   return (
     <div className="flex justify-center">
       <Toaster position="top-center" reverseOrder={false}></Toaster>
       <div className="w-full h-full pb-20 pt-1">
         <div>
-          <p className="text-center text-2xl font-bold pb-2">Add Turf</p>
+          <p className="text-center text-2xl font-bold pb-2">
+            {id ? "Edit Turf" : "Add Turf"}
+          </p>
           <div className="mx-auto w-[500px] pb-10 pt-5 shadow-lg bg-gray-500  z-10 rounded-md ">
             <form className="py-1" onSubmit={formik.handleSubmit}>
               <div className="textbox flex flex-col items-center gap-6">
-              
-
                 <p className="text-xl font-bold text-white">
-                  Enter your Turf Details
+                  {id ? "Edit your Turf details" : "Add your turf details"}
                 </p>
                 <div className="flex fl">
                   <div className="flex gap-3">
@@ -142,7 +155,6 @@ const AddTurfs = () => {
                   </FieldError>
                 </div>
 
-
                 <div className="flex gap-3">
                   <input
                     {...formik.getFieldProps("mobile")}
@@ -159,6 +171,7 @@ const AddTurfs = () => {
                       name="price"
                       type="number"
                       placeholder="Price for 1 hour"
+                      value={turf && turf.price}
                     />
                   </FieldContainer>
                 </div>

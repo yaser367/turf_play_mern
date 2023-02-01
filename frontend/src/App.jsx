@@ -33,6 +33,7 @@ import RequireAuth from './features/auth/RequireAuth'
 import TurfAdminmng from './pages/admin/TurfAdminmng'
 import ChangePasswordTurf from './components/TurfAdmin/ChangePasswordTurf'
 import UploadIMG from './pages/TurfAdmin/UploadIMG'
+import Otp from './components/Otp'
 
 
 function App() {
@@ -45,14 +46,15 @@ function App() {
         <Route path='/' element={<AuthorizeUser><H/></AuthorizeUser>}/>
         <Route path='/password' element={<ProtectRout><Password/></ProtectRout>}/>
         <Route path='/profile' element={<AuthorizeUser><ProfilePage/></AuthorizeUser>}/>
-        <Route path='/reset' element={<Reset/>}/>
+        <Route path='/reset/:id' element={<Reset/>}/>
         <Route path='/resend' element={<ChangePassword/>}/>
         <Route path='/register' element={<Register/>}/>
         <Route path='/services' element={<Service/>}/>
         <Route path='/booking' element={<Booking/>}/>
         <Route path='/turf' element={<OneTurfViewuser/>}/>
         <Route path='/book' element={<BookNowPage/>}/>
-
+        <Route path='/otp/:userName' element={<Otp/>}/>
+        
         {/* admin side */}
         <Route path='/admin/dashboard' element={<Dashboard />}/>
         <Route path='/admin/users' element={<UserList />}/>
@@ -74,8 +76,9 @@ function App() {
         <Route path='/turfAdmin/register' element={<Registration/>} />
         <Route path='/turfAdmin/login' element={<Login/>} />
         <Route path='/turfAdmin/login' element={<Login/>} />
-        <Route path='/turfAdmin/otp/:value' element={<OtpPage/>} />
+        <Route path='/turfAdmin/otp/:type/:value' element={<OtpPage/>} />
         <Route path='/turfAdmin/profile' element={<TurfAdminProfile/>} />
+        <Route path='/turfAdmin/editTurf/:id' element={<AddTurfs/>} />
         
       </Route>
       </Routes>

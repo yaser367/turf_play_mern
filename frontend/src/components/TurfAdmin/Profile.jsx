@@ -4,10 +4,14 @@ import { Tooltip } from "@mui/material";
 import { useState } from "react";
 import { BiCurrentLocation } from "react-icons/bi";
 import { useFormik } from "formik";
+import { useSelector } from 'react-redux';
+import { selectCurrectAdmin } from '../../features/auth/authSlice';
 
 const Profile = () => {
+  const user = useSelector(selectCurrectAdmin)
+
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center bg-white min-h-[700px]">
     <div className="w-full h-full pb-20 pt-1">
       <div>
         <p className="text-center text-2xl font-bold pb-2">Profile</p>
@@ -21,16 +25,14 @@ const Profile = () => {
                     <AiOutlineCloudUpload size={40} />
                   </div>
                 </label>
-              </Tooltip>
-              
+              </Tooltip>        
                 <input
                   className="focus:outline-none w-[200px] text-center rounded h-[30px]"
                   name="TurfName"
                   type="text"
                   placeholder=" Name"
+                  value={user.AdminName}
                 />
-         
-
               <input
                 id="upload"
                 hidden
@@ -38,7 +40,6 @@ const Profile = () => {
                 type="file"
                 placeholder="profile"
               />
-
                 <input
                   className="focus:outline-none w-[200px] text-center rounded h-[30px]"
                   name="mobile"

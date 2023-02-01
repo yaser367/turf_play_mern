@@ -6,6 +6,7 @@ axios.defaults.baseURL = 'http://localhost:8080'
 
 /** custom hook */
 export default function useFetch(query){
+    console.log(query)
    const [getdata, setData] = useState({isLoading:false, apiData:undefined,status:null, severError:null })
 
    useEffect(()=>{
@@ -15,7 +16,6 @@ export default function useFetch(query){
             setData(prev => ({...prev, isLoading:true}))
             const {username} = !query ? await getUsername() :'';
             const {data, status} = !query ? await axios.get(`api/user/${username}`) : await axios.get(`/api/${query}`)
-            
             if(status ===200){
             setData(prev => ({...prev, isLoading:false}))
             setData(prev => ({...prev, apiData:data,status:status}))
@@ -31,3 +31,4 @@ export default function useFetch(query){
    },[query]);
    return [getdata,setData]
 }
+

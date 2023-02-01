@@ -76,6 +76,7 @@ export async function getAllturf(admin) {
     } = await axios.get("/api/turfAdmin/getAllturf", {
       headers: { id: admin._id },
     });
+  
     return turfs;
   } catch (error) {
     console.log(error);
@@ -90,5 +91,14 @@ export async function getOneTurf(id) {
     return turfs;
   } catch (error) {
     console.log(error);
+  }
+}
+
+export async function deleteTurf(id){
+  try {
+    await axios.put(`/api/turfAdmin/deleteTurf/${id}`)
+  } catch (error) {
+    console.log(error);
+    
   }
 }

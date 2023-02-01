@@ -8,7 +8,6 @@ const otpSchema = mongoose.Schema({
   },
   userEmail: {
     type: String,
-    required: true,
     trim: true,
   },
   otp: {
@@ -18,8 +17,8 @@ const otpSchema = mongoose.Schema({
   },
   expiresAt: {
     type: Date,
-    required: true,
-  },
+ 
+  }
 });
 
 module.exports = mongoose.model("UserOTP", otpSchema);

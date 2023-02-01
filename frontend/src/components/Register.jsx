@@ -9,7 +9,7 @@ import { registerUser, generateOtp } from '../helper/helperUser'
 
 import styles from '../styles/Username.module.css'
 import { useState } from 'react'
-
+import Otp from './Otp'
 const Register = () => {
 
   const navigate = useNavigate();
@@ -19,20 +19,21 @@ const Register = () => {
       email:'',
       username:'',
       Password:'',
-      // confirmPassword:'',
     },
     validate:registrationValidate,
     validateOnBlur:false,
     validateOnChange:false,
     onSubmit: async values => {
     values = await Object.assign(values, {profile : file || ''})
+    const userName = values.username
     let registerPromise = registerUser(values)
     toast.promise(registerPromise, {
      loading:'Creating..',
      success:<b>Registred Successfully...!</b>,
      error:<b>Could not Register.</b>
     })
-    registerPromise.then(function(){navigate('/login')})
+
+    registerPromise.then(function(){navigate(`/otp/${userName}`)})
    }
  })
     
@@ -42,6 +43,7 @@ const Register = () => {
     setFile(base64)
   }
   return (
+
     <div className={styles.background_img}>
     <div className="container mx-auto">
       <Toaster position='top-center' reverseOrder={false}></Toaster>

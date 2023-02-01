@@ -51,7 +51,7 @@ const AdminRegistration = () => {
       });
       registerPromise.then(function () {
         
-       navigate(`/turfAdmin/otp/${values.email}`)
+       navigate(`/turfAdmin/otp/register/${values.email}`)
       });
       registerPromise.catch(function (error) {
         console.log(error);

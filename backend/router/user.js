@@ -10,11 +10,12 @@ router.post("/register", userControll.userRegistration);
 router.post("/registerMail",mailControll.registerMail)
 router.post("/authenticate",userControll.verifyUser,(req,res)=>res.end());
 router.post("/login",userControll.verifyUser,userControll.userLogin);
+router.post('/verifyuser',userControll.userOtpverify)
 
 /** Get methods */
 router.get("/user/:username",userControll.getUser);
-router.get("/generateOtp",userControll.verifyUser,userAuth.localVariables,userControll.generateOtp);
-router.get("/verifyOtp",userControll.verifyUser,userControll.verifyOtp);
+router.get("/generateOtp",userAuth.localVariables,userControll.generateOtp);
+router.get("/verifyOtp",userControll.verifyOtp);
 router.get("/createResetSession",userControll.createResetSession);
 
 /** Put methods */

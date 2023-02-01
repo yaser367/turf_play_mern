@@ -23,6 +23,6 @@ router.get('/getoneTurf/:id',turfController.oneTurf)
 
 /** Put routes */
 router.put('/updateTurf',turfController.uploadImage)
-
+router.put('/deleteTurf/:id',turfController.listOrUnlistTurf)
 
 module.exports = router;

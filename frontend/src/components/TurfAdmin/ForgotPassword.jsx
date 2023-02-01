@@ -38,13 +38,11 @@ const ForgotPassword = () => {
         loading: "verifying..",
         success: <b>Otp sent to your mail.verify it.</b>,
       });
-      forgotPromise.then(function () {Navigate(`/turfAdmin/otp/${values.email}`)});
+      forgotPromise.then(function () {Navigate(`/turfAdmin/otp/forgot/${values.email}`)});
     },
   });
-  const hidden =true;
   return (
     <div>
-      <Otp hidden={hidden}/>
       <Toaster position="top-center" reverseOrder={false}></Toaster>
       <div className="bg-green-300 w-full h-[715px] pt-40 relative">
         <div className=" absolute top-28 left-[20%] bg-white w-[300px] h-[350px] shadow-2xl">

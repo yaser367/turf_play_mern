@@ -18,9 +18,11 @@ app.disable('x-powered-by'); //less hackers know about our stack
 
 const userRout = require('./router/user');
 const TurfAdminRout = require('./router/turfAdmin')
+const adminRout = require('./router/admin')
 
 app.use('/api',userRout)
 app.use('/api/turfAdmin',TurfAdminRout)
+app.use('/api/admin',adminRout)
 
 const connect = require('./database/connect.js')
 

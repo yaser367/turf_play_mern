@@ -42,6 +42,14 @@ const TurfSchema = mongoose.Schema({
   uploadImage:{
     type:String,
     default:false
+  },
+  isListed:{
+    type:Boolean,
+    default:false
+  },
+  isAdminApproved:{
+    type:Boolean,
+    default:false
   }
 });
 

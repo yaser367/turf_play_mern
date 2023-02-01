@@ -29,6 +29,14 @@ const userSchema = mongoose.Schema({
     },
     profile:{
         type:String
+    },
+    isverified:{
+        type:Boolean,
+        default:false
+    },
+    isActive:{
+        type:Boolean,
+        default:true
     }
 })
 

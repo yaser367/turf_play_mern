@@ -7,6 +7,7 @@ import {
   setCredentials,
 } from "../../features/auth/authSlice";
 import { useLoginMutation } from "../../features/auth/authApiSlice";
+import { toast, Toaster } from "react-hot-toast";
 
 const AdminLogin = () => {
   const userRef = useRef();
@@ -46,10 +47,11 @@ const AdminLogin = () => {
       } else if (error.originalStatus?.status === 401) {
         setErrMsg("Unauthorized");
       } else {
-        setErrMsg("Login failed");
+        setErrMsg("Enter valid email and password");
       }
       console.log("first", error);
       // errRef.current.focus();
+      toast.error("Enter valid email and password")
     }
   };
 
@@ -58,6 +60,8 @@ const AdminLogin = () => {
 
   return (
     <div>
+      <Toaster position="top-center" reverseOrder={false}></Toaster>
+
       <div className="bg-green-300 w-full h-[715px] pt-40 relative">
         <div className=" absolute top-28 left-[20%] bg-white w-[300px] h-[350px] shadow-2xl">
           <p className="text-2xl text-gray-700 font-medium font-sans m-3 mt-5">
@@ -73,7 +77,7 @@ const AdminLogin = () => {
               onChange={handlEmailInput}
               required
               autoComplete="off"
-              className="focus:outline-none w-[200px] text-center rounded h-[30px] border-black border-r-4 bg-slate-100 m-4 mx-[42px]"
+              className="placeholder:text-red-400 focus:outline-none w-[200px] text-center rounded h-[30px] border-black border-r-4 bg-slate-300 m-4 mx-[42px]"
               placeholder="Enter Email address"
             />
             <input
@@ -81,7 +85,7 @@ const AdminLogin = () => {
               value={password}
               onChange={handlePasswordInput}
               required
-              className="focus:outline-none w-[200px] text-center rounded h-[30px] border-black border-r-4 bg-slate-100 m-4 mx-[42px]"
+              className="placeholder:text-red-400 focus:outline-none w-[200px] text-center rounded h-[30px] border-black border-r-4 bg-slate-300 m-4 mx-[42px] "
               placeholder="Enter Your Password"
             />
             <button

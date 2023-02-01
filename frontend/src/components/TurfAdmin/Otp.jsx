@@ -6,52 +6,56 @@ import { resent, verifyOtp } from "../../helper/helperTurf";
 import { toast, Toaster } from "react-hot-toast";
 import axios from "axios";
 
-const Otp = ({hidden}) => {
-  const navigate = useNavigate()
-  let { value } = useParams();
+const Otp = () => {
+  const navigate = useNavigate();
+  let { value, type } = useParams();
+  console.log(type);
+  const formik = useFormik({
+    initialValues: {
+      otp: "",
+    },
+    validateOnBlur: false,
+    onSubmit: async (values) => {
+      values = Object.assign(values);
+      const { otp } = values;
+      let otpPromise = verifyOtp(value, otp);
+      toast.promise(otpPromise, {
+        loading: "Verifying..",
+        success: <b>your otp verified</b>,
+        error: <b>Couldn't verify</b>,
+      });
 
-    const formik = useFormik({
-      initialValues: {
-        otp: "",
-      },
-      validateOnBlur: false,
-      onSubmit: async (values) => {
-        values = Object.assign(values);
-        const { otp } = values;
-        let otpPromise = verifyOtp(value, otp);
-        toast.promise(otpPromise, {
-          loading: "Verifying..",
-          success: <b>your otp verified</b>,
-          error: <b>Couldn't verify</b>,
+        otpPromise.then(function () {
+          if (type == 'register') {
+            navigate("/turfAdmin/login");
+          } else {
+            navigate(`/turfAdmin/changePassword/${value}`);
+          }
         });
-        
-        hidden ? otpPromise.then(function(){navigate('/turfAdmin/login')})
-        : otpPromise.then(function(){navigate(`/turfAdmin/changePassword/${value}`)})
-      },
-    });
-  
-  
+    
+    },
+  });
 
   const resentOtp = () => {
-    const otp = resent(value)
+    const otp = resent(value);
     toast.promise(otp, {
-      loading:"Sending...",
-      success:"Otp sent",
-      error:<b>Couldn't sent</b>
-    })
+      loading: "Sending...",
+      success: "Otp sent",
+      error: <b>Couldn't sent</b>,
+    });
   };
 
   return (
-    <div className={hidden?'hidden':''}>
-      <Toaster position='top-center' reverseOrder={false}></Toaster>
+    <div>
+      <Toaster position="top-center" reverseOrder={false}></Toaster>
       <div className="bg-green-300 w-full h-[715px] pt-40 relative">
         <div className="h-[150px] w-[70%] mx-auto  bg-red-500 pl-10 pt-5">
           {/* <p className="text-slate-400 text-2xl font-medium">Have an </p> */}
           {/* <p className="text-slate-400 text-2xl font-medium">account?</p> */}
           <p className="text-slate-400 mt-3 text-sm">didn't get otp yet?</p>
-           
+
           <button
-            onClick={resentOtp}            
+            onClick={resentOtp}
             class="mt-3 relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-gray-400 border-none "
           >
             <span class="relative px-7 py-2 transition-all ease-in duration-75 bg-red-500 dark:bg-gray-900 text-gray-400 rounded-md group-hover:bg-opacity-0">

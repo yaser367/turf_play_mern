@@ -50,7 +50,7 @@ const Password = () => {
     });
 
     sendPromise.then((OTP) => {
-      navigate("/reset");
+      navigate(`/reset/${username}`);
       console.log(OTP);
     });
   }
