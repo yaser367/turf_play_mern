@@ -19,3 +19,19 @@ export async function updateUserStatus(id) {
     return Promise.reject({ error });
   }
 }
+
+export async function getAllTurfAdmin(){
+    try {
+        const {data:{turfAdmin}} = await axios.get('/api/admin/turfAdmin')
+        return turfAdmin;
+    } catch (error) {
+    return Promise.reject({ error });   
+    }
+}
+export async function updateAdminStatus(id) {
+    try {
+      await axios.put(`/api/admin/blockTurfAdmin/${id}`)
+    } catch (error) {
+      return Promise.reject({ error });
+    }
+  }

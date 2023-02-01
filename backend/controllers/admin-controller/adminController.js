@@ -48,9 +48,29 @@ const blockUser = async (req, res) => {
   }
 };
 
+const blockTurfAdmin = async(req,res) =>{
+  try {
+    const {id} = req.params;
+    const activeUser = await TurfAdmin.findOne({ _id: id, isVerified: true });
+    if (activeUser) {
+      await TurfAdmin.findOneAndUpdate({ _id: id }, { $set: { isVerified: false } });
+      return res.status(200).send("user blocked");
+    }
+    const blockedUser = await TurfAdmin.findOne({ _id: id, isVerified: false });
+    if (blockedUser) {
+      await TurfAdmin.findOneAndUpdate({ _id: id }, { $set: { isVerified: true } });
+      return res.status(200).send("activated user");
+    }
+  } catch (error) {
+    return res.status(401).send(error);
+    
+  }
+}
+
 module.exports = {
   getUserData,
   getTurfAdminData,
   getTurfs,
-  blockUser
+  blockUser,
+  blockTurfAdmin
 };

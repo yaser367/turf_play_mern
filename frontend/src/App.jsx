@@ -34,7 +34,7 @@ import TurfAdminmng from './pages/admin/TurfAdminmng'
 import ChangePasswordTurf from './components/TurfAdmin/ChangePasswordTurf'
 import UploadIMG from './pages/TurfAdmin/UploadIMG'
 import Otp from './components/Otp'
-
+import AdminLogin from './components/admin/Login'
 
 function App() {
   return (
@@ -60,6 +60,7 @@ function App() {
         <Route path='/admin/users' element={<UserList />}/>
         <Route path='/admin/TurfAdminmng' element={<TurfAdminmng/>} />
         <Route path='/admin/requests' element={<Requests/>} />
+        <Route path='/admin/login' element={<AdminLogin/>} />
         
         //**Turf Admin */ 
         <Route path='/' element={<Layout />}>

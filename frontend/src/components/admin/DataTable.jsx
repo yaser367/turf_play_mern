@@ -6,7 +6,7 @@ import { toast, Toaster } from "react-hot-toast";
 import Modal from "../TurfAdmin/Modal";
 import { useParams } from "react-router-dom";
 
-const DataTable = ({message,modal,setModal,handleUpdate,id,modalHeader,users,showModal,file}) => {
+const DataTable = ({message,modal,setModal,handleUpdate,id,modalHeader,users,showModal,file,turfAdmin}) => {
 
   return (
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -182,10 +182,10 @@ const DataTable = ({message,modal,setModal,handleUpdate,id,modalHeader,users,sho
                   <div class="flex items-center">
                     <div
                       class={`h-2.5 w-2.5 rounded-full ${
-                        user.isActive ? `bg-green-500` : `bg-red-500`
+                        !turfAdmin? user.isActive ? `bg-green-500` : `bg-red-500`:user.isVerified?`bg-green-500`:`bg-red-500`
                       } mr-2`}
                     ></div>{" "}
-                    {user.isActive ? "Active" : "Blocked"}
+                    {!turfAdmin? user.isActive ? "Active" : "Blocked":user.isVerified?"Active":"Blocked"}
                   </div>
                 </td>
                 <td class="px-6 py-4">
@@ -195,7 +195,7 @@ const DataTable = ({message,modal,setModal,handleUpdate,id,modalHeader,users,sho
                     }}
                     class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                   >
-                    {user.isActive ? "Block" : "Un Block"}
+                    {!turfAdmin? user.isActive ? "Block" : "Un block":user.isVerified?"Block":"Un block"}
                   </a>
                 </td>
               </tr>

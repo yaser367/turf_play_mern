@@ -4,10 +4,11 @@ import Sidebar from '../../components/admin/Sidebar'
 import DataTable from '../../components/admin/DataTable'
 import { getAllUsers, updateUserStatus } from '../../helper/helperAdmin'
 import convertToBase64 from '../../helper/convert'
+import { toast } from 'react-hot-toast'
 
 const UserList = () => {
   const [users, setUser] = useState([]);
-  const [file, setFile] = useState("");
+  const [file, setFile] = useState([]);
   const [id, setId] = useState();
   const [modal, setModal] = useState(false);
   const [message, setMessage] = useState("");
@@ -50,7 +51,7 @@ const UserList = () => {
           <Sidebar/>
           <div style={{flex:'6'}} className='p-5'>
             <p className='font-bold text-2xl text-gray-700 ml-4'>User Management</p>
-            <DataTable message={message} modal={modal} setModal={setModal} handle={handleUpdate} id={id}  Header={modalHeader} users={users} showModal={showModal} file={file} />
+            <DataTable message={message} modal={modal} setModal={setModal} handleUpdate={handleUpdate} id={id}  Header={modalHeader} users={users} showModal={showModal} file={file} />
           </div>
 
     </div>
