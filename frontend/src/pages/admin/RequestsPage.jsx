@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Requests from '../../components/admin/Requests'
 import Sidebar from '../../components/admin/Sidebar'
 import './Dashboard.scss'
 
 const RequestsPage = () => {
+  const token = localStorage.getItem('adminToken')
+  const navigate = useNavigate()
+  useEffect(()=>{
+    if(!token){
+      navigate('/admin/login')
+    }
+  },[])
   return (
     <div className='bg-white flex'>
     <Sidebar/>

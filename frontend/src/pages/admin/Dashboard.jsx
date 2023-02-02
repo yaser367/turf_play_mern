@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './Dashboard.scss'
 import Sidebar from '../../components/admin/Sidebar'
 import Widget from '../../components/admin/Widget'
 import Featured from '../../components/admin/Featured'
 import Chart from '../../components/admin/Chart'
+import { useNavigate } from 'react-router-dom'
 
 const Dashboard = () => {
+  const token = localStorage.getItem('adminToken')
+  const navigate = useNavigate()
+  useEffect(()=>{
+    if(!token){
+      navigate('/admin/login')
+    }
+  },[])
   return (
     <div className='dash'>
         <Sidebar/>

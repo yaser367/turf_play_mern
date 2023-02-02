@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import './Dashboard.scss'
-import Sidebar from '../../components/admin/Sidebar'
-import DataTable from '../../components/admin/DataTable'
-import { getAllUsers, updateUserStatus } from '../../helper/helperAdmin'
-import convertToBase64 from '../../helper/convert'
-import { toast } from 'react-hot-toast'
+import React, { useEffect, useState } from "react";
+import "./Dashboard.scss";
+import Sidebar from "../../components/admin/Sidebar";
+import DataTable from "../../components/admin/DataTable";
+import { getAllUsers, updateUserStatus } from "../../helper/helperAdmin";
+import convertToBase64 from "../../helper/convert";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const UserList = () => {
   const [users, setUser] = useState([]);
@@ -14,6 +15,14 @@ const UserList = () => {
   const [message, setMessage] = useState("");
   const [modalHeader, setModalHeader] = useState("");
   
+  const token = localStorage.getItem("adminToken");
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!token) {
+      navigate("/admin/login");
+    }
+  }, []);
+
   const handleUpdate = (id) => {
     const updatePromise = updateUserStatus(id);
     toast.promise(updatePromise, {
@@ -47,15 +56,24 @@ const UserList = () => {
     fetchData();
   }, []);
   return (
-    <div className='bg-white flex'>
-          <Sidebar/>
-          <div style={{flex:'6'}} className='p-5'>
-            <p className='font-bold text-2xl text-gray-700 ml-4'>User Management</p>
-            <DataTable message={message} modal={modal} setModal={setModal} handleUpdate={handleUpdate} id={id}  Header={modalHeader} users={users} showModal={showModal} file={file} />
-          </div>
-
+    <div className="bg-white flex">
+      <Sidebar />
+      <div style={{ flex: "6" }} className="p-5">
+        <p className="font-bold text-2xl text-gray-700 ml-4">User Management</p>
+        <DataTable
+          message={message}
+          modal={modal}
+          setModal={setModal}
+          handleUpdate={handleUpdate}
+          id={id}
+          Header={modalHeader}
+          users={users}
+          showModal={showModal}
+          file={file}
+        />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default UserList
+export default UserList;

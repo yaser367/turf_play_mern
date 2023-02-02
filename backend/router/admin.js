@@ -3,6 +3,8 @@ const router = express();
 
 const adminController = require("../controllers/admin-controller/adminController");
 const adminAuth = require("../controllers/admin-controller/adminAuth")
+const auth = require('../middleware/auth')
+
 /**Get routes */
 router.get("/users", adminController.getUserData);
 router.get("/turfAdmin", adminController.getTurfAdminData);

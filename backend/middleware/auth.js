@@ -21,6 +21,25 @@ const localVariables = (req,res,next)=>{
 }
 
 
+const validateAdminToken = async(req,res,next)=>{
+    if(req.headers["x-custom-header"]){
+        try {
+            const admin = req.headers["x-custom-header"]
+            const decode = jwt.verify(admin,process.env.process.env.JWT_ADMIN_SECRET)
+            const type = decode.type;
+            if(type === "admin"){
+                next()
+            }
+        } catch (error) {
+            return res.status(400).send({ error: "authentication failed" });  
+        }
+    }else{
+        return res.status(400).send({ error: "authentication failed" });  
+
+    }
+}
+
+
 
 
 
@@ -28,6 +47,6 @@ const localVariables = (req,res,next)=>{
 module.exports ={
     isAuth,
     localVariables,
-    
+    validateAdminToken
     
 }

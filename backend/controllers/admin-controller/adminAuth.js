@@ -1,11 +1,12 @@
 const bcrypt = require("bcrypt");
 const Admin = require("../../models/Admin");
+const jwt = require('jsonwebtoken')
 
 const login = async (req, res) => {
   try {
-    const admin = await Admin.find();
+    const admin = await Admin.find({});
     if (admin.length == 0) {
-      const hashedPassword = bcrypt.hash(process.env.ADMIN_PASSWORD, 12);
+      const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD, 12);
       const newAdmin = new Admin({
         userName:process.env.ADMIN_USERNAME,
         password: hashedPassword,
@@ -14,11 +15,12 @@ const login = async (req, res) => {
     }
 
     const { userName, password } = req.body;
+    console.log(userName,password)
     const existAdmin = await Admin.findOne({ userName });
     if (!existAdmin) {
       return res.status(400).send({ error: "Not found" });
     } else {
-      const isMatch = bcrypt.compare(password, existAdmin.password);
+      const isMatch = await bcrypt.compare(password, existAdmin.password);
       if (!isMatch) {
         return res.status(400).send({ error: "Password not match" });
       } else {

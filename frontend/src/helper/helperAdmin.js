@@ -35,3 +35,12 @@ export async function updateAdminStatus(id) {
       return Promise.reject({ error });
     }
   }
+
+export async function adminLogin (credentials){
+  try {
+    const {data:{token}} = await axios.post('/api/admin/login',credentials)
+    return token
+  } catch (error) {
+    return Promise.reject({ error });
+  }
+}
