@@ -3,21 +3,36 @@ const TurfAdmin = require("../../models/TurfAdmin");
 
 const addTurf = async (req, res) => {
   try {
-    const { _id, TurfName, mobile, gameTypes, groundType, price, Description } =
-      req.body;
-    const user = await TurfAdmin.find({ _id });
+    const {
+      TurfName,
+      mobile,
+      fives,
+      sevens,
+      elevens,
+      cricket,
+      tennis,
+      other,
+      price,
+      Description,
+    } = req.body.values;
+    const { id } = req.body;
+    const user = await TurfAdmin.find({ _id: id });
 
     if (!user) {
       return res.status(400).send({ error: "User Not Found" });
     } else {
       const turf = new Turf({
-        TurfAdminId: _id,
+        TurfAdminId: id,
         TurfName,
         mobile,
-        gameTypes,
-        groundType,
         price,
         Description,
+        fives,
+        sevens,
+        elevens,
+        cricket,
+        tennis,
+        other,
       });
       await turf
         .save()
@@ -54,6 +69,21 @@ const uploadImage = async (req, res) => {
   }
 };
 
+const addLocation = async (req, res) => {
+  try {
+    const { id, lat, long } = req.body;
+    const turf = await Turf.findOne({ _id: id });
+    if (!turf) {
+      return res.status(400).send({ error: "Turf Not Found" });
+    } else {
+      const tur = await Turf.updateOne({ _id: id }, { $set: { lat, long } });
+      res.status(201).send({ message: "Location added successfully" });
+    }
+  } catch (error) {
+    return res.status(401).send(error);
+  }
+};
+
 const getAllturf = async (req, res) => {
   try {
     const id = req.headers.id;
@@ -69,7 +99,8 @@ const oneTurf = async (req, res) => {
     const { id } = req.params;
     console.log(id);
     const turfs = await Turf.findOne({ _id: id });
-    res.status(200).send({ turfs });
+    return res.status(200).send(turfs);
+    // res.status(200).send({ turfs });
   } catch (error) {
     return res.status(401).send(error);
   }
@@ -77,6 +108,42 @@ const oneTurf = async (req, res) => {
 
 const editTurf = async (req, res) => {
   try {
+    const {
+      TurfName,
+      mobile,
+      price,
+      Description,
+      fives,
+      sevens,
+      elevens,
+      cricket,
+      tennis,
+      other,
+    } = req.body.values
+    const {id} = req.body;
+    const turf = await Turf.findOne({ _id: id });
+    if (!turf) {
+      return res.status(400).send({ error: "Turf Not Found" });
+    } else {
+      await Turf.findOneAndUpdate(
+        { _id: id },
+        {
+          $set: {
+            TurfName,
+            mobile,
+            price,
+            Description,
+            fives,
+            sevens,
+            elevens,
+            cricket,
+            tennis,
+            other,
+          },
+        }
+      );
+    }
+    return res.status(200).send({message:"Successfully updated"}) 
   } catch (error) {
     return res.status(401).send(error);
   }
@@ -105,4 +172,5 @@ module.exports = {
   oneTurf,
   editTurf,
   listOrUnlistTurf,
+  addLocation,
 };

@@ -9,27 +9,11 @@ export async function RegisterAdmin(credentials) {
   }
 }
 
-export async function AddTurf({
-  TurfName,
-  mobile,
-  gameTypes,
-  groundType,
-  price,
-  Description,
-  _id,
-}) {
+export async function AddTr(values, id) {
   try {
     const {
       data: { result },
-    } = await axios.post("/api/turfAdmin/addTurf", {
-      TurfName,
-      mobile,
-      gameTypes,
-      groundType,
-      price,
-      Description,
-      _id,
-    });
+    } = await axios.post("/api/turfAdmin/addTurf", { values, id });
     return result;
   } catch (error) {
     return Promise.reject({ error });
@@ -76,7 +60,7 @@ export async function getAllturf(admin) {
     } = await axios.get("/api/turfAdmin/getAllturf", {
       headers: { id: admin._id },
     });
-  
+
     return turfs;
   } catch (error) {
     console.log(error);
@@ -94,11 +78,52 @@ export async function getOneTurf(id) {
   }
 }
 
-export async function deleteTurf(id){
+export async function deleteTurf(id) {
   try {
-    await axios.put(`/api/turfAdmin/deleteTurf/${id}`)
+    await axios.put(`/api/turfAdmin/deleteTurf/${id}`);
   } catch (error) {
     console.log(error);
-    
+  }
+}
+
+export async function addLocation({ id, lat, long }) {
+  try {
+    const { status } = await axios.put("/api/turfAdmin/addLocation", {
+      id,
+      lat,
+      long,
+    });
+    return status;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function updateProfile(credentials) {
+  try {
+    await axios.put("/api/turfAdmin/updateProfile", credentials);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getTurfAdmin(id) {
+  try {
+    console.log(id);
+    const {
+      data: { user },
+    } = await axios.get(`/api/turfAdmin/getTurfAdmin/${id}`);
+    return user;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function editTurf(values, id) {
+  try {
+    console.log("hellp")
+    await axios.put('api/turfAdmin/editTurf',{values,id})
+  } catch (error) {
+    console.log(error);
   }
 }

@@ -13,6 +13,12 @@ const turfAdminSchema = mongoose.Schema({
         type:String,
         require
     },
+    mobile:{
+        type:String
+    },
+    address:{
+        type:String
+    },
     isVerified:{
         type:Boolean,
         default:false

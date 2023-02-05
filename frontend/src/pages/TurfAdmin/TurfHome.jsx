@@ -4,6 +4,7 @@ import Nav from '../../components/TurfAdmin/Nav'
 // import Modal from '../../components/TurfAdmin/Modal'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import Location from '../../components/Location/AddLocation'
 // import { selectCurrectToken, selectCurrectUser } from '../../features/auth/authSlice'
 
 const TurfHome = () => {

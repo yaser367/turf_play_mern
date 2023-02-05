@@ -3,7 +3,6 @@ const bycrypt = require("bcrypt");
 const OtpData = require("../../models/otp");
 const { sendOTPVerificationMail } = require("../../utils/otpMailer");
 
-
 /** TurfAdmin Registration */
 
 const register = async (req, res) => {
@@ -107,7 +106,36 @@ const resetPassword = async (req, res) => {
   }
 };
 
+const updateProfile = async (req, res) => {
+  try {
+    const { AdminName, email, address, mobile, id } = req.body;
 
+    const s = await TurfAdmin.updateOne(
+      { _id: id },
+      {
+        $set: {
+          AdminName,
+          email,
+          address,
+          mobile,
+        },
+      }
+    );
+    return res.status(200).send({ message: "Profile updated" });
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+};
+
+const getTufAdmin = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await TurfAdmin.findOne({ _id: id });
+    return res.status(200).send({ user });
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+};
 
 module.exports = {
   register,
@@ -115,4 +143,6 @@ module.exports = {
   forgotPassword,
   verifyOTP,
   resendOtp,
+  updateProfile,
+  getTufAdmin
 };

@@ -18,22 +18,20 @@ import { useFormik } from "formik";
 import Modal from "./Modal";
 
 const Home = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const admin = useSelector(selectCurrectAdmin);
   const [turf, setTurf] = useState([]);
   const [id, setId] = useState(null);
-  const [modalHeader, setModalHeader] = useState('')
+  const [modalHeader, setModalHeader] = useState("");
 
   const [deleteMessage, setDeleteMessage] = useState(null);
-  const [modal , setModal] = useState(false)
-
+  const [modal, setModal] = useState(false);
 
   const showDeleteModal = (Id) => {
-
     setId(Id);
-    setModal(!modal)
+    setModal(!modal);
     setDeleteMessage("Are you sure ?");
-    setModalHeader("Listing or Unlisting Turf")
+    setModalHeader("Listing or Unlisting Turf");
   };
 
   const handleDelete = (Id) => {
@@ -43,15 +41,14 @@ const Home = () => {
       success: <b>Deleted Successfully.</b>,
       error: <b>Couldn't delete.</b>,
     });
-    deletePromise.then(()=>{
-      setModal(!modal)
+    deletePromise.then(() => {
+      setModal(!modal);
       const getDetails = getAllturf(admin);
       getDetails.then(async () => {
         const turfs = await getDetails;
         setTurf(turfs);
-        
       });
-    })
+    });
   };
 
   useEffect(() => {
@@ -59,14 +56,19 @@ const Home = () => {
     getDetails.then(async () => {
       const turfs = await getDetails;
       setTurf(turfs);
-      
     });
   }, []);
 
- 
   return (
     <div className="pb-48 bg-white min-h-[800px] ">
-     <Modal message={deleteMessage}  modal={modal} setModal={setModal} handle={handleDelete} id={id} Header={modalHeader} />
+      <Modal
+        message={deleteMessage}
+        modal={modal}
+        setModal={setModal}
+        handle={handleDelete}
+        id={id}
+        Header={modalHeader}
+      />
       <p className="text-2xl font-bold text-center text-gray-500">Your Turfs</p>
       <div className="mt-7 flex justify-end max-w-[1440px]"></div>
       <div class="grid md:grid-cols-8 pt-10 ">
@@ -96,12 +98,14 @@ const Home = () => {
                   {turf.TurfName}
                 </p>
                 <div className="flex justify-end mt-4">
-                  <Link to={`/turfAdmin/editTurf/${turf._id}`}><button
-                    type="button"
-                    class="text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center mr-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900"
-                  >
-                    <BiEdit />
-                  </button></Link>
+                  <Link to={`/turfAdmin/editTurf/${turf._id}`}>
+                    <button
+                      type="button"
+                      class="text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center mr-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900"
+                    >
+                      <BiEdit />
+                    </button>
+                  </Link>
                   <button
                     onClick={function (id) {
                       showDeleteModal(turf._id);
@@ -109,7 +113,7 @@ const Home = () => {
                     type="button"
                     class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-1 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
                   >
-                    {turf&& turf.isListed ? 'UnList' : 'List' }
+                    {turf && turf.isListed ? "UnList" : "List"}
                   </button>
                 </div>
               </div>

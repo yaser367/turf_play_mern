@@ -50,17 +50,15 @@ const AdminRegistration = () => {
         error: <b>Couldn't Register</b>,
       });
       registerPromise.then(function () {
-        
-       navigate(`/turfAdmin/otp/register/${values.email}`)
+        navigate(`/turfAdmin/otp/register/${values.email}`);
       });
       registerPromise.catch(function (error) {
         console.log(error);
       });
-
     },
   });
   // const hidden = "hidden";
-  const [val,setVal] = useState('')
+  const [val, setVal] = useState("");
   return (
     <div>
       {/* <Otp hidden={hidden} /> */}

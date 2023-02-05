@@ -19,18 +19,27 @@ const TurfSchema = mongoose.Schema({
       type: String,
     },
   ],
-  gameTypes: [
-    {
-      type: String,
-      require: [true, "Give available game type"],
-    },
-  ],
-  groundType: [
-    {
-      type: String,
-      require: [true, "Select your ground type"],
-    },
-  ],
+  fives: {
+    type: String,
+  },
+  sevens: {
+    type: String,
+  },
+  elevens: {
+    type: String,
+  },
+  tennis: {
+    type: String,
+  },
+  cricket: {
+    type: String,
+  },
+  other: {
+    type: String,
+  },
+  otherCount: {
+    type: String,
+  },
   price: {
     type: Number,
     require: [true, "Price required"],
@@ -39,18 +48,22 @@ const TurfSchema = mongoose.Schema({
     type: String,
     require: [true, "Description required"],
   },
-  uploadImage:{
-    type:String,
-    default:false
+  uploadImage: {
+    type: String,
+    default: false,
   },
-  isListed:{
-    type:Boolean,
-    default:false
+  isListed: {
+    type: Boolean,
+    default: false,
   },
-  isAdminApproved:{
-    type:Boolean,
-    default:false
-  }
+  isAdminApproved: {
+    type: Boolean,
+    default: false,
+  },
+  lat: {
+    type: Number,
+  },
+  long: { type: Number },
 });
 
 module.exports = mongoose.model("Turf", TurfSchema);

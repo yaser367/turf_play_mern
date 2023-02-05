@@ -10,10 +10,11 @@ const baseStyle = {
   borderRadius: 2,
   borderColor: "#eeeeee",
   borderStyle: "dashed",
-  backgroundColor: "#374151",
-  color: "#bdbdbd",
+  backgroundColor: "#7fde65",
+  color: "#000",
   transition: "border .3s ease-in-out",
-  width: "90%",
+  width: "80%",
+  cursor:"pointer"
 };
 
 const activeStyle = {

@@ -20,9 +20,13 @@ router.post('/imgUpload',turfController.uploadImage)
 /** Get routes */
 router.get('/getAllturf',turfController.getAllturf)
 router.get('/getoneTurf/:id',turfController.oneTurf)
+router.get('/getTurfAdmin/:id',TurfAdminControll.getTufAdmin)
 
 /** Put routes */
 router.put('/updateTurf',turfController.uploadImage)
+router.put('/addLocation',turfController.addLocation)
 router.put('/deleteTurf/:id',turfController.listOrUnlistTurf)
+router.put('/updateProfile',TurfAdminControll.updateProfile)
+router.put('/editTurf',turfController.editTurf)
 
 module.exports = router;

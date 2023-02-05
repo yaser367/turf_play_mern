@@ -75,7 +75,7 @@ const Oneturf = () => {
             </p>
             <p className="font-bold text-2xl text-center">Available Sports</p>
             <div className="flex mt-3 ">
-              {sports &&
+              {/* {sports &&
                 sports.map((sport) => {
                   return (
                     <div className="mx-10 w-[100px] h-[100px] ">
@@ -87,13 +87,13 @@ const Oneturf = () => {
                       <p className="text-center font-bold">{sport}</p>
                     </div>
                   );
-                })}
+                })} */}
              
             </div>
             <p className="font-bold text-2xl text-center mt-10">
               Available Ground
             </p>
-            {data.groundType &&
+            {/* {data.groundType &&
               data.groundType.map((groundType) => {
                 return (
                   <div className="mx-10 w-[100px] h-[100px] ">
@@ -105,7 +105,7 @@ const Oneturf = () => {
                     <p className="text-center font-bold">{groundType}</p>
                   </div>
                 );
-              })}
+              })} */}
           </div>
         </div>
       </div>

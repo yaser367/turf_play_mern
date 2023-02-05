@@ -6,7 +6,6 @@ axios.defaults.baseURL = 'http://localhost:8080'
 
 /** custom hook */
 export default function useFetch(query){
-    console.log(query)
    const [getdata, setData] = useState({isLoading:false, apiData:undefined,status:null, severError:null })
 
    useEffect(()=>{

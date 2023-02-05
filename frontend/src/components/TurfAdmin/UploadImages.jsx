@@ -7,9 +7,9 @@ import DropzoneComponent from "./DropzoneComponent";
 import { toast, Toaster } from "react-hot-toast";
 import PreviewImage from "./PreviewImage";
 import { useNavigate, useParams } from "react-router-dom";
-
+import {AiFillCaretDown} from 'react-icons/ai'
 const UploadImages = () => {
-  const Navigate = useNavigate()
+  const Navigate = useNavigate();
   const { id } = useParams();
   const [image, setImage] = useState([]);
   let urls = [];
@@ -41,7 +41,7 @@ const UploadImages = () => {
         });
     });
     axios.all(uploaders).then(async () => {
-     const upload = await axios.post(
+      const upload = await axios.post(
         "http://localhost:8080/api/turfAdmin/imgUpload",
         { urls, id }
       );
@@ -51,9 +51,8 @@ const UploadImages = () => {
         error: <b>Can't upload</b>,
       });
     });
-    Navigate('/turfAdmin/home')
+    Navigate(`/turfAdmin/addlocation/${id}`);
   };
-  
 
   return (
     <div className="">
@@ -61,7 +60,8 @@ const UploadImages = () => {
       <p className="text-center text-xl font-bold">
         Please Upload your turf Images
       </p>
-      <p className="text-center mt-10">click here to Upload</p>
+      <p className="text-center mt-10 ">Click here to Upload</p>
+      <div className="flex justify-center"><AiFillCaretDown/></div>
       <form onSubmit={imageHandler}>
         <div className="flex justify-center">
           {/* <Tooltip title="Upload Turf Images">
