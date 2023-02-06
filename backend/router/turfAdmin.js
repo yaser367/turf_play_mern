@@ -16,6 +16,7 @@ router.post('/forgotPassword',TurfAdminControll.forgotPassword)
 router.post('/resetPassword',TurfAdminControll.resetPassword)
 router.post('/addTurf',turfController.addTurf)
 router.post('/imgUpload',turfController.uploadImage)
+router.post('/docUpload',turfController.uploadDoc)
 
 /** Get routes */
 router.get('/getAllturf',turfController.getAllturf)

@@ -8,12 +8,17 @@ const auth = require('../middleware/auth')
 /**Get routes */
 router.get("/users", adminController.getUserData);
 router.get("/turfAdmin", adminController.getTurfAdminData);
+router.get('/getTurfRequest',adminController.getTurfRequest)
 
 /** Put routes */
 router.put("/blockUser/:id", adminController.blockUser);
 router.put("/blockTurfAdmin/:id",adminController.blockTurfAdmin)
+router.put("/acceptReq",adminController.acceptRequest)
 
 /** Post routes */
 router.post("/login",adminAuth.login)
+
+/** Delete routes */
+router.delete('/rejectReq',adminController.rejectRequest)
 
 module.exports = router;

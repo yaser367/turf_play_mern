@@ -49,7 +49,7 @@ const TurfSchema = mongoose.Schema({
     require: [true, "Description required"],
   },
   uploadImage: {
-    type: String,
+    type: Boolean,
     default: false,
   },
   isListed: {
@@ -64,6 +64,15 @@ const TurfSchema = mongoose.Schema({
     type: Number,
   },
   long: { type: Number },
+  DocUrl: [
+    {
+      type: String,
+    },
+  ],
+  uploadDoc: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 module.exports = mongoose.model("Turf", TurfSchema);

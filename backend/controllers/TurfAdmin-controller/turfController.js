@@ -97,10 +97,8 @@ const getAllturf = async (req, res) => {
 const oneTurf = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id);
     const turfs = await Turf.findOne({ _id: id });
     return res.status(200).send(turfs);
-    // res.status(200).send({ turfs });
   } catch (error) {
     return res.status(401).send(error);
   }
@@ -119,8 +117,8 @@ const editTurf = async (req, res) => {
       cricket,
       tennis,
       other,
-    } = req.body.values
-    const {id} = req.body;
+    } = req.body.values;
+    const { id } = req.body;
     const turf = await Turf.findOne({ _id: id });
     if (!turf) {
       return res.status(400).send({ error: "Turf Not Found" });
@@ -143,7 +141,7 @@ const editTurf = async (req, res) => {
         }
       );
     }
-    return res.status(200).send({message:"Successfully updated"}) 
+    return res.status(200).send({ message: "Successfully updated" });
   } catch (error) {
     return res.status(401).send(error);
   }
@@ -165,6 +163,31 @@ const listOrUnlistTurf = async (req, res) => {
   }
 };
 
+const uploadDoc = async (req, res) => {
+  try {
+    try {
+      const { id, urls } = req.body;
+
+      const turf = await Turf.findOne({ _id: id });
+      if (!turf) {
+        return res.status(400).send({ error: "Turf Not Found" });
+      } else {
+        const tur = await Turf.updateOne(
+          { _id: id },
+          { $set: { DocUrl: urls, uploadDoc: true } }
+        );
+        res.status(201).send({ message: "Document Uploaded successfully" });
+      }
+    } catch (error) {
+      return res.status(401).send(error);
+    }
+  } catch (error) {
+    return res.status(401).send(error);
+  }
+};
+
+
+
 module.exports = {
   addTurf,
   uploadImage,
@@ -173,4 +196,5 @@ module.exports = {
   editTurf,
   listOrUnlistTurf,
   addLocation,
+  uploadDoc,
 };

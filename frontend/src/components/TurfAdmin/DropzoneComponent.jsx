@@ -29,7 +29,7 @@ const rejectStyle = {
   borderColor: "#ff1744",
 };
 
-function DropzoneComponent({ image, SetImage }) {
+function DropzoneComponent({ image, SetImage, bg }) {
   const onDrop = useCallback((acceptedFiles) => {
     
     SetImage((prevState) => [...prevState, ...acceptedFiles]);
@@ -48,7 +48,7 @@ function DropzoneComponent({ image, SetImage }) {
 
   const style = useMemo(
     () => ({
-      ...baseStyle,
+      ...baseStyle,backgroundColor:`${bg}`,
       ...(isDragActive ? activeStyle : {}),
       ...(isDragAccept ? acceptStyle : {}),
       ...(isDragReject ? rejectStyle : {}),

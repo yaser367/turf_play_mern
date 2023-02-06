@@ -8,7 +8,7 @@ import { toast, Toaster } from "react-hot-toast";
 import PreviewImage from "./PreviewImage";
 import { useNavigate, useParams } from "react-router-dom";
 import {AiFillCaretDown} from 'react-icons/ai'
-const UploadImages = () => {
+const UploadImages = ({url,endpoint,button,heading,bg}) => {
   const Navigate = useNavigate();
   const { id } = useParams();
   const [image, setImage] = useState([]);
@@ -38,27 +38,31 @@ const UploadImages = () => {
           const data = response.data;
           const url = data.url;
           urls.push(url);
-        });
+        })
+        .catch((e)=>{
+          toast.error('Please select')
+        })
     });
     axios.all(uploaders).then(async () => {
       const upload = await axios.post(
-        "http://localhost:8080/api/turfAdmin/imgUpload",
+        `http://localhost:8080/api/turfAdmin/${url}`,
         { urls, id }
       );
-      toast.promise(upload, {
-        loading: "Uploading...",
-        success: <b>Successfully Uploaded</b>,
-        error: <b>Can't upload</b>,
-      });
+      // toast.promise(upload, {
+      //   loading: "Uploading...",
+      //   success: <b>Successfully Uploaded</b>,
+      //   error: <b>Can't upload</b>,
+      // });
+      toast.success('Uploaded')
     });
-    Navigate(`/turfAdmin/addlocation/${id}`);
+    Navigate(`/turfAdmin/${endpoint}/${id}`);
   };
 
   return (
     <div className="">
       <Toaster position="top-center" reverseOrder={false}></Toaster>
       <p className="text-center text-xl font-bold">
-        Please Upload your turf Images
+        {heading}
       </p>
       <p className="text-center mt-10 ">Click here to Upload</p>
       <div className="flex justify-center"><AiFillCaretDown/></div>
@@ -72,7 +76,7 @@ const UploadImages = () => {
           </label>
         </Tooltip> */}
           {/* <input className="w-40 h-10" type="file" multiple onChange={(e)=>e.target.files[0]} /> */}
-          <DropzoneComponent image={image} SetImage={setImage} />
+          <DropzoneComponent image={image} SetImage={setImage} bg={bg} />
           {/* <input type="te" className="bg-black " placeholder="hell" /> */}
         </div>
         <div className="h-[540px] w-full mt-5 bg-white">
@@ -95,7 +99,7 @@ const UploadImages = () => {
               type="submit"
               class=" bg-transparent hover:bg-indigo-600 text-indigo-600  hover:text-white py-1 px-4 border border-indigo-600  hover:border-transparent rounded"
             >
-              Uplaod
+              {button}
             </button>
           </div>
         </div>

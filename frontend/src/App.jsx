@@ -36,6 +36,7 @@ import UploadIMG from "./pages/TurfAdmin/UploadIMG";
 import Otp from "./components/Otp";
 import AdminLogin from "./components/admin/Login";
 import AddLocation from "./pages/TurfAdmin/AddLocation";
+import UploadDoc from "./pages/TurfAdmin/UploadDoc";
 
 function App() {
   return (
@@ -110,6 +111,7 @@ function App() {
         <Route path="/turfAdmin/turf/:id" element={<OneTurf />} />
         <Route path="/turfAdmin/addTurf" element={<AddTurfs />} />
         <Route path="/turfAdmin/uploadImg/:id" element={<UploadIMG />} />
+        <Route path="/turfAdmin/uploadDoc/:id" element={<UploadDoc />} />
         <Route path="/turfAdmin/addlocation/:id" element={<AddLocation />} />
         <Route path="/turfAdmin/register" element={<Registration />} />
         <Route path="/turfAdmin/login" element={<Login />} />
