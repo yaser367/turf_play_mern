@@ -1,6 +1,6 @@
 const Turf = require("../../models/Turf");
 const TurfAdmin = require("../../models/TurfAdmin");
-
+const Slot = require("../../models/TimeSlot");
 const addTurf = async (req, res) => {
   try {
     const {
@@ -12,6 +12,7 @@ const addTurf = async (req, res) => {
       cricket,
       tennis,
       other,
+      otherCount,
       price,
       Description,
     } = req.body.values;
@@ -33,6 +34,7 @@ const addTurf = async (req, res) => {
         cricket,
         tennis,
         other,
+        otherCount,
       });
       await turf
         .save()
@@ -46,6 +48,7 @@ const addTurf = async (req, res) => {
         .catch((error) => res.status(500).send({ error }));
     }
   } catch (error) {
+    console.log(error);
     return res.status(401).send(error);
   }
 };
@@ -118,6 +121,7 @@ const editTurf = async (req, res) => {
       tennis,
       other,
     } = req.body.values;
+
     const { id } = req.body;
     const turf = await Turf.findOne({ _id: id });
     if (!turf) {
@@ -186,6 +190,14 @@ const uploadDoc = async (req, res) => {
   }
 };
 
+const addSlot = async (req, res) => {
+  try {
+    const { id } = req.body;
+    return console.log(req.body);
+  } catch (error) {
+    return res.status(401).send(error);
+  }
+};
 
 
 module.exports = {
@@ -197,4 +209,5 @@ module.exports = {
   listOrUnlistTurf,
   addLocation,
   uploadDoc,
+  addSlot
 };

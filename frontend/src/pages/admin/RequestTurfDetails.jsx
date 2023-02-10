@@ -4,9 +4,11 @@ import TurfDetails from "../../components/admin/TurfDetails";
 
 const RequestTurfDetails = () => {
   return (
-    <div>
+    <div className="bg-white flex">
       <Sidebar />
-      <TurfDetails />
+      <div style={{flex:'6'}} className='p-5'>
+      <TurfDetails/>
+    </div>
     </div>
   );
 };

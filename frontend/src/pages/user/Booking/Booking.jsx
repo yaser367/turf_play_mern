@@ -14,7 +14,7 @@ const Booking = () => {
    ]
   return (
     <>
-    <Navbar />
+    <Navbar  />
     <Carousal slides={slides} />
     <Book/>
     <Footer/>

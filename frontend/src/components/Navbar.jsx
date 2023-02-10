@@ -6,20 +6,18 @@ import { useNavigate, Link } from "react-router-dom";
 
 const Navbar = () => {
   const [nav, setnav] = useState(true);
-
+  const [select, setSelect] = useState(false);
   const handleNav = () => {
     setnav(!nav);
   };
-
   const navigate = useNavigate();
   function userLogout() {
     localStorage.removeItem("token");
     navigate("/login");
   }
-
   return (
     <div className="bg-black ">
-      <div className="bg-black flex justify-between max-w-[1240px] mx-auto px-3 items-center h-16 text-white relative">
+      <div className="bg-black flex justify-between w-full max-w-[1240px] mx-auto px-3 items-center h-16 text-white relative">
         <img className="w-[100px] pt-4 " src={MainLogo} alt="" />
         <ul className="hidden md:flex">
           <Link to="/">

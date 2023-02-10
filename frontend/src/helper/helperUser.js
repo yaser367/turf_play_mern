@@ -45,8 +45,8 @@ export async function registerUser(credentials) {
       data: { code },
       status,
     } = await axios.get("api/generateOtp");
-    console.log(code)
-    let sentcode = code
+    console.log(code);
+    let sentcode = code;
     let text = `Your account verification OTP is ${code}. Verify and enjoy with us.`;
     if (status === 201) {
       const { status } = await axios.post("/api/registerMail", {
@@ -60,7 +60,7 @@ export async function registerUser(credentials) {
         const {
           data: { message },
           status,
-        } = await axios.post("api/register", {credentials,sentcode});
+        } = await axios.post("api/register", { credentials, sentcode });
       }
     }
     return Promise.resolve(code);
@@ -151,5 +151,17 @@ export async function resetPassword({ username, password }) {
 export async function registerOtpVerify({ code, userName }) {
   try {
     await axios.post("api/verifyuser", { code, userName });
-  } catch (error) {}
+  } catch (error) {
+    return Promise.reject({ error });
+  }
+}
+
+export async function getFilteredData(game) {
+  try {
+   const {data:{turfs}} = await axios.get(`api/filterd/${game}`);
+   console.log(turfs)
+   return turfs
+  } catch (error) {
+    return Promise.reject({ error });
+  }
 }

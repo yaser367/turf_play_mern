@@ -14,7 +14,7 @@ export default function Modal({ modal,setModal,handle,id, message , Header}) {
   return (
     <>
       {modal && (
-        <div className="modal">
+        <div className="modal z-50">
           <div onClick={toggleModal} className="overlay"></div>
           <div className="modal-content">
             <h2 className="font-bold text-lg text-red-500 ">{Header}</h2>

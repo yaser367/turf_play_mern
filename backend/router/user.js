@@ -4,6 +4,7 @@ const router = express();
 const userControll = require("../controllers/user-controller/auth-controller");
 const userAuth = require('../middleware/auth')
 const mailControll = require('../controllers/user-controller/mail-controller')
+const userTurfController = require('../controllers/user-controller/turfController')
 
 /** Post methods */
 router.post("/register", userControll.userRegistration);
@@ -17,6 +18,9 @@ router.get("/user/:username",userControll.getUser);
 router.get("/generateOtp",userAuth.localVariables,userControll.generateOtp);
 router.get("/verifyOtp",userControll.verifyOtp);
 router.get("/createResetSession",userControll.createResetSession);
+router.get("/getAllTurfs",userTurfController.getAllTurfs)
+router.get("/getOneTurf/:id",userTurfController.getoneTurf)
+router.get("/filterd/:game",userTurfController.filterData)
 
 /** Put methods */
 router.put("/updateUser",userAuth.isAuth,userControll.updateUser);

@@ -169,11 +169,11 @@ const DataTable = ({message,modal,setModal,handleUpdate,id,modalHeader,users,sho
                 >
                   <img
                     class="w-10 h-10 rounded-full"
-                    src={file || Avatar}
+                    src={ Avatar}
                     alt="Jese image"
                   />
                   <div class="pl-3">
-                    <div class="text-base font-semibold">{user.username}</div>
+                    <div class="text-base font-semibold">{user.username ||user.AdminName}</div>
                     <div class="font-normal text-gray-500">{user.email}</div>
                   </div>
                 </th>

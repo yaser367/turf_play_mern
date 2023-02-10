@@ -33,11 +33,11 @@ const Add = () => {
       .string()
       .matches(phoneRegExp, "Phone number is not valid")
       .required("Mobile Number required"),
-    gameTypes: yup
-      .array()
-      .min(1, "Choose any game")
-      .of(yup.string().required("required"))
-      .required("required"),
+    // gameTypes: yup
+    //   .array()
+    //   .min(1, "Choose any game")
+    //   .of(yup.string().required("required"))
+    //   .required("required"),
     Description: yup.string().required("description required"),
     price: yup.number().required("price required"),
     TurfName: yup.string().required("Name required"),
@@ -62,12 +62,13 @@ const Add = () => {
       cricket: "",
       tennis: "",
       other: "",
+      otherCount:"",
       price: apiData?.price || "",
       Description: apiData?.Description || "",
     },
     enableReinitialize: true,
     validateOnBlur: false,
-    // validationSchema: valid,
+    validationSchema: valid,
     onSubmit: async (values) => {
       values = Object.assign(values);
       const { _id } = admin;
@@ -303,8 +304,7 @@ const Add = () => {
                       <p className=" text-sm">Game</p>
                       <input
                         {...formik.getFieldProps("other")}
-                        type="number"
-                        min={0}
+                        type="text"
                         className="border  ml-2 border-solid border-gray-500 w-40"
                       />
                       <div className="flex mt-4">
@@ -333,11 +333,11 @@ const Add = () => {
                   />
                 </div>
 
-                <FieldError>
+                {/* <FieldError>
                   {formik.touched.Description && formik.errors.Description
                     ? formik.errors.Description
                     : ""}
-                </FieldError>
+                </FieldError> */}
 
                 <button
                   type="submit"

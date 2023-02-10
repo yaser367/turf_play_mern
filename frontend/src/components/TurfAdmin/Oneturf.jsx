@@ -1,28 +1,39 @@
 import React, { useEffect, useState } from "react";
 import turf1 from "../../assets/turf1.jpg";
-import footballGame from "../../assets/footballGame.jpg";
 import cricket from "../../assets/cricket.jpg";
 import DataTable from "./DataTable";
 import { BiEdit } from "react-icons/bi";
 import { Tooltip } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { getOneTurf } from "../../helper/helperTurf";
+import useFetch from "../../hooks/fetch.hook";
+import FootballImg from "../../assets/footballGame.jpg";
+import Tennis from "../../assets/Tennis.jpg";
+import Other from "../../assets/AllSports.jpg";
+import SlotUpdate from "./SlotUpdate";
 
 const Oneturf = () => {
   const [data, setData] = useState("");
   const [image, setImage] = useState([]);
   const [sports, setSports] = useState([]);
   const { id } = useParams();
+  const [modal, setModal] = useState(false);
+  const [{ isLoading, apiData, serverError }] = useFetch(
+    `turfAdmin/getoneTurf/${id}`
+  );
+  const showModal = () => {
+    setModal(true);
+  };
 
-  useEffect(() => {
-    const getData = getOneTurf(id);
-    getData.then(async () => {
-      const turfs = await getData;
-      setData(turfs);
-      setImage(turfs.ImageUrl);
-      setSports(turfs.gameTypes);
-    });
-  }, []);
+  // useEffect(() => {
+  //   const getData = getOneTurf(id);
+  //   getData.then(async () => {
+  //     const turfs = await getData;
+  //     setData(turfs);
+  //     setImage(turfs.ImageUrl);
+  //     setSports(turfs.gameTypes);
+  //   });
+  // }, []);
 
   const [hover, setHover] = useState(false);
 
@@ -32,24 +43,24 @@ const Oneturf = () => {
   const handleExit = () => {
     setHover(false);
   };
-  console.log(image);
 
   return (
     <div>
+      <SlotUpdate modal={modal} setModal={setModal} />
       <div className=" mt-7 pb-5 p-3 ">
         <div className="">
-          <h2 class="text-center  mb-5 text-4xl font-bold leading-tight text-gray-800">
-            {data.TurfName}
+          <h2 class="text-center mb-5 text-4xl font-bold leading-tight text-gray-800">
+            {apiData?.TurfName}
           </h2>
-          <div className="w-[900px] h-[500px] mx-auto">
+          <div className="w-[80%] h-[500px]  mx-auto">
             <img
               onMouseEnter={handleHover}
               onMouseLeave={handleExit}
-              className="w-[900px] h-[500px] mx-auto"
-              src={image[0]}
+              className="w-[80%] h-[500px] mx-auto"
+              src={apiData?.ImageUrl[0]}
               alt=""
             />
-            <div className="absolute top-[60%]  h-full left-[48%]">
+            <div className="absolute top-[67%]  h-full left-[48%]">
               {hover && (
                 <button
                   onMouseEnter={handleHover}
@@ -69,52 +80,56 @@ const Oneturf = () => {
           <div class="flex space-x-2 justify-center"></div>
           {/* <p className='text-center text-2xl font-bold md:mt-0 mt-8 '>Anfield Turf</p> */}
           <p className="text-center text-lg "></p>
-          <div className="m-10 bg-slate-200 drop-shadow-xl  pb-10 p-4">
+          <div className="m-10 bg-slate-200 drop-shadow-xl  pb-20 p-4">
             <p className="font-bold text-end text-blue-500 cursor-pointer">
               Edit
             </p>
-            <p className="font-bold text-2xl text-center">Available Sports</p>
-            <div className="flex mt-3 ">
-              {/* {sports &&
-                sports.map((sport) => {
-                  return (
-                    <div className="mx-10 w-[100px] h-[100px] ">
-                      <img
-                        className="w-[100px] h-[100px] mt-3 rounded-md "
-                        src={footballGame}
-                        alt=""
-                      />
-                      <p className="text-center font-bold">{sport}</p>
-                    </div>
-                  );
-                })} */}
-             
-            </div>
-            <p className="font-bold text-2xl text-center mt-10">
-              Available Ground
+            <p className="font-bold text-2xl text-center">
+              Update slots for the Game
             </p>
-            {/* {data.groundType &&
-              data.groundType.map((groundType) => {
-                return (
-                  <div className="mx-10 w-[100px] h-[100px] ">
-                    <img
-                      className="w-[100px] h-[100px] mt-3 rounded-md "
-                      src={footballGame}
-                      alt=""
-                    />
-                    <p className="text-center font-bold">{groundType}</p>
-                  </div>
-                );
-              })} */}
+            <div className=" md:flex mt-10 justify-center gap-5">
+              {(apiData?.fives ||
+                apiData?.sevens ||
+                (apiData?.elevens != "") & 0) && (
+                <div onClick={showModal} className="w-[150px] h-[150px] mx-auto md:mt-0 cursor-pointer">
+                  <p className="text-center font-bold">Football</p>
+                  <img
+                    className="w-[150px] h-[150px]"
+                    src={FootballImg}
+                    alt=""
+                  />
+                </div>
+              )}
+              {(apiData?.cricket != "" || apiData?.cricket != 0) && (
+                <div className="w-[150px] h-[150px] mx-auto md:mt-0 mt-10 cursor-pointer">
+                  <p className="text-center font-bold">Cricket</p>
+                  <img className="w-[150px] h-[150px]" src={cricket} alt="" />
+                </div>
+              )}
+              {(apiData?.tennis != "" || apiData?.tennis != 0) && (
+                <div className="w-[150px] h-[150px] cursor-pointer">
+                  <p className="text-center font-bold">Tennis</p>
+                  <img className="w-[150px] h-[150px]" src={Tennis} alt="" />
+                </div>
+              )}
+              {(apiData?.otherCount != "" || apiData?.otherCount != 0) && (
+                <div className="w-[150px] h-[150px] cursor-pointer  ">
+                  <p className="text-center font-bold">dkllj</p>
+                  <img className="w-[150px] h-[150px]" src={Other} alt="" />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
+      
       <div className="bg-white h-full mt-5 pb-10">
         <div className="bg-slate-200 drop-shadow-xl  w-[90%] mx-auto pt-3 ">
           <h1 className="text-center font-bold text-xl mt-6">Booking Report</h1>
           <DataTable />
         </div>
       </div>
+      
     </div>
   );
 };

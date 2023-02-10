@@ -9,7 +9,7 @@ import './home.module.css'
 
 const Home = () => {
   return (
-    <div className='home '>
+    <div className='home w-full'>
       <div className='bg-black'>
       <Navbar/>
       </div>

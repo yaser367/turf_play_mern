@@ -108,8 +108,7 @@ const resetPassword = async (req, res) => {
 
 const updateProfile = async (req, res) => {
   try {
-    const { AdminName, email, address, mobile, id } = req.body;
-
+    const { AdminName, email, address, mobile, id, url } = req.body;
     const s = await TurfAdmin.updateOne(
       { _id: id },
       {
@@ -118,6 +117,7 @@ const updateProfile = async (req, res) => {
           email,
           address,
           mobile,
+          profile: url,
         },
       }
     );
@@ -144,5 +144,5 @@ module.exports = {
   verifyOTP,
   resendOtp,
   updateProfile,
-  getTufAdmin
+  getTufAdmin,
 };

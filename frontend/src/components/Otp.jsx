@@ -15,15 +15,36 @@ import styles from "../styles/Username.module.css";
 const Otp = () => {
   const navigate = useNavigate();
   const [OTP, setOtp] = useState();
-  const {userName} = useParams();
-  console.log('user'+userName)
+  const [minutes, setMinutes] = useState(2);
+  const [seconds, setSeconds] = useState(0);
+  const { userName } = useParams();
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (seconds > 0) {
+        setSeconds(seconds - 1);
+      }
+
+      if (seconds === 0) {
+        if (minutes === 0) {
+          clearInterval(interval);
+        } else {
+          setSeconds(59);
+          setMinutes(minutes - 1);
+        }
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [seconds]);
   async function onSubmit(e) {
     e.preventDefault();
     try {
       const otpPromise = await registerOtpVerify({ userName, code: OTP });
-      if(otpPromise)  {
-        toast.success('verify Succesfully')
-        navigate('/login')
+      if (otpPromise) {
+        toast.success("verify Succesfully");
+        navigate("/login");
       }
     } catch (error) {
       return toast.error("Wrong OTP! Check email again");
@@ -73,14 +94,36 @@ const Otp = () => {
                 </button>
               </div>
             </form>
-            <div className="text-center py-4">
+            <div className="countdown-text  gap-4 text-center py-4 ">
+              {seconds > 0 || minutes > 0 ? (
+                <p>
+                  Time Remaining: {minutes < 10 ? `0${minutes}` : minutes}:
+                  {seconds < 10 ? `0${seconds}` : seconds}
+                </p>
+              ) : (
+                <p>Didn't recieve code?</p>
+              )}
+
+              <button
+                disabled={seconds > 0 || minutes > 0}
+                style={{
+                  visibility:seconds > 0 || minutes > 0 ? "hidden" : "visible",
+                  color: seconds > 0 || minutes > 0 ? "#ace973" : "#FF5630",
+                }}
+                onClick={resendOtphandler} 
+              >
+                Resend OTP
+              </button>
+            </div>
+
+            {/* <div className="text-center py-4">
               <span className="text-grey-500">
-                Can't get OTP?{" "}
+                Can't get OTP?
                 <button onClick={resendOtphandler} className="text-red-500">
                   Resent
                 </button>
               </span>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

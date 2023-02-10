@@ -10,6 +10,9 @@ import { useEffect } from "react";
 import { getTurfAdmin, updateProfile } from "../../helper/helperTurf";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import convertToBase64 from "../../helper/convert";
+import Avatar from "../../assets/avatar.png";
+import axios from "axios";
 
 const Profile = () => {
   const adminData = useSelector(selectCurrectAdmin);
@@ -20,19 +23,47 @@ const Profile = () => {
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
   const [id, setId] = useState("");
+  const [file, setFile] = useState();
+  const [profile, setProfile] = useState();
   const Navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    const update = updateProfile({ AdminName, mobile, address, email, id });
-    toast.promise(update, {
-      loading: "Updating...",
-      success: <b>Profile Updated</b>,
-      error: <b>Can't update</b>,
-    });
-    update.then(() => {
-      Navigate("/turfAdmin/home");
-    });
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "kay6oyd9");
+    formData.append("cloud_name", "dxdkwzuyr");
+    await axios
+      .post("https://api.cloudinary.com/v1_1/dxdkwzuyr/upload", formData, {
+        headers: { "X-Requested-With": "XMLHttpRequest" },
+      })
+      .then((response) => {
+        const data = response.data;
+        const url = data.url;
+        const update = updateProfile({
+          AdminName,
+          mobile,
+          address,
+          email,
+          id,
+          url,
+        });
+        toast.promise(update, {
+          loading: "Updating...",
+          success: <b>Profile Updated</b>,
+          error: <b>Can't update</b>,
+        });
+        update.then(() => {
+          Navigate("/turfAdmin/home");
+        });
+  
+      })
+      .catch((e) => {
+        // toast.error("Something went wrong");
+      });
+    
+   
   };
 
   useEffect(() => {
@@ -47,9 +78,14 @@ const Profile = () => {
         setAddress(user.address);
         setEmail(user.email);
         setId(user._id);
+        setProfile(user.profile);
       }
     });
   }, []);
+  // const onUpload = async (e) => {
+  //   const base64 = await convertToBase64(e.target.files[0]);
+  //   setFile(base64);
+  // };
 
   return (
     <div className="flex justify-center bg-white min-h-[700px]">
@@ -58,14 +94,17 @@ const Profile = () => {
       <div className="w-full h-full pb-20 pt-1">
         <div>
           <p className="text-center text-2xl font-bold pb-2">Profile</p>
-          <div className="mx-auto w-[500px] pb-10 pt-5 shadow-lg bg-gray-500 rounded-md ">
+          <div className="mx-auto md:w-[40%] w-[80%] pb-10 pt-5 shadow-lg bg-gray-500 rounded-md ">
             <form className="py-1" onSubmit={handleSubmit}>
               <div className="textbox flex flex-col items-center gap-6">
                 <Tooltip title="Upload Turf Images">
-                  <label htmlFor="upload">
+                  <label htmlFor="profile">
                     <div class=" mt-4 font-bold text-gray-700 rounded-full h-[80px] w-[80px] bg-white flex items-center justify-center font-mono cursor-pointer">
-                      {" "}
-                      <AiOutlineCloudUpload size={40} />
+                      <img
+                        className="rounded-full"
+                        src={profile || Avatar}
+                        alt=""
+                      />
                     </div>
                   </label>
                 </Tooltip>
@@ -78,11 +117,13 @@ const Profile = () => {
                   onChange={(e) => setAdmin(e.target.value)}
                 />
                 <input
-                  id="upload"
+                  id="profile"
                   hidden
-                  name="TurfImg"
+                  name="profil"
                   type="file"
                   placeholder="profile"
+                  // onChange={onUpload}
+                  onChange={(e) => setFile(e.target.files[0])}
                 />
                 <input
                   className="focus:outline-none w-[200px] text-center rounded h-[30px]"

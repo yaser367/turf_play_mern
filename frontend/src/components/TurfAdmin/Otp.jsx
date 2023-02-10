@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
@@ -7,9 +7,31 @@ import { toast, Toaster } from "react-hot-toast";
 import axios from "axios";
 
 const Otp = () => {
+  const [minutes, setMinutes] = useState(2);
+  const [seconds, setSeconds] = useState(0);
   const navigate = useNavigate();
   let { value, type } = useParams();
-  console.log(type);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (seconds > 0) {
+        setSeconds(seconds - 1);
+      }
+
+      if (seconds === 0) {
+        if (minutes === 0) {
+          clearInterval(interval);
+        } else {
+          setSeconds(59);
+          setMinutes(minutes - 1);
+        }
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [seconds]);
   const formik = useFormik({
     initialValues: {
       otp: "",
@@ -25,14 +47,13 @@ const Otp = () => {
         error: <b>Couldn't verify</b>,
       });
 
-        otpPromise.then(function () {
-          if (type == 'register') {
-            navigate("/turfAdmin/login");
-          } else {
-            navigate(`/turfAdmin/changePassword/${value}`);
-          }
-        });
-    
+      otpPromise.then(function () {
+        if (type == "register") {
+          navigate("/turfAdmin/login");
+        } else {
+          navigate(`/turfAdmin/changePassword/${value}`);
+        }
+      });
     },
   });
 
@@ -77,6 +98,19 @@ const Otp = () => {
             className="focus:outline-none w-[200px] text-center rounded h-[30px] border-black border-r-4 bg-slate-100 mt-4 mx-[42px]"
             placeholder="Enter valid Otp"
           />
+
+          <div className="countdown-text p-5">
+            {seconds > 0 || minutes > 0 ? (
+              <p>
+                Expire within: {minutes < 10 ? `0${minutes}` : minutes}:
+                {seconds < 10 ? `0${seconds}` : seconds}
+               </p>
+            ) : (
+              <p>Didn't recieve code?</p>
+            )}
+
+            {/* <button style={{ color: "#FF5630" }}>Resend OTP</button> */}
+          </div>
 
           <div className="absolute bottom-3 ">
             <button

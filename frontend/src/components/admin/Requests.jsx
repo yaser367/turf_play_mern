@@ -10,7 +10,7 @@ import {
 import Avatar from "../../assets/avatar.png";
 import { toast, Toaster } from "react-hot-toast";
 import Modal from "../TurfAdmin/Modal";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useFetch from "../../hooks/fetch.hook";
 
 const Requests = ({}) => {
@@ -174,9 +174,9 @@ const Requests = ({}) => {
                 <td class="px-6 py-4">{turfs.mobile}</td>
 
                 <td class="px-6 py-4">
-                  <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                 <Link to={`/admin/viewDetails/${turfs._id}`}><a class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                     View details
-                  </a>
+                  </a></Link> 
                 </td>
                 <td class="px-6 py-4">
                   <a

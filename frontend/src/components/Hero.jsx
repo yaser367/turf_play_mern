@@ -6,10 +6,10 @@ import '../styles/Hero.module.css'
 
 const Hero = () => {
   return (
-    <div className='hero-container text-white pb-2'>
+    <div className='hero-container text-white pb-2 '>
         <video className='bgVideo ' src={bgVideo} autoPlay muted loop/>
 
-        <div className='  max-w-[700px] md:mt-[-70px] sm:mt-[-76px] mt-[-75px] w-full h-screen mx-auto flex flex-col justify-center text-center'>
+        <div className=' md:mt-[-70px] sm:mt-[-76px] mt-[-75px] w-full h-screen mx-auto flex flex-col justify-center text-center'>
             <h2 className='md:text-4xl sm:text-2xl font-bold'> KERALA'S NO:1 <span className=' text-[#d417c7]'>PLAYGROUND</span>  </h2>
             <h2 className='md:text-4xl sm:text-2xl md:mt-6 font-bold'> BOOKING WEB SITE. </h2>
             <div className='flex justify-center items-center'>

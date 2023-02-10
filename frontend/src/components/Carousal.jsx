@@ -60,7 +60,7 @@ const Carousal = ({slides}) => {
   
 
   return (
-    <div >
+    <div className='w-full' >
     <div className='flex justify-center  bg-slate-300 mt-6'>
     <div ref={slideRef} className='carousal max-w-[1000px] select-none pt-8 '>
         <div className="aspect-w-16 aspect-h-9 ">

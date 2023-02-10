@@ -28,7 +28,7 @@ const UploadImages = ({url,endpoint,button,heading,bg}) => {
       files = file;
       return axios
         .post(
-          "https://api.cloudinary.com/v1_1/dxdkwzuyr/image/upload",
+          "https://api.cloudinary.com/v1_1/dxdkwzuyr/upload",
           formData,
           {
             headers: { "X-Requested-With": "XMLHttpRequest" },

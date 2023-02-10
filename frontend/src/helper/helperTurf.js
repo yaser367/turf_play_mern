@@ -55,6 +55,7 @@ export async function changePassword(email, password) {
 
 export async function getAllturf(admin) {
   try {
+    console.log("hey");
     const {
       data: { turfs },
     } = await axios.get("/api/turfAdmin/getAllturf", {
@@ -101,6 +102,7 @@ export async function addLocation({ id, lat, long }) {
 
 export async function updateProfile(credentials) {
   try {
+    console.log(credentials);
     await axios.put("/api/turfAdmin/updateProfile", credentials);
   } catch (error) {
     console.log(error);
@@ -121,8 +123,7 @@ export async function getTurfAdmin(id) {
 
 export async function editTurf(values, id) {
   try {
-    console.log("hellp")
-    await axios.put('api/turfAdmin/editTurf',{values,id})
+    await axios.put("api/turfAdmin/editTurf", { values, id });
   } catch (error) {
     console.log(error);
   }
