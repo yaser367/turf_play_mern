@@ -92,7 +92,7 @@ function App() {
       <Route path="/services" element={<Service />} />
       <Route path="/booking" element={<Booking />} />
       <Route path="/turf/:id" element={<OneTurfViewuser />} />
-      <Route path="/book" element={<BookNowPage />} />
+      <Route path="/book/:id" element={<BookNowPage />} />
       <Route path="/otp/:userName" element={<Otp />} />
       
       {/* admin side */}

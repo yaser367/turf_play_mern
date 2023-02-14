@@ -30,13 +30,13 @@ const TurfDetails = () => {
           <img className="w-[90%]" src={apiData?.ImageUrl[0]} alt="" />
         </div>
         <div className="flex justify-center mt-5">
-            <a
+          <a
             href={apiData?.DocUrl[0]}
-              type="button"
-              class="text-blue-700  hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800"
-            >
-              Get Turf Document
-            </a>
+            type="button"
+            class="text-blue-700  hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800"
+          >
+            Get Turf Document
+          </a>
         </div>
         <div className="border-solid border-2 border-red-500 mt-5 p-3">
           <p className="font-bold text-sm">Availble Games :</p>
@@ -51,6 +51,7 @@ const TurfDetails = () => {
               long={long}
               setLat={setLat}
               setLong={setLong}
+              id={id}
             />
           )}
         </div>

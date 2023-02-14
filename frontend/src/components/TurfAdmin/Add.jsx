@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
 import { AddTr, editTurf } from "../../helper/helperTurf";
 import * as yup from "yup";
@@ -27,17 +27,16 @@ const Add = () => {
   );
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-
   const valid = yup.object({
     mobile: yup
       .string()
       .matches(phoneRegExp, "Phone number is not valid")
       .required("Mobile Number required"),
-    // gameTypes: yup
-    //   .array()
-    //   .min(1, "Choose any game")
-    //   .of(yup.string().required("required"))
-    //   .required("required"),
+    gameTypes: yup
+      .array()
+      .min(1, "Choose any game")
+      .of(yup.string().required("required"))
+      .required("required"),
     Description: yup.string().required("description required"),
     price: yup.number().required("price required"),
     TurfName: yup.string().required("Name required"),
@@ -56,13 +55,14 @@ const Add = () => {
     initialValues: {
       TurfName: apiData?.TurfName || "",
       mobile: apiData?.mobile || "",
-      fives: "",
-      sevens: "",
-      elevens: "",
-      cricket: "",
-      tennis: "",
-      other: "",
-      otherCount:"",
+      gameTypes:[],
+      fives: apiData?.fives || "",
+      sevens: apiData?.sevens || "",
+      elevens: apiData?.elevens || "",
+      cricket: apiData?.cricket || "",
+      tennis: apiData?.tennis || "",
+      other: apiData?.other || "",
+      otherCount: "",
       price: apiData?.price || "",
       Description: apiData?.Description || "",
     },
@@ -73,41 +73,39 @@ const Add = () => {
       values = Object.assign(values);
       const { _id } = admin;
       if (id) {
-       const registerPromise = editTurf(values, id);
-       toast.promise(registerPromise, {
-        loading: "Updating..",
-        success: <b>details added</b>,
-        error: <b>can't upload</b>,
-      });
-      registerPromise.then(async (data) => {
-        if (id) {
-          Navigate(`/turfAdmin/uploadImg/${id}`);
-        } else {
-          const result = await registerPromise;
-          const id = data._id;
-          Navigate(`/turfAdmin/uploadImg/${id}`);
-        }
-      });
+        const registerPromise = editTurf(values, id);
+        toast.promise(registerPromise, {
+          loading: "Updating..",
+          success: <b>details added</b>,
+          error: <b>can't upload</b>,
+        });
+        registerPromise.then(async (data) => {
+          if (id) {
+            Navigate(`/turfAdmin/uploadImg/${id}`);
+          } else {
+            const result = await registerPromise;
+            const id = data._id;
+            Navigate(`/turfAdmin/uploadImg/${id}`);
+          }
+        });
       } else {
-       const registerPromise = AddTr(values, _id);
-       toast.promise(registerPromise, {
-        loading: "Updating..",
-        success: <b>details added</b>,
-        error: <b>can't upload</b>,
-      });
-      registerPromise.then(async (data) => {
-        if (id) {
-          console.log("hey");
-          Navigate(`/turfAdmin/uploadImg/${id}`);
-        } else {
-          const result = await registerPromise;
-          const id = data._id;
-          Navigate(`/turfAdmin/uploadImg/${id}`);
-        }
-      });
+        const registerPromise = AddTr(values, _id);
+        toast.promise(registerPromise, {
+          loading: "Updating..",
+          success: <b>details added</b>,
+          error: <b>can't upload</b>,
+        });
+        registerPromise.then(async (data) => {
+          if (id) {
+            console.log("hey");
+            Navigate(`/turfAdmin/uploadImg/${id}`);
+          } else {
+            const result = await registerPromise;
+            const id = data._id;
+            Navigate(`/turfAdmin/uploadImg/${id}`);
+          }
+        });
       }
-
-   
     },
   });
   //   useEffect(() => {
@@ -117,6 +115,20 @@ const Add = () => {
   //       setTurf(turf);
   //     });
   //   }, []);
+  useEffect(() => {
+   if(id){
+    apiData?.fives !== "" && "0"
+    ? setFootball(true)
+    : setFootball(false) || (apiData?.elevens !== "" && "0")
+    ? setFootball(true)
+    : setFootball(false) || (apiData?.elevens !== "" && "0")
+    ? setFootball(true)
+    : setFootball(false);
+  apiData?.cricket !== "" && "0" ? setCricket(true) : setCricket(false);
+  apiData?.tennis !== "" && "0" ? setTennis(true) : setTennis(false);
+  apiData?.otherCount !== "" && "0" ? setOther(true) : setOther(false);
+   }
+  }, [apiData]);
 
   return (
     <div className="flex justify-center bg-red-100 w-full">
@@ -185,16 +197,14 @@ const Add = () => {
                 </div>
                 <div className=" w-[81%] h-[80px] rounded-lg p-2 ">
                   {id ? (
-                    <p className="font-bold mb-2 text-red-500">
-                      Please re-Upload available games
-                    </p>
+                    <p className="font-bold mb-2 text-red-500"></p>
                   ) : (
                     <p className="font-bold mb-2 text-black">
                       Select available games
                     </p>
                   )}
                   <div className="flex mt-5">
-                    <input
+                    {id?<input
                       onClick={() => setFootball(!football)}
                       type="checkbox"
                       //   onChange={formik.handleChange}
@@ -202,7 +212,16 @@ const Add = () => {
                       name="gameTypes"
                       className="w-4 h-4 onoffswitch-checkbox"
                       id="inline"
-                    />
+                      defaultChecked={apiData?.fives == undefined && "" && "0"  ? false : true}
+                    />:<input
+                    onClick={() => setFootball(!football)}
+                    type="checkbox"
+                      onChange={formik.handleChange}
+                    value="football"
+                    name="gameTypes"
+                    className="w-4 h-4 onoffswitch-checkbox"
+                    id="inline"
+                  />}
                     <p className="text-sm">Football</p>
                     {football && (
                       <div className="flex">
@@ -235,9 +254,12 @@ const Add = () => {
                   </div>
                   <div className="flex mt-4">
                     <input
+                      // defaultChecked={
+                      //   apiData?.cricket == undefined && "" && "0" ? false : true
+                      // }
                       onClick={() => setCricket(!cricket)}
                       type="checkbox"
-                      //   onChange={formik.handleChange}
+                        onChange={formik.handleChange}
                       value="cricket"
                       name="gameTypes"
                       className="w-4 h-4"
@@ -258,7 +280,7 @@ const Add = () => {
                   <div className="flex mt-4">
                     <input
                       onClick={() => setTennis(!tennis)}
-                      //   onChange={formik.handleChange}
+                        onChange={formik.handleChange}
                       type="checkbox"
                       name="gameTypes"
                       value="tennis"
@@ -280,7 +302,7 @@ const Add = () => {
                   <div className="flex mt-4">
                     <input
                       onClick={() => setOther(!other)}
-                      //   onChange={formik.handleChange}
+                        onChange={formik.handleChange}
                       type="checkbox"
                       name="gameTypes"
                       value="other"
@@ -333,11 +355,11 @@ const Add = () => {
                   />
                 </div>
 
-                {/* <FieldError>
+                <FieldError>
                   {formik.touched.Description && formik.errors.Description
                     ? formik.errors.Description
                     : ""}
-                </FieldError> */}
+                </FieldError>
 
                 <button
                   type="submit"

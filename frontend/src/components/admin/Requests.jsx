@@ -12,6 +12,7 @@ import { toast, Toaster } from "react-hot-toast";
 import Modal from "../TurfAdmin/Modal";
 import { Link, useParams } from "react-router-dom";
 import useFetch from "../../hooks/fetch.hook";
+import Pagination from "./Pagination";
 
 const Requests = ({}) => {
   const [turf, setTurf] = useState([]);
@@ -19,6 +20,9 @@ const Requests = ({}) => {
   const [modal, setModal] = useState(false);
   const [message, setMessage] = useState("");
   const [modalHeader, setModalHeader] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage, setPostPerPage] = useState(6);
+
   const fetchData = async () => {
     const turfs = await getReq();
     setTurf(turfs);
@@ -27,7 +31,15 @@ const Requests = ({}) => {
     fetchData();
   }, []);
   const handleAccept = (id) => {
-      acceptReq(id);
+    const updatePromise = acceptReq(id);
+    toast.promise(updatePromise, {
+      loading: "Updating..",
+      success: <b>Request accepted</b>,
+      error: <b>couldn't update</b>,
+    });
+    updatePromise.then(()=>{
+      fetchData();
+    })
   };
   const showModal = (Id) => {
     setId(Id);
@@ -39,10 +51,18 @@ const Requests = ({}) => {
     const updatePromise = rejectReq(id);
     toast.promise(updatePromise, {
       loading: "updating..",
-      success: <b>Turf request accepted</b>,
+      success: <b>Turf request rejected</b>,
       error: <b>Couldn't update</b>,
     });
+    updatePromise.then(() => {
+      setModal(!modal);
+      fetchData();
+    });
   };
+  const lastPostIndex = currentPage * postPerPage;
+  const firstPostIndex = lastPostIndex - postPerPage;
+  const currentPost = turf.slice(firstPostIndex,lastPostIndex)
+
   return (
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
       <Toaster position="top-center" reverseOrder={false}></Toaster>
@@ -174,9 +194,11 @@ const Requests = ({}) => {
                 <td class="px-6 py-4">{turfs.mobile}</td>
 
                 <td class="px-6 py-4">
-                 <Link to={`/admin/viewDetails/${turfs._id}`}><a class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                    View details
-                  </a></Link> 
+                  <Link to={`/admin/viewDetails/${turfs._id}`}>
+                    <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                      View details
+                    </a>
+                  </Link>
                 </td>
                 <td class="px-6 py-4">
                   <a
@@ -196,6 +218,8 @@ const Requests = ({}) => {
             ))}
         </tbody>
       </table>
+      <Pagination setCurrentPage={setCurrentPage} totalPosts={turf.length} postsPerpage={postPerPage} />
+
     </div>
   );
 };

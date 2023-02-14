@@ -77,7 +77,7 @@ const AdminRegistration = () => {
           </Link>
         </div>
       </div>
-      <div className=" absolute top-28 left-[60%] bg-white w-[300px] h-[350px] shadow-2xl">
+      <div className=" absolute top-28 left-[60%] bg-white w-[350px] h-[380px] shadow-2xl">
         <p className="text-2xl text-gray-700 font-medium font-sans m-3 mt-5">
           REGISTER
         </p>
@@ -90,7 +90,7 @@ const AdminRegistration = () => {
               onBlur={formik.handleBlur}
               name="email"
               type="email"
-              className="focus:outline-none w-[200px] text-center rounded h-[30px] border-black border-r-4 bg-slate-100 mt-4 mx-[42px]"
+              className=" focus:outline-none w-[240px] text-center rounded h-[35px] border-black border-r-4 bg-slate-300 mt-4 mx-[42px]"
               placeholder="Enter Email address"
             />
             <FieldError>
@@ -106,7 +106,7 @@ const AdminRegistration = () => {
               onBlur={formik.handleBlur}
               name="AdminName"
               type="text"
-              className="focus:outline-none w-[200px] text-center rounded h-[30px] border-black border-r-4 bg-slate-100 mt-4 mx-[42px]"
+              className="focus:outline-none w-[240px] text-center rounded h-[35px] border-black border-r-4 bg-slate-300 mt-4 mx-[42px]"
               placeholder="Enter Your Name"
             />
             <FieldError>
@@ -122,7 +122,7 @@ const AdminRegistration = () => {
               onBlur={formik.handleBlur}
               name="password"
               type="password"
-              className="focus:outline-none w-[200px] text-center rounded h-[30px] border-black border-r-4 bg-slate-100 mt-4 mx-[42px]"
+              className="focus:outline-none w-[240px] text-center rounded h-[35px] border-black border-r-4 bg-slate-300 mt-4 mx-[42px]"
               placeholder="Enter Your Password"
             />
             <FieldError>
@@ -131,10 +131,10 @@ const AdminRegistration = () => {
                 : ""}
             </FieldError>
           </FieldContainer>
-          <div className="absolute bottom-3 ">
+          <div className=" flex justify-end absolute right-10 bottom-5 ">
             <button
               type="submit"
-              className=" py-2 bg-slate-400 px-2 rounded-md ml-[200px]  text-white text-sm"
+              className=" py-2 bg-slate-400 px-2 rounded-md  text-white text-sm"
             >
               Register
             </button>

@@ -56,6 +56,7 @@ const blockTurfAdmin = async (req, res) => {
         { _id: id },
         { $set: { isVerified: false } }
       );
+      await Turf.updateMany({TurfAdminId:id},{$set:{isListed:false}})
       return res.status(200).send("user blocked");
     }
     const blockedUser = await TurfAdmin.findOne({ _id: id, isVerified: false });
@@ -72,12 +73,10 @@ const blockTurfAdmin = async (req, res) => {
 };
 const getTurfRequest = async (req, res) => {
   try {
-    const turfs = await Turf.find({ isAdminApproved: false }).populate(
-      "TurfAdminId"
-    );
-    // const turfs = await Turf.aggregate([{$match:{isAdminApproved:false}},{$lookup:{from:'TurfAdmin',localField:'TurfAdminId',foreignField:"_id",as:'Admin'}}])
-    console.log(turfs);
-
+    const turfs = await Turf.find({
+      isAdminApproved: false,
+      isAdminRejected: false,
+    }).populate("TurfAdminId");
     return res.status(201).send({ turfs });
   } catch (error) {
     console.log(error);
@@ -99,8 +98,12 @@ const acceptRequest = async (req, res) => {
 };
 const rejectRequest = async (req, res) => {
   try {
+    console.log("first");
     const { id } = req.body;
-    await Turf.findOneAndDelete({ _id: id });
+    await Turf.findByIdAndUpdate(
+      { _id: id },
+      { $set: { isAdminRejected: true } }
+    );
     return res.status(201).send({ message: "Request rejected" });
   } catch (error) {
     return res.status(401).send(error);

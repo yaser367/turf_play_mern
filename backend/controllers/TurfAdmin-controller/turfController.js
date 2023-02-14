@@ -1,6 +1,6 @@
 const Turf = require("../../models/Turf");
 const TurfAdmin = require("../../models/TurfAdmin");
-const Slot = require("../../models/TimeSlot");
+const Slots = require("../../models/TimeSlot");
 const addTurf = async (req, res) => {
   try {
     const {
@@ -70,6 +70,11 @@ const uploadImage = async (req, res) => {
   } catch (error) {
     return res.status(401).send(error);
   }
+};
+
+const addImage = async (req, res) => {
+  try {
+  } catch (error) {}
 };
 
 const addLocation = async (req, res) => {
@@ -192,13 +197,46 @@ const uploadDoc = async (req, res) => {
 
 const addSlot = async (req, res) => {
   try {
-    const { id } = req.body;
-    return console.log(req.body);
+    const { id, slot, date, game } = req.body;
+    const existSlot = await Slots.findOne({ TurfId: id, date, game });
+    if (!existSlot) {
+      const newSlot = new Slots({
+        TurfId: id,
+        date,
+        game,
+        slots: [{ slot }],
+      });
+      await newSlot.save();
+      res.status(200).send({ message: "saved" });
+    } else {
+      await Slots.findOneAndUpdate({ TurfId: id, date, game },{$push:{slots:{slot}}});
+      res.status(200).send({ message: "saved" });
+
+    }
   } catch (error) {
+    console.log(error)
     return res.status(401).send(error);
   }
 };
 
+const deleteTurfImg = async (req, res) => {
+  try {
+    const { id, deleteUrl } = req.body;
+    await Turf.updateOne({ _id: id }, { $pull: { ImageUrl: deleteUrl } });
+    res.status(200).send({ message: "deleted" });
+  } catch (error) {
+    console.log(error);
+    return res.status(401).send(error);
+  }
+};
+
+const getTurf = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const turfs = await Turf.findOne({ _id: id });
+    res.status(200).send({ turfs });
+  } catch (error) {}
+};
 
 module.exports = {
   addTurf,
@@ -209,5 +247,7 @@ module.exports = {
   listOrUnlistTurf,
   addLocation,
   uploadDoc,
-  addSlot
+  addSlot,
+  deleteTurfImg,
+  getTurf,
 };

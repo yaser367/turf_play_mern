@@ -158,9 +158,22 @@ export async function registerOtpVerify({ code, userName }) {
 
 export async function getFilteredData(game) {
   try {
-   const {data:{turfs}} = await axios.get(`api/filterd/${game}`);
-   console.log(turfs)
-   return turfs
+    const {
+      data: { turfs },
+    } = await axios.get(`api/filterd/${game}`);
+    console.log(turfs);
+    return turfs;
+  } catch (error) {
+    return Promise.reject({ error });
+  }
+}
+
+export async function checkout(amount) {
+  try {
+    const {
+      data: { order },
+    } = await axios.post("api/checkout", { amount });
+    return order;
   } catch (error) {
     return Promise.reject({ error });
   }

@@ -6,6 +6,7 @@ import { getAllUsers, updateUserStatus } from "../../helper/helperAdmin";
 import convertToBase64 from "../../helper/convert";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import Pagination  from "../../components/admin/Pagination";
 
 const UserList = () => {
   const [users, setUser] = useState([]);
@@ -14,7 +15,7 @@ const UserList = () => {
   const [modal, setModal] = useState(false);
   const [message, setMessage] = useState("");
   const [modalHeader, setModalHeader] = useState("");
-  
+
   const token = localStorage.getItem("adminToken");
   const navigate = useNavigate();
   useEffect(() => {
@@ -55,6 +56,11 @@ const UserList = () => {
   useEffect(() => {
     fetchData();
   }, []);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage, setPostPerPage] = useState(6);
+  const lastPostIndex = currentPage * postPerPage;
+  const firstPostIndex = lastPostIndex - postPerPage;
+  const currentPost = users.slice(firstPostIndex, lastPostIndex);
   return (
     <div className="bg-white flex">
       <Sidebar />
@@ -67,9 +73,14 @@ const UserList = () => {
           handleUpdate={handleUpdate}
           id={id}
           Header={modalHeader}
-          users={users}
+          users={currentPost}
           showModal={showModal}
           file={file}
+        />
+        <Pagination
+          setCurrentPage={setCurrentPage}
+          totalPosts={users.length}
+          postsPerpage={postPerPage}
         />
       </div>
     </div>

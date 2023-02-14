@@ -70,9 +70,10 @@ export async function getAllturf(admin) {
 
 export async function getOneTurf(id) {
   try {
+   
     const {
       data: { turfs },
-    } = await axios.get(`/api/turfAdmin/getoneTurf/${id}`);
+    } = await axios.get(`/api/turfAdmin/get/${id}`);
     return turfs;
   } catch (error) {
     console.log(error);
@@ -126,5 +127,22 @@ export async function editTurf(values, id) {
     await axios.put("api/turfAdmin/editTurf", { values, id });
   } catch (error) {
     console.log(error);
+  }
+}
+
+export async function deleteImg(id,deleteUrl) {
+  try {
+    await axios.put("api/turfAdmin/deleteImg",{id,deleteUrl});
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function addSlot (id,slot,date,game){
+  try {
+    await axios.post("api/turfAdmin/addTimeslot",{id,slot,date,game})
+  } catch (error) {
+    console.log(error);
+    
   }
 }

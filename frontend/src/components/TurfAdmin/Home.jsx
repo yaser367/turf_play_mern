@@ -20,7 +20,7 @@ import Modal from "./Modal";
 const Home = () => {
   const navigate = useNavigate();
   const admin = useSelector(selectCurrectAdmin);
-  console.log(admin)
+  console.log(admin);
   const [turf, setTurf] = useState([]);
   const [id, setId] = useState(null);
   const [modalHeader, setModalHeader] = useState("");
@@ -52,48 +52,50 @@ const Home = () => {
     });
   };
 
-  let loading ;
+  let loading;
   useEffect(() => {
-    loading = true
+    loading = true;
     const getDetails = getAllturf(admin);
     getDetails.then(async () => {
       const turfs = await getDetails;
-      console.log(turfs)
+      console.log(turfs);
       setTurf(turfs);
-      loading= false
+      loading = false;
     });
   }, []);
 
-  if(loading){
-    return(<Stack padding={4} spacing={1}>
-    <Skeleton height='40px' isLoaded={isLoaded}>
-      <Box>Hello World!</Box>
-    </Skeleton>
-    <Skeleton
-      height='40px'
-      isLoaded={isLoaded}
-      bg='green.500'
-      color='white'
-      fadeDuration={1}
-    >
-      <Box>Hello React!</Box>
-    </Skeleton>
-    <Skeleton
-      height='40px'
-      isLoaded={isLoaded}
-      fadeDuration={4}
-      bg='blue.500'
-      color='white'
-    >
-      <Box>Hello ChakraUI!</Box>
-    </Skeleton>
+  if (loading) {
+    return (
+      <Stack padding={4} spacing={1}>
+        <Skeleton height="40px" isLoaded={isLoaded}>
+          <Box>Hello World!</Box>
+        </Skeleton>
+        <Skeleton
+          height="40px"
+          isLoaded={isLoaded}
+          bg="green.500"
+          color="white"
+          fadeDuration={1}
+        >
+          <Box>Hello React!</Box>
+        </Skeleton>
+        <Skeleton
+          height="40px"
+          isLoaded={isLoaded}
+          fadeDuration={4}
+          bg="blue.500"
+          color="white"
+        >
+          <Box>Hello ChakraUI!</Box>
+        </Skeleton>
 
-    <Box textAlign='center'>
-      <Button onClick={() => setIsLoaded((v) => !v)}>toggle</Button>
-    </Box>
-  </Stack>)
+        <Box textAlign="center">
+          <Button onClick={() => setIsLoaded((v) => !v)}>toggle</Button>
+        </Box>
+      </Stack>
+    );
   }
- return (
+  return (
     <div className="pb-48 bg-white min-h-[800px] ">
       <Modal
         message={deleteMessage}
@@ -111,8 +113,18 @@ const Home = () => {
             return (
               <div
                 key={index}
-                class="col-span-2 mx-auto w-[290px] h-[300px] bg-gray-100 shadow-2xl mt-10 cursor-pointer pt-5 ml-10"
+                class="col-span-2 mx-auto w-[70%] h-[320px] bg-gray-100 shadow-2xl mt-10 cursor-pointer ml-10"
               >
+                {turf.isAdminRejected && (
+                  <div className="mx-auto h-5 w-[60%] bg-red-500 text-center text-sm text-white">
+                    Rejected
+                  </div>
+                )}
+                {!turf.isAdminApproved && (
+                  <div className="mx-auto h-5 w-[70%] bg-blue-500 text-center text-sm text-white">
+                    waiting for approve...
+                  </div>
+                )}
                 {/* <div className="flex items-center justify-center text-blue-600 mt-3 ">
             <p className="cursor-pointer">View</p>
             <GrFormView />
@@ -120,9 +132,9 @@ const Home = () => {
 
                 <Link to={`/turfAdmin/turf/${turf._id}`}>
                   {" "}
-                  <div className="px-11 mt-1">
+                  <div className="px-11 mt-5">
                     <img
-                      className="w-[200px] h-[150px] "
+                      className="w-[100%] h-[150px] "
                       src={turf.ImageUrl[0]}
                       alt=""
                     />
@@ -140,15 +152,17 @@ const Home = () => {
                       <BiEdit />
                     </button>
                   </Link>
-                  <button
-                    onClick={function (id) {
-                      showDeleteModal(turf._id);
-                    }}
-                    type="button"
-                    class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-1 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
-                  >
-                    {turf && turf.isListed ? "UnList" : "List"}
-                  </button>
+                  {turf.isAdminApproved && (
+                    <button
+                      onClick={function (id) {
+                        showDeleteModal(turf._id);
+                      }}
+                      type="button"
+                      class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-1 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                    >
+                      {turf && turf.isListed ? "UnList" : "List"}
+                    </button>
+                  )}
                 </div>
               </div>
             );

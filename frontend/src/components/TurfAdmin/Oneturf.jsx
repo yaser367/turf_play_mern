@@ -81,23 +81,33 @@ const Oneturf = () => {
           {/* <p className='text-center text-2xl font-bold md:mt-0 mt-8 '>Anfield Turf</p> */}
           <p className="text-center text-lg "></p>
           <div className="m-10 bg-slate-200 drop-shadow-xl  pb-20 p-4">
-            <p className="font-bold text-end text-blue-500 cursor-pointer">
+          <div className="flex justify-center mt-2">
+                    <button
+                      onClick={showModal}
+                      type="button"
+                      class="inline-block px-6 py-2 border-2 border-blue-400 text-blue-400 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                    >
+                      Add slots
+                    </button>
+                  </div>
+            {/* <p className="font-bold text-end text-blue-500 cursor-pointer">
               Edit
-            </p>
-            <p className="font-bold text-2xl text-center">
+            </p> */}
+            {/* <p className=" mt-5 font-bold text-2xl text-center">
               Update slots for the Game
-            </p>
+            </p> */}
             <div className=" md:flex mt-10 justify-center gap-5">
               {(apiData?.fives ||
                 apiData?.sevens ||
                 (apiData?.elevens != "") & 0) && (
-                <div onClick={showModal} className="w-[150px] h-[150px] mx-auto md:mt-0 cursor-pointer">
+                <div className="w-[150px] h-[150px] mx-auto md:mt-0 cursor-pointer">
                   <p className="text-center font-bold">Football</p>
                   <img
                     className="w-[150px] h-[150px]"
                     src={FootballImg}
                     alt=""
                   />
+                 
                 </div>
               )}
               {(apiData?.cricket != "" || apiData?.cricket != 0) && (
@@ -122,14 +132,13 @@ const Oneturf = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="bg-white h-full mt-5 pb-10">
         <div className="bg-slate-200 drop-shadow-xl  w-[90%] mx-auto pt-3 ">
           <h1 className="text-center font-bold text-xl mt-6">Booking Report</h1>
           <DataTable />
         </div>
       </div>
-      
     </div>
   );
 };

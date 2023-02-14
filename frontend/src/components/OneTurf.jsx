@@ -12,26 +12,22 @@ import ViewLocaion from "./Location/ViewLocaion";
 
 const OneTurf = () => {
   const { id } = useParams();
-  const [{ isLoading, apiData, serverError }] = useFetch(
-    `getOneTurf/${id}`
-  );
-  const [lat,setLat] = useState(0)
-  const [long,setLong] = useState(0)
-  console.log(apiData?.lat)
-  console.log(apiData?.long)
+  const [{ isLoading, apiData, serverError }] = useFetch(`getOneTurf/${id}`);
+  const [lat, setLat] = useState(0);
+  const [long, setLong] = useState(0);
 
-  useEffect(()=>{
-    setLat(apiData?.lat)
-    setLat(apiData?.long)
-  },[])
+  useEffect(() => {
+    setLat(apiData?.lat);
+    setLat(apiData?.long);
+  }, []);
 
-  const slides = [apiData?.ImageUrl[0],apiData?.ImageUrl[1]];
+  const slides = [apiData?.ImageUrl[0], apiData?.ImageUrl[1]];
   return (
     <>
       <div className=" bg-slate-300 w-full pb-10">
         <Carousal slides={slides} />
         <div className="text-center  ">
-          <Link to="/book">
+          <Link to={`/book/${apiData?._id}`}>
             <button class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-teal-300 to-lime-300 group-hover:from-teal-300 group-hover:to-lime-300 dark:text-white dark:hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-lime-800">
               <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                 Book Now
@@ -39,9 +35,7 @@ const OneTurf = () => {
             </button>
           </Link>
           <p className="text-2xl font-bold mt-5">{apiData?.TurfName}</p>
-          <p className="px-20 mt-5">
-            {apiData?.Description}
-          </p>
+          <p className="px-20 mt-5">{apiData?.Description}</p>
         </div>
         <p className="text-center font-bold text-xl mt-5">Available Games</p>
         <div className="flex justify-center mt-5 gap-7">
@@ -61,7 +55,14 @@ const OneTurf = () => {
           </div>
         </div>
         <div className="w-[90%] mx-auto ml-48  mt-16">
-          <ViewLocaion id={id} lat={apiData?.lat} long={apiData?.long} apiData={apiData} setLat={setLat} setLong={setLong} />
+          <ViewLocaion
+            id={id}
+            lat={apiData?.lat}
+            long={apiData?.long}
+            apiData={apiData}
+            setLat={setLat}
+            setLong={setLong}
+          />
         </div>
       </div>
       <Footer />

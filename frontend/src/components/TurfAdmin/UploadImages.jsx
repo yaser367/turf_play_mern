@@ -7,11 +7,25 @@ import DropzoneComponent from "./DropzoneComponent";
 import { toast, Toaster } from "react-hot-toast";
 import PreviewImage from "./PreviewImage";
 import { useNavigate, useParams } from "react-router-dom";
-import {AiFillCaretDown} from 'react-icons/ai'
-const UploadImages = ({url,endpoint,button,heading,bg}) => {
+import { AiFillCaretDown } from "react-icons/ai";
+import useFetch from "../../hooks/fetch.hook";
+import { deleteImg, getOneTurf } from "../../helper/helperTurf";
+const UploadImages = ({ url, endpoint, button, heading, bg }) => {
   const Navigate = useNavigate();
   const { id } = useParams();
   const [image, setImage] = useState([]);
+  const [load, setLoad] = useState(false);
+  // const [{ isLoading, apiData, serverError }] = useFetch(
+  //   `turfAdmin/getoneTurf/${id}`
+  // );
+  const [apiData, setApiData] = useState([]);
+  const fetchData = async () => {
+    const turfs = await getOneTurf(id);
+    setApiData(turfs);
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
   let urls = [];
   useEffect(() => {
     urls = [];
@@ -27,21 +41,17 @@ const UploadImages = ({url,endpoint,button,heading,bg}) => {
       formData.append("cloud_name", "dxdkwzuyr");
       files = file;
       return axios
-        .post(
-          "https://api.cloudinary.com/v1_1/dxdkwzuyr/upload",
-          formData,
-          {
-            headers: { "X-Requested-With": "XMLHttpRequest" },
-          }
-        )
+        .post("https://api.cloudinary.com/v1_1/dxdkwzuyr/upload", formData, {
+          headers: { "X-Requested-With": "XMLHttpRequest" },
+        })
         .then((response) => {
           const data = response.data;
           const url = data.url;
           urls.push(url);
         })
-        .catch((e)=>{
-          toast.error('Please select')
-        })
+        .catch((e) => {
+          toast.error("Please select");
+        });
     });
     axios.all(uploaders).then(async () => {
       const upload = await axios.post(
@@ -53,19 +63,27 @@ const UploadImages = ({url,endpoint,button,heading,bg}) => {
       //   success: <b>Successfully Uploaded</b>,
       //   error: <b>Can't upload</b>,
       // });
-      toast.success('Uploaded')
+      toast.success("Uploaded");
     });
-    Navigate(`/turfAdmin/${endpoint}/${id}`);
+    !apiData?.DocUrl[0]
+      ? Navigate(`/turfAdmin/${endpoint}/${id}`)
+      : Navigate("/turfAdmin/home");
+  };
+  const deleteTurfImg = (item) => {
+    const deleteTurfImg = deleteImg(id, item);
+    fetchData();
+    // apiData?.ImageUrl.filter((img)=>img != item)
+    // console.log(apiData?.ImageUrl)
   };
 
   return (
     <div className="">
       <Toaster position="top-center" reverseOrder={false}></Toaster>
-      <p className="text-center text-xl font-bold">
-        {heading}
-      </p>
+      <p className="text-center text-xl font-bold">{heading}</p>
       <p className="text-center mt-10 ">Click here to Upload</p>
-      <div className="flex justify-center"><AiFillCaretDown/></div>
+      <div className="flex justify-center">
+        <AiFillCaretDown />
+      </div>
       <form onSubmit={imageHandler}>
         <div className="flex justify-center">
           {/* <Tooltip title="Upload Turf Images">
@@ -80,20 +98,30 @@ const UploadImages = ({url,endpoint,button,heading,bg}) => {
           {/* <input type="te" className="bg-black " placeholder="hell" /> */}
         </div>
         <div className="h-[540px] w-full mt-5 bg-white">
-          {/* <div className="border border-indigo-600  h-[350px] w-[80%] mx-auto">
-          <p className="text-center text-lg ">Uploaded Images</p>
-  
-        
-         {files.length > 0 &&
-          files.map((item, index) => {
-         
-              <div key={item}>
-                <img className="h-40 w-40" src={item} alt="" />
-              
+          {apiData?.ImageUrl && apiData?.ImageUrl[0] && (
+            <div className="border border-indigo-600 h-[350px] w-[80%] mx-auto">
+              <p className="text-center text-lg ">Uploaded Images</p>
+              <div className="flex gap-4 p-5 justify-center">
+                {apiData?.ImageUrl &&
+                  apiData?.ImageUrl.map((item, index) => {
+                    return (
+                      <div className="" key={item}>
+                        <img className="h-40 w-40" src={item} alt="" />
+                        <div className="flex justify-center mt-2">
+                          <button
+                            onClick={() => deleteTurfImg(item)}
+                            type="button"
+                            class="inline-block px-4 py-2 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
               </div>
-      
-          })}
-        </div> */}
+            </div>
+          )}
           <div className="flex justify-center mt-5">
             <button
               type="submit"

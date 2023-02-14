@@ -5,9 +5,14 @@ import Avatar from "../../assets/avatar.png";
 import { toast, Toaster } from "react-hot-toast";
 import Modal from "../TurfAdmin/Modal";
 import { useParams } from "react-router-dom";
+import Pagination from "./Pagination";
 
 const DataTable = ({message,modal,setModal,handleUpdate,id,modalHeader,users,showModal,file,turfAdmin}) => {
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage, setPostPerPage] = useState(6);
+  const lastPostIndex = currentPage * postPerPage;
+  const firstPostIndex = lastPostIndex - postPerPage;
+  const currentPost = users.slice(firstPostIndex,lastPostIndex)
   return (
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
       <Toaster position="top-center" reverseOrder={false}></Toaster>
@@ -202,6 +207,7 @@ const DataTable = ({message,modal,setModal,handleUpdate,id,modalHeader,users,sho
             ))}
         </tbody>
       </table>
+
     </div>
   );
 };

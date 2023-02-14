@@ -5,6 +5,8 @@ const userControll = require("../controllers/user-controller/auth-controller");
 const userAuth = require('../middleware/auth')
 const mailControll = require('../controllers/user-controller/mail-controller')
 const userTurfController = require('../controllers/user-controller/turfController')
+const checkoutControll = require('../controllers/user-controller/checkoutController')
+
 
 /** Post methods */
 router.post("/register", userControll.userRegistration);
@@ -12,6 +14,8 @@ router.post("/registerMail",mailControll.registerMail)
 router.post("/authenticate",userControll.verifyUser,(req,res)=>res.end());
 router.post("/login",userControll.verifyUser,userControll.userLogin);
 router.post('/verifyuser',userControll.userOtpverify)
+router.post('/checkout',checkoutControll.checkout)
+router.post('/paymentVerification',userAuth.isAuth,checkoutControll.paymentVerification)
 
 /** Get methods */
 router.get("/user/:username",userControll.getUser);

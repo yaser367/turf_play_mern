@@ -63,7 +63,7 @@ const AdminLogin = () => {
       <Toaster position="top-center" reverseOrder={false}></Toaster>
 
       <div className="bg-green-300 w-full h-[715px] pt-40 relative">
-        <div className=" absolute top-28 left-[20%] bg-white w-[300px] h-[350px] shadow-2xl">
+        <div className=" absolute top-28 left-[20%] bg-white w-[320px] h-[380px] shadow-2xl">
           <p className="text-2xl text-gray-700 font-medium font-sans m-3 mt-5">
             LOGIN
           </p>
@@ -77,7 +77,7 @@ const AdminLogin = () => {
               onChange={handlEmailInput}
               required
               autoComplete="off"
-              className="placeholder:text-red-400 focus:outline-none w-[200px] text-center rounded h-[30px] border-black border-r-4 bg-slate-300 m-4 mx-[42px]"
+              className=" focus:outline-none w-[220px] text-center rounded h-[35px] border-black border-r-4 bg-slate-300 m-4 mt-9 mx-[42px]"
               placeholder="Enter Email address"
             />
             <input
@@ -85,7 +85,7 @@ const AdminLogin = () => {
               value={password}
               onChange={handlePasswordInput}
               required
-              className="placeholder:text-red-400 focus:outline-none w-[200px] text-center rounded h-[30px] border-black border-r-4 bg-slate-300 m-4 mx-[42px] "
+              className=" focus:outline-none w-[220px] text-center rounded h-[35px] border-black border-r-4 bg-slate-300 m-4 mx-[42px] "
               placeholder="Enter Your Password"
             />
             <button
@@ -95,15 +95,16 @@ const AdminLogin = () => {
               Login
             </button>
           </form>
-            <Link to='/turfAdmin/forgot'><p className="text-blue-500 ml-2 mt-14 cursor-pointer">Forgot password?</p></Link>
+            <Link to='/turfAdmin/forgot'><p className="text-red-500 ml-2 mt-14 cursor-pointer">Forgot password?</p></Link>
         </div>
         <div className="h-[250px] w-[70%]  mx-auto  bg-red-500 pl-[50%] pt-12">
-          <p className="text-slate-400 text-2xl font-medium">Don't have </p>
-          <p className="text-slate-400 text-2xl font-medium">an account?</p>
-          <p className="text-slate-400 mt-3 text-sm">then you can register</p>
+          <p className="text-slate-100 text-2xl font-medium">Don't have </p>
+          <p className="text-slate-100 text-2xl font-medium">an account?</p>
+          <p className="text-slate-100 mt-3 text-sm">then you can register</p>
+            
           <Link to="/turfAdmin/register">
-            <button class="mt-3 relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-gray-400 border-none ">
-              <span class="relative px-7 py-2 transition-all ease-in duration-75 bg-red-500 dark:bg-gray-900 text-gray-400 rounded-md group-hover:bg-opacity-0">
+            <button class="mt-3 relative inline-flex p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-gray-400 border-none ">
+              <span class="relative px-7 py-2 transition-all ease-in duration-75 bg-red-500 dark:bg-gray-900 text-gray-100 rounded-md group-hover:bg-opacity-0">
                 Register
               </span>
             </button>

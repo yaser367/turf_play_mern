@@ -9,8 +9,8 @@ const SlotSchema = mongoose.Schema({
   date: {
     type: Date,
   },
-  game:{
-    type:String
+  game: {
+    type: String,
   },
   slots: [
     {
@@ -19,18 +19,18 @@ const SlotSchema = mongoose.Schema({
       },
       booked: {
         type: Boolean,
-        default:false
+        default: false,
       },
-      isBlocked:{
-        type:Boolean,
-        default:false
+      isBlocked: {
+        type: Boolean,
+        default: false,
       },
-      userId:{
+      userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",
-      }
+      },
     },
   ],
 });
 
-module.exports = mongoose.model("Slot",SlotSchema)
+module.exports = mongoose.model("Slot", SlotSchema);
