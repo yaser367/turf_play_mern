@@ -1,11 +1,10 @@
 import React from 'react'
-import Kerala from '../assets/keralamap.png'
 
 const MapComponent = () => {
   return (
     <div className='bg-white w-full grid md:grid-cols-2 md:gap-20'>
         <div className='max-w-[1240px] mx-auto grid   md:py-20'>
-            <img className='md:h-[80vh] sm:h-[400px] h-[300px]' src={Kerala} alt="" />
+            <img className='md:h-[80vh] sm:h-[400px] h-[300px]' src='https://res.cloudinary.com/dxdkwzuyr/image/upload/v1676697347/keralamap_zwesf3.png' alt="" />
 
         </div>
         <div className='flex flex-col justify-center text-center md:bg-amber-400 items-center py-16'>

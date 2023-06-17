@@ -1,14 +1,13 @@
-import React from 'react'
-import Navbar from '../../components/Navbar'
-import OneTurf from '../../components/OneTurf'
+import React from "react";
+import Navbar from "../../components/Navbar";
+import OneTurf from "../../components/OneTurf";
 const OneTurfView = () => {
-
   return (
     <div>
-      <Navbar/>
-      <OneTurf/>
+      <Navbar />
+      <OneTurf />
     </div>
-  )
-}
+  );
+};
 
-export default OneTurfView
+export default OneTurfView;

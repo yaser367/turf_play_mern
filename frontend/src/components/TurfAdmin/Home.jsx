@@ -1,26 +1,17 @@
 import React from "react";
-import turfIMG from "../../assets/turf1.jpg";
-import { MdDelete } from "react-icons/md";
 import { BiEdit } from "react-icons/bi";
-import { GrFormView } from "react-icons/gr";
 import { useSelector } from "react-redux";
-import {
-  selectCurrectAdmin,
-  selectCurrectToken,
-} from "../../features/auth/authSlice";
-import axios from "axios";
+import { selectCurrectAdmin } from "../../features/auth/authSlice";
 import { deleteTurf, getAllturf } from "../../helper/helperTurf";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { useFormik } from "formik";
 import Modal from "./Modal";
 
 const Home = () => {
   const navigate = useNavigate();
   const admin = useSelector(selectCurrectAdmin);
-  console.log(admin);
   const [turf, setTurf] = useState([]);
   const [id, setId] = useState(null);
   const [modalHeader, setModalHeader] = useState("");
@@ -58,7 +49,6 @@ const Home = () => {
     const getDetails = getAllturf(admin);
     getDetails.then(async () => {
       const turfs = await getDetails;
-      console.log(turfs);
       setTurf(turfs);
       loading = false;
     });

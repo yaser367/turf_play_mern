@@ -7,7 +7,7 @@ const SlotSchema = mongoose.Schema({
     require: true,
   },
   date: {
-    type: Date,
+    type: String,
   },
   game: {
     type: String,
@@ -26,8 +26,7 @@ const SlotSchema = mongoose.Schema({
         default: false,
       },
       userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "user",
+        type:String
       },
     },
   ],

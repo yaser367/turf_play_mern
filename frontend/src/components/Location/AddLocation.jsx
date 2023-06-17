@@ -4,7 +4,6 @@ import ReactMapGL, {
   Marker,
   NavigationControl,
 } from "react-map-gl";
-import { ImLocation } from "react-icons/im";
 import { useState } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useNavigate, useParams } from "react-router-dom";
@@ -30,7 +29,6 @@ const AddLocation = () => {
   };
 
   const dragEndHandler = (e) => {
-    console.log("location ", e.lngLat.lng, e.lngLat.lat);
     setLong(e.lngLat.lng);
     setLat(e.lngLat.lat);
   };

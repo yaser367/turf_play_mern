@@ -1,33 +1,27 @@
-import React,{useState} from 'react'
-import Home from '../../components/TurfAdmin/Home'
-import Nav from '../../components/TurfAdmin/Nav'
-// import Modal from '../../components/TurfAdmin/Modal'
-import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import Location from '../../components/Location/AddLocation'
-// import { selectCurrectToken, selectCurrectUser } from '../../features/auth/authSlice'
+import React, { useState } from "react";
+import Home from "../../components/TurfAdmin/Home";
+import Nav from "../../components/TurfAdmin/Nav";
 
 const TurfHome = () => {
+  const [showModal, setShowModal] = useState(false);
 
-  // const user = useSelector(selectCurrectUser)
-  // const token = useSelector(selectCurrectToken)
-
-  const [showModal, setShowModal] = useState(false)
-
-  const openModal = ()=>{
-    setShowModal(prev=> !prev)
-  }
+  const openModal = () => {
+    setShowModal((prev) => !prev);
+  };
   return (
-    <div className='bg-white'>
-
-        {/* <Modal showModal={showModal} setShowModal={setShowModal} /> */}
-    <div>
-        <Nav setShowModal={setShowModal} showModal={showModal} openModal={openModal}/>
+    <div className="bg-white">
+      {/* <Modal showModal={showModal} setShowModal={setShowModal} /> */}
+      <div>
+        <Nav
+          setShowModal={setShowModal}
+          showModal={showModal}
+          openModal={openModal}
+        />
 
         <Home />
+      </div>
     </div>
-    </div>
-  )
-}
+  );
+};
 
-export default TurfHome
+export default TurfHome;

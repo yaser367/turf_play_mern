@@ -1,25 +1,19 @@
-import React from 'react'
-import Navbar from '../../../components/Navbar'
-import Carousal from '../../../components/Carousal'
-import Book from '../../../components/Booking'
-import Footer from '../../../components/Footer'
-import image1 from '../../../assets/Rectangle 45.png'
-import image2 from '../../../assets/Group 20.png'
-const Booking = () => {
-  
-  const slides = [
-    image1,
-    image2
+import React from "react";
+import Navbar from "../../../components/Navbar";
+import Carousal from "../../../components/Carousal";
+import Book from "../../../components/Booking";
+import Footer from "../../../components/Footer";
 
-   ]
+const Booking = () => {
+  const slides = ['https://res.cloudinary.com/dxdkwzuyr/image/upload/v1676697349/Rectangle_45_bkepcq.png', 'https://res.cloudinary.com/dxdkwzuyr/image/upload/v1676697348/Group_20_xuqqib.png'];
   return (
     <>
-    <Navbar  />
-    <Carousal slides={slides} />
-    <Book/>
-    <Footer/>
+      <Navbar />
+      <Carousal slides={slides} />
+      <Book />
+      <Footer />
     </>
-  )
-}
+  );
+};
 
-export default Booking
+export default Booking;

@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import avatar from "../../assets/avatar.png";
+import { useNavigate } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
 import { useFormik } from "formik";
 
@@ -15,7 +14,7 @@ const Login = () => {
     if (token) {
       navigate("/admin/dashboard");
     }
-  },[]);
+  }, []);
   const formik = useFormik({
     initialValues: {
       userName: "",
@@ -25,7 +24,7 @@ const Login = () => {
       values = Object.assign(values);
       const loginPromise = adminLogin(values);
       const token = await loginPromise;
-      console.log(token);
+
       localStorage.setItem("adminToken", token);
 
       toast.promise(loginPromise, {
@@ -53,7 +52,7 @@ const Login = () => {
             </div>
             <form className="py-1" onSubmit={formik.handleSubmit}>
               <div className="profile flex justify-center py-4">
-                <img className={styles.profile_img} src={avatar} t="avatar" />
+                <img className={styles.profile_img} src='https://res.cloudinary.com/dxdkwzuyr/image/upload/v1676697293/avatar_d2vzjc.png' t="avatar" />
               </div>
               <div className="textbox flex flex-col items-center gap-6">
                 <input

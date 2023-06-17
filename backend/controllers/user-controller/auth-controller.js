@@ -3,6 +3,7 @@ const bycrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const otpGenerator = require("otp-generator");
 const otp = require("../../models/otp");
+const Order = require("../../models/Order");
 
 /** middleware for verify user */
 
@@ -22,14 +23,15 @@ const verifyUser = async (req, res, next) => {
 const userRegistration = async (req, res) => {
   try {
     const { username, password, profile, email } = req.body.credentials;
+    console.log(req.body)
     const sentcode = req.body.sentcode;
     const userExist = await User.findOne({ username });
 
     const ot = new otp({
-        userId:username,
-        otp:sentcode,
-    })
-     ot.save()
+      userId: username,
+      otp: sentcode,
+    });
+    ot.save();
 
     if (userExist) {
       return res.status(400).send({ error: "user already exist" });
@@ -38,7 +40,6 @@ const userRegistration = async (req, res) => {
       if (emailExist) {
         return res.status(400).send({ error: "user already exist" });
       } else {
-
         const hashedPassword = await bycrypt.hash(password, 12);
 
         const user = new User({
@@ -49,13 +50,15 @@ const userRegistration = async (req, res) => {
         });
         await user
           .save()
-          .then(async(result) =>{
-              res.status(201).send({ message: "user Registred successfully" })
-          }
-
-          )
-          .catch((error) => res.status(500).send({ error }));
-      }
+          .then(async (result) => {
+            console.log(result)
+            res.status(201).send({ message: "user Registred successfully" });
+          })
+          .catch((error) =>console.log(error)
+          //  res.status(500).send({ error })
+           );
+      
+        }
     }
   } catch (error) {
     return res.status(500).send(error);
@@ -118,10 +121,8 @@ const getUser = async (req, res) => {
 };
 const updateUser = async (req, res) => {
   try {
-    // const id = req.query.id;
     const { userId } = req.user;
     const body = req.body;
-
     if (userId) {
       const body = req.body;
 
@@ -150,7 +151,6 @@ const verifyOtp = async (req, res) => {
     req.app.locals.resetSession = true; // start session for reset password
 
     res.status(201).send({ message: "verify Successfully" });
-    // return res.status(201).send({message:"Your are verified"})
   }
   return res.status(400).send({ error: "Invalid Otp" });
 };
@@ -188,22 +188,19 @@ const userOtpverify = async (req, res) => {
   try {
     const { code, userName } = req.body;
 
-    const OTP = await otp.findOne({userId:userName})
-     console.log(code == OTP.otp)
+    const OTP = await otp.findOne({ userId: userName });
+
     if (code == OTP.otp) {
-      console.log("true ");
       await User.findOneAndUpdate(
         { username: userName },
         { $set: { isverified: true } }
       );
-      await otp.deleteMany({userId:userName})
+      await otp.deleteMany({ userId: userName });
       return res.status(200).send({ message: "Updated Successfuly" });
     } else {
-    // await otp.findOneAndRemove({userId:userName})
       return res.status(401).send({ error: "otp not match" });
     }
   } catch (error) {
-    console.log(error);
     return res.status(401).send(error);
   }
 };

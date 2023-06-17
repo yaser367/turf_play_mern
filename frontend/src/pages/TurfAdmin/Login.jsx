@@ -1,13 +1,12 @@
-import React from 'react'
-import AdminLogin from '../../components/TurfAdmin/AdminLogin'
+import React from "react";
+import AdminLogin from "../../components/TurfAdmin/AdminLogin";
 
 const Login = () => {
-
   return (
     <div>
-        <AdminLogin />
+      <AdminLogin />
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

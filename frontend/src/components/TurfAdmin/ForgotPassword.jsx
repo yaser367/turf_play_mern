@@ -5,7 +5,6 @@ import * as yup from "yup";
 import styled from "styled-components";
 import { forgotpsw } from "../../helper/helperTurf";
 import { toast, Toaster } from "react-hot-toast";
-import Otp from "./Otp";
 
 const FieldContainer = styled.div`
   width: 100%;

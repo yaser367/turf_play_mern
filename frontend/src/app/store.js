@@ -11,7 +11,6 @@ const persistConfig = {
 const reducer = combineReducers({
     [apiSlice.reducerPath] : apiSlice.reducer,
     auth:authReducer
-    
 })
 const persistedReducer = persistReducer(persistConfig,reducer)
 

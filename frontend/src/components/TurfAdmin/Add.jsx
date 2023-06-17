@@ -97,7 +97,6 @@ const Add = () => {
         });
         registerPromise.then(async (data) => {
           if (id) {
-            console.log("hey");
             Navigate(`/turfAdmin/uploadImg/${id}`);
           } else {
             const result = await registerPromise;
@@ -108,13 +107,7 @@ const Add = () => {
       }
     },
   });
-  //   useEffect(() => {
-  //     const getData = getOneTurf(id);
-  //     getData.then(async () => {
-  //       const turf = await getData;
-  //       setTurf(turf);
-  //     });
-  //   }, []);
+
   useEffect(() => {
    if(id){
     apiData?.fives !== "" && "0"

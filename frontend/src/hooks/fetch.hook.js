@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { getUsername } from "../helper/helperUser";
 
-axios.defaults.baseURL = 'http://localhost:8080'
+axios.defaults.baseURL = import.meta.env.VITE_API_SERVER_DOMAIN
 
 /** custom hook */
 export default function useFetch(query){

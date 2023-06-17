@@ -15,16 +15,17 @@ router.post("/authenticate",userControll.verifyUser,(req,res)=>res.end());
 router.post("/login",userControll.verifyUser,userControll.userLogin);
 router.post('/verifyuser',userControll.userOtpverify)
 router.post('/checkout',checkoutControll.checkout)
-router.post('/paymentVerification',userAuth.isAuth,checkoutControll.paymentVerification)
+router.post('/paymentVerification/:id/:turfId',checkoutControll.paymentVerification)
 
 /** Get methods */
 router.get("/user/:username",userControll.getUser);
 router.get("/generateOtp",userAuth.localVariables,userControll.generateOtp);
 router.get("/verifyOtp",userControll.verifyOtp);
 router.get("/createResetSession",userControll.createResetSession);
-router.get("/getAllTurfs",userTurfController.getAllTurfs)
-router.get("/getOneTurf/:id",userTurfController.getoneTurf)
-router.get("/filterd/:game",userTurfController.filterData)
+router.get("/getAllTurfs",userAuth.isAuths,userTurfController.getAllTurfs)
+router.get("/getOneTurf/:id",userAuth.isAuths,userTurfController.getoneTurf)
+router.get("/filterd/:game",userAuth.isAuths,userTurfController.filterData)
+router.get("/getOrders",userAuth.isAuths,checkoutControll.getOrders)
 
 /** Put methods */
 router.put("/updateUser",userAuth.isAuth,userControll.updateUser);

@@ -3,7 +3,7 @@ import React from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import * as yup from "yup";
 import styled from "styled-components";
-import { changePassword, forgotpsw } from "../../helper/helperTurf";
+import { changePassword } from "../../helper/helperTurf";
 import { toast, Toaster } from "react-hot-toast";
 
 const FieldContainer = styled.div`

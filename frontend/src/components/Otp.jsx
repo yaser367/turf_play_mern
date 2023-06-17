@@ -60,7 +60,7 @@ const Otp = () => {
     });
 
     sendPromise.then((OTP) => {
-      console.log(OTP);
+   
     });
   }
   return (
@@ -107,23 +107,14 @@ const Otp = () => {
               <button
                 disabled={seconds > 0 || minutes > 0}
                 style={{
-                  visibility:seconds > 0 || minutes > 0 ? "hidden" : "visible",
+                  visibility: seconds > 0 || minutes > 0 ? "hidden" : "visible",
                   color: seconds > 0 || minutes > 0 ? "#ace973" : "#FF5630",
                 }}
-                onClick={resendOtphandler} 
+                onClick={resendOtphandler}
               >
                 Resend OTP
               </button>
             </div>
-
-            {/* <div className="text-center py-4">
-              <span className="text-grey-500">
-                Can't get OTP?
-                <button onClick={resendOtphandler} className="text-red-500">
-                  Resent
-                </button>
-              </span>
-            </div> */}
           </div>
         </div>
       </div>

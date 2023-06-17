@@ -1,5 +1,6 @@
 import axios from "axios";
-axios.defaults.baseURL = "http://localhost:8080";
+import { CgLayoutGrid } from "react-icons/cg";
+axios.defaults.baseURL = import.meta.env.VITE_API_SERVER_DOMAIN;
 
 export async function RegisterAdmin(credentials) {
   try {
@@ -70,7 +71,6 @@ export async function getAllturf(admin) {
 
 export async function getOneTurf(id) {
   try {
-   
     const {
       data: { turfs },
     } = await axios.get(`/api/turfAdmin/get/${id}`);
@@ -130,19 +130,34 @@ export async function editTurf(values, id) {
   }
 }
 
-export async function deleteImg(id,deleteUrl) {
+export async function deleteImg(id, deleteUrl) {
   try {
-    await axios.put("api/turfAdmin/deleteImg",{id,deleteUrl});
+    await axios.put("api/turfAdmin/deleteImg", { id, deleteUrl });
   } catch (error) {
     console.log(error);
   }
 }
 
-export async function addSlot (id,slot,date,game){
+export async function addSlot(id, slot, date, play) {
   try {
-    await axios.post("api/turfAdmin/addTimeslot",{id,slot,date,game})
+    await axios.post("api/turfAdmin/addTimeslot", { id,slot, date, play });
   } catch (error) {
     console.log(error);
-    
+  }
+}
+
+export async function getSlot(id, game, date) {
+  try {
+    const {
+      data: { slot },
+    } = await axios.get(`api/turfAdmin/getSlot/${date}`, {
+      headers: {
+        id: id,
+        game: game,
+      },
+    });
+    return slot;
+  } catch (error) {
+    console.log(error);
   }
 }

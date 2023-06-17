@@ -1,6 +1,6 @@
 import React,{useEffect} from 'react'
 import { Link,Navigate,useNavigate } from 'react-router-dom'
-import avatar from '../assets/avatar.png'
+
 import { Toaster } from 'react-hot-toast'
 import { useFormik } from 'formik'
 import { usernameValidate } from '../helper/validateUser'
@@ -23,7 +23,6 @@ const UserName = () => {
   //   }
   // },[])
 
-  
   const formik = useFormik({
     initialValues:{
       username:''
@@ -49,7 +48,7 @@ const UserName = () => {
           </div>
           <form className='py-1' onSubmit={formik.handleSubmit}>
             <div className="profile flex justify-center py-4">
-              <img className={styles.profile_img} src={avatar}t="avatar" />
+              <img className={styles.profile_img} src='https://res.cloudinary.com/dxdkwzuyr/image/upload/v1676697293/avatar_d2vzjc.png' alt="avatar" />
             </div>
             <div className="textbox flex flex-col items-center gap-6">
               <input {...formik.getFieldProps('username')} className={styles.textbox} type="text" placeholder='Username'/>
@@ -57,7 +56,7 @@ const UserName = () => {
               <button className='border bg-indigo-700 hover:bg-red-500  py-2 px-5 rounded-lg text-gray-50 text-xl shadow-sm text-center' type='submit'> let's go</button>
 
               </div>
-            </div>  
+            </div>
             <div className="text-center py-4">
               <span className='text-grey-500'>
                 Not a Member? <Link to="/register" className='text-red-500'>Register Now</Link>
@@ -72,3 +71,4 @@ const UserName = () => {
 }
 
 export default UserName
+

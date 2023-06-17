@@ -10,8 +10,6 @@ import { useEffect } from "react";
 import { getTurfAdmin, updateProfile } from "../../helper/helperTurf";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import convertToBase64 from "../../helper/convert";
-import Avatar from "../../assets/avatar.png";
 import axios from "axios";
 
 const Profile = () => {
@@ -27,8 +25,7 @@ const Profile = () => {
   const [profile, setProfile] = useState();
   const Navigate = useNavigate();
 
-  
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("file", file);
@@ -57,13 +54,10 @@ const Profile = () => {
         update.then(() => {
           Navigate("/turfAdmin/home");
         });
-  
       })
       .catch((e) => {
-        // toast.error("Something went wrong");
+
       });
-    
-   
   };
 
   useEffect(() => {
@@ -71,7 +65,6 @@ const Profile = () => {
     getData.then(async () => {
       {
         const user = await getData;
-        console.log(user);
         setUser(user);
         setAdmin(user.AdminName);
         setMobile(user.mobile);
@@ -82,10 +75,7 @@ const Profile = () => {
       }
     });
   }, []);
-  // const onUpload = async (e) => {
-  //   const base64 = await convertToBase64(e.target.files[0]);
-  //   setFile(base64);
-  // };
+ 
 
   return (
     <div className="flex justify-center bg-white min-h-[700px]">
@@ -102,7 +92,7 @@ const Profile = () => {
                     <div class=" mt-4 font-bold text-gray-700 rounded-full h-[80px] w-[80px] bg-white flex items-center justify-center font-mono cursor-pointer">
                       <img
                         className="rounded-full"
-                        src={profile || Avatar}
+                        src={profile || 'https://res.cloudinary.com/dxdkwzuyr/image/upload/v1676697293/avatar_d2vzjc.png'}
                         alt=""
                       />
                     </div>

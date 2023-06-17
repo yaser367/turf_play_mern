@@ -1,17 +1,8 @@
 import React, { useEffect, useState } from "react";
-import convertToBase64 from "../../helper/convert";
-import {
-  acceptReq,
-  getAllUsers,
-  getReq,
-  rejectReq,
-  updateUserStatus,
-} from "../../helper/helperAdmin";
-import Avatar from "../../assets/avatar.png";
+import { acceptReq, getReq, rejectReq } from "../../helper/helperAdmin";
 import { toast, Toaster } from "react-hot-toast";
 import Modal from "../TurfAdmin/Modal";
-import { Link, useParams } from "react-router-dom";
-import useFetch from "../../hooks/fetch.hook";
+import { Link } from "react-router-dom";
 import Pagination from "./Pagination";
 
 const Requests = ({}) => {
@@ -37,9 +28,9 @@ const Requests = ({}) => {
       success: <b>Request accepted</b>,
       error: <b>couldn't update</b>,
     });
-    updatePromise.then(()=>{
+    updatePromise.then(() => {
       fetchData();
-    })
+    });
   };
   const showModal = (Id) => {
     setId(Id);
@@ -61,7 +52,7 @@ const Requests = ({}) => {
   };
   const lastPostIndex = currentPage * postPerPage;
   const firstPostIndex = lastPostIndex - postPerPage;
-  const currentPost = turf.slice(firstPostIndex,lastPostIndex)
+  const currentPost = turf.slice(firstPostIndex, lastPostIndex);
 
   return (
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -180,7 +171,7 @@ const Requests = ({}) => {
                 >
                   <img
                     class="w-10 h-10 rounded-full"
-                    src={Avatar}
+                    src='https://res.cloudinary.com/dxdkwzuyr/image/upload/v1676697293/avatar_d2vzjc.png'
                     alt="Jese image"
                   />
                   <div class="pl-3">
@@ -218,8 +209,11 @@ const Requests = ({}) => {
             ))}
         </tbody>
       </table>
-      <Pagination setCurrentPage={setCurrentPage} totalPosts={turf.length} postsPerpage={postPerPage} />
-
+      <Pagination
+        setCurrentPage={setCurrentPage}
+        totalPosts={turf.length}
+        postsPerpage={postPerPage}
+      />
     </div>
   );
 };

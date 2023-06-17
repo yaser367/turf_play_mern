@@ -25,9 +25,7 @@ const register = async (req, res) => {
         password: hashedPassword,
       });
       Admin.save().then((data) => {
-        sendOTPVerificationMail(data, req, res, (data) => {
-          console.log(data);
-        });
+        sendOTPVerificationMail(data, req, res, (data) => {});
         return res.status(200).send({ message: "Registred Successfully" });
       });
     } else {
@@ -42,7 +40,7 @@ const verifyOTP = async (req, res) => {
   try {
     let { otp, email } = req.body;
     const userOTP = await OtpData.findOne({ userEmail: email });
-    console.log(userOTP.expiresAt);
+
     if (Date.now() < userOTP.expiresAt) {
       const isValid = await bycrypt.compare(otp, userOTP.otp);
       if (isValid) {
@@ -126,6 +124,8 @@ const updateProfile = async (req, res) => {
     return res.status(500).send(error);
   }
 };
+
+
 
 const getTufAdmin = async (req, res) => {
   try {

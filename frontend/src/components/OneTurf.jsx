@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Carousal from "./Carousal";
-import image1 from "../assets/turf1.jpg";
-import image2 from "../assets/bg-2.jpg";
 import Footer from "./Footer";
-import cricket from "../assets/cricket.jpg";
-import footballGame from "../assets/footballGame.jpg";
-import map from "../assets/googlemap.png";
 import { Link, useParams } from "react-router-dom";
 import useFetch from "../hooks/fetch.hook";
 import ViewLocaion from "./Location/ViewLocaion";
@@ -42,14 +37,14 @@ const OneTurf = () => {
           <div className="object-contain bg-white w-[240px] h-[150px] rounded-xl ">
             <img
               className="object-contain w-[280px] h-[150px]"
-              src={cricket}
+              src='https://res.cloudinary.com/dxdkwzuyr/image/upload/v1676697347/cricket_rafd4p.jpg'
               alt=""
             />
           </div>
           <div className="bg-white w-[250px] h-[150px] rounded-xl ">
             <img
               className="object-contain w-[250px] h-[150px]"
-              src={footballGame}
+              src='https://res.cloudinary.com/dxdkwzuyr/image/upload/v1676697347/footballGame_ytgrej.jpg'
               alt=""
             />
           </div>

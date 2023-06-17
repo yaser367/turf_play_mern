@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import MainLogo from "../../assets/turfplay_logo.png";
 import { CgMenuGridO } from "react-icons/cg";
 import { AiOutlineCloseSquare } from "react-icons/ai";
 import { useDispatch } from "react-redux";
@@ -22,7 +21,7 @@ const Nav = ({ setShowModal, showModal, openModal }) => {
   return (
     <div className=" w-full">
       <div className="  flex justify-between max-w-[1240px] mx-auto px-3 items-center  text-white">
-        <img className="w-[100px] pt-4 " src={MainLogo} alt="" />
+        <img className="w-[100px] pt-4 " src='https://res.cloudinary.com/dxdkwzuyr/image/upload/v1676697349/turfplay_logo_nojsk3.png' alt="" />
         <ul className="hidden md:flex">
           <Link to='/turfAdmin/home'><li className="pt-2 pl-6 cursor-pointer font-bold text-black">
             Home
@@ -61,7 +60,7 @@ const Nav = ({ setShowModal, showModal, openModal }) => {
               : "fixed left-[100%] "
           }
         >
-          <img className="w-[100px] m-4 " src={MainLogo} alt="" />
+          <img className="w-[100px] m-4 " src='https://res.cloudinary.com/dxdkwzuyr/image/upload/v1676697349/turfplay_logo_nojsk3.png' alt="" />
 
           <ul className="p-4 uppercase ">
             <li className="p-4 border-b border-gray-600">Home</li>

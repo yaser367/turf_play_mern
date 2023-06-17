@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/fetch.hook";
 import ViewLocaion from "../Location/ViewLocaion";
 
@@ -11,10 +11,7 @@ const TurfDetails = () => {
 
   const [lat, setLat] = useState(0);
   const [long, setLong] = useState(0);
-  //   const setLocation = () => {
-  //     setLat(apiData?.lat);
-  //     setLong(apiData?.long);
-  //   };
+
   useEffect(() => {
     setLat(apiData?.lat);
     setLong(apiData?.long);

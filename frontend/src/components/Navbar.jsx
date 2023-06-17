@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import MainLogo from "../assets/turfplay_logo.png";
 import { CgMenuGridO } from "react-icons/cg";
 import { AiOutlineCloseSquare } from "react-icons/ai";
 import { useNavigate, Link } from "react-router-dom";
@@ -18,7 +17,7 @@ const Navbar = () => {
   return (
     <div className="bg-black ">
       <div className="bg-black flex justify-between w-full max-w-[1240px] mx-auto px-3 items-center h-16 text-white relative">
-        <img className="w-[100px] pt-4 " src={MainLogo} alt="" />
+        <img className="w-[100px] pt-4 " src='https://res.cloudinary.com/dxdkwzuyr/image/upload/v1676697349/turfplay_logo_nojsk3.png' alt="" />
         <ul className="hidden md:flex">
           <Link to="/">
             <li className="pt-7 pl-6 cursor-pointer">Home</li>
@@ -48,7 +47,7 @@ const Navbar = () => {
               : "fixed left-[100%] "
           }
         >
-          <img className="w-[100px] m-4 " src={MainLogo} alt="" />
+          <img className="w-[100px] m-4 " src='https://res.cloudinary.com/dxdkwzuyr/image/upload/v1676697349/turfplay_logo_nojsk3.png' alt="" />
 
           <ul className="p-4 uppercase ">
             <Link to="/">

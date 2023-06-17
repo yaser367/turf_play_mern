@@ -2,7 +2,7 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 
 // axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN
-axios.defaults.baseURL = "http://localhost:8080";
+axios.defaults.baseURL = import.meta.env.VITE_API_SERVER_DOMAIN;
 
 /** make api request */
 
@@ -45,7 +45,6 @@ export async function registerUser(credentials) {
       data: { code },
       status,
     } = await axios.get("api/generateOtp");
-    console.log(code);
     let sentcode = code;
     let text = `Your account verification OTP is ${code}. Verify and enjoy with us.`;
     if (status === 201) {
@@ -168,11 +167,12 @@ export async function getFilteredData(game) {
   }
 }
 
-export async function checkout(amount) {
+
+export async function checkout(amount, slot, game, id) {
   try {
     const {
       data: { order },
-    } = await axios.post("api/checkout", { amount });
+    } = await axios.post("api/checkout", { amount, slot, game, id });
     return order;
   } catch (error) {
     return Promise.reject({ error });

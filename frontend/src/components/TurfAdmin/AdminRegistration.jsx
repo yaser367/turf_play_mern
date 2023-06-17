@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Toast, { toast, Toaster } from "react-hot-toast";
-import { Formik, useFormik } from "formik";
+import { useFormik } from "formik";
 import styled from "styled-components";
 import * as yup from "yup";
-import axios from "axios";
 import { RegisterAdmin } from "../../helper/helperTurf";
-import Otp from "./Otp";
 const validationSchema = yup.object({
   AdminName: yup
     .string()
@@ -29,9 +27,6 @@ const FieldError = styled.span`
 `;
 
 const AdminRegistration = () => {
-  // const handleEmail = () => {
-  //   setEmail(formik.values.email);
-  // };
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -52,12 +47,9 @@ const AdminRegistration = () => {
       registerPromise.then(function () {
         navigate(`/turfAdmin/otp/register/${values.email}`);
       });
-      registerPromise.catch(function (error) {
-        console.log(error);
-      });
+      registerPromise.catch(function (error) {});
     },
   });
-  // const hidden = "hidden";
   const [val, setVal] = useState("");
   return (
     <div>

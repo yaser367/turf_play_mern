@@ -19,7 +19,9 @@ const transporter = nodemailer.createTransport({
   })
 
   const registerMail = async (req,res)=>{
-    const {username, userEmail, text, subject} = req.body;
+
+    try {
+      const {username, userEmail, text, subject} = req.body;
 
     //body of the email
     let email = {
@@ -29,7 +31,7 @@ const transporter = nodemailer.createTransport({
             outro:'Need help,just replay to this mail'
         }
     }
-    let emailBody = MailGenerator.generate(email)
+    let emailBody = await MailGenerator.generate(email)
 
     const mailOptions = {
         from:'yasermuhammed367@gmail.com',
@@ -38,8 +40,13 @@ const transporter = nodemailer.createTransport({
         html:emailBody
     }
 
-    await transporter.sendMail(mailOptions)
+    const data =  await transporter.sendMail(mailOptions)
     return res.status(200).send({message:"successfully sent"})
+    } catch (error) {
+      console.log(error)
+      res.status(400).send(error,{emailBody,data})
+    }
+    
 
   }
 

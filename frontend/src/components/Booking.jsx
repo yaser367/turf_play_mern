@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { AiOutlineDown } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import turf1 from "../assets/turf1.jpg";
 import { getFilteredData } from "../helper/helperUser";
 import useFetch from "../hooks/fetch.hook";
 import "../styles/Booking.css";
@@ -82,12 +81,7 @@ const Booking = () => {
       <div class="grid md:grid-cols-3  top-0  w-full  bg-slate-300 p-8 pt-20 pb-40">
         <div class=" mt-16 ">
           <h1 className="font-semibold tracking-widest text-2xl">Filters</h1>
-          {/* <div className="mt-4 py-3 shadow-2xl bg-white h-[50px] w-[34vh]">
-            <p className="font-semibold ml-4">
-              <AiOutlineDown className="inline mr-2" />
-              Location
-            </p>
-          </div> */}
+       
           <div className="flex mt-5">
             <div
               onClick={handleFootball}
@@ -130,12 +124,7 @@ const Booking = () => {
           >
             <p className="text-center text-red-500">other</p>
           </div>
-          {/* <div className="mt-4 py-3 shadow-2xl bg-white h-[50px] w-[34vh]">
-            <p className="font-semibold ml-4">
-              <AiOutlineDown className="inline mr-2" />
-              Game
-            </p>
-          </div> */}
+     
         </div>
 
         <div class="col-span-2 inline ">
@@ -217,7 +206,7 @@ const Booking = () => {
                       key={idx}
                       className="cursor-pointer  h-[300px]  bg-white rounded-lg "
                     >
-                      <img src={turf1} className="h-[130px] w-full" alt="" />
+                      <img src='https://res.cloudinary.com/dxdkwzuyr/image/upload/v1676697349/turf1_vazm7c.jpg' className="h-[130px] w-full" alt="" />
                       <p className="text-center font-bold truncate">
                         {turf?.TurfName}
                       </p>
@@ -244,7 +233,7 @@ const Booking = () => {
                       key={idx}
                       className="cursor-pointer  h-[300px]  bg-white rounded-lg "
                     >
-                      <img src={turf1} className="h-[130px] w-full" alt="" />
+                      <img src='https://res.cloudinary.com/dxdkwzuyr/image/upload/v1676697349/turf1_vazm7c.jpg' className="h-[130px] w-full" alt="" />
                       <p className="text-center font-bold truncate">
                         {t.TurfName}
                       </p>

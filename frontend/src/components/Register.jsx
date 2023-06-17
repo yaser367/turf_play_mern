@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
-import avatar from '../assets/avatar.png'
 import toast,{Toaster} from 'react-hot-toast'
 import {useFormik} from 'formik'
 import { registrationValidate } from '../helper/validateUser'
@@ -58,7 +57,7 @@ const Register = () => {
             <div className="profile flex justify-center py-4">
               <label htmlFor="profile">
 
-              <img className={styles.profile_img} src={file || avatar} alt="avatar" />
+              <img className={styles.profile_img} src={file || 'https://res.cloudinary.com/dxdkwzuyr/image/upload/v1676697293/avatar_d2vzjc.png'} alt="avatar" />
               </label>
               <input onChange={onUpload} type="file" id='profile' name='profile'/>
             </div>
